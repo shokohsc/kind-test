@@ -1,21 +1,27 @@
 # docker exec -ti -u root theia apk add --no-cache bash curl wget docker zsh git vim
-# grep -qxF 'docker' /etc/group || addgroup -g $DOCKER_GID docker
-# groups theia |grep docker || addgroup theia docker
-# groups theia |grep root || addgroup theia root
-# sed -i /etc/group 's/docker:x:101:theia/docker:x:998:theia/g'
-# sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-# sed -i /home/theia/.zshrc 's/robbyrussel/xiong-chiamiov-plus/g'
-# ssh-keygen -t rsa -b 4096 -C "shokohsc@gmail.com"
-# eval "$(ssh-agent -s)"
-# ssh-add ~/.ssh/id_rsa
-# cat /home/theia/.ssh/id_rsa.pub
-# git clone git@github.com:shokohsc/kind-test.git
-# wget https://github.com/kubernetes-sigs/kind/releases/download/v0.7.0/kind-linux-amd64
-# chmod +x kind-linux-amd64
-# mv /home/project/kind-linux-amd64 /usr/bin/kind
-# curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
-# chmod +x ./kubectl
-# mv /home/project/kubectl /usr/bin/kubectl
+# docker exec -ti -u root theia grep -qxF 'docker' /etc/group || addgroup -g $DOCKER_GID docker
+# docker exec -ti -u root theia groups theia |grep docker || addgroup theia docker
+# docker exec -ti -u root theia groups theia |grep root || addgroup theia root
+# docker exec -ti -u root theia sed -i /etc/group 's/docker:x:101:theia/docker:x:998:theia/g'
+# docker exec -ti theia sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+# docker exec -ti theia sed -i /home/theia/.zshrc 's/robbyrussel/xiong-chiamiov-plus/g'
+# docker exec -ti theia ssh-keygen -t rsa -b 4096 -C "shokohsc@gmail.com"
+# docker exec -ti theia eval "$(ssh-agent -s)"
+# docker exec -ti theia ssh-add ~/.ssh/id_rsa
+# docker exec -ti theia cat /home/theia/.ssh/id_rsa.pub
+# docker exec -ti theia git config --global user.email "shokohsc@gmail.com"
+# docker exec -ti theia git config --global user.name "shokohsc"
+# docker exec -ti theia git clone git@github.com:shokohsc/kind-test.git
+# docker exec -ti theia wget https://github.com/kubernetes-sigs/kind/releases/download/v0.7.0/kind-linux-amd64
+# docker exec -ti theia chmod +x kind-linux-amd64
+# docker exec -ti -u root theia mv /home/project/kind-linux-amd64 /usr/bin/kind
+# docker exec -ti theia curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
+# docker exec -ti theia chmod +x ./kubectl
+# docker exec -ti -u root theia mv /home/project/kubectl /usr/bin/kubectl
+# docker network connect seedbox_connected kind-external-load-balancer
+# export kubernetes=$(docker exec kind-external-load-balancer awk 'END{print $1}' /etc/hosts)
+# docker exec -ti theia sed -i /home/theia/.kube/config 's/127.0.0.1/kubernetes/g'
+# docker exec -e kubernetes=$kubernertes -ti theia -u root echo "$kubernetes  kubernetes"
 # 
 # kubectl taint nodes --all node-role.kubernetes.io/master-
 # kubectl apply -f https://projectcontour.io/quickstart/contour.yaml
@@ -26,7 +32,11 @@ apiVersion: kind.x-k8s.io/v1alpha4
 networking:
   # WARNING: It is _strongly_ recommended that you keep this the default
   # (127.0.0.1) for security reasons. However it is possible to change this.
-  apiServerAddress: "kind-external-load-balancer"
+  apiServerAddress: "127.0.0.1"
+  # By default the API server listens on a random open port.
+  # You may choose a specific port but probably don't need to in most cases.
+  # Using a random port makes it easier to spin up multiple clusters.
+  apiServerPort: 6443
 nodes:
 - role: control-plane
 - role: control-plane
