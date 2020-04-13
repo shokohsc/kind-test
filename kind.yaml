@@ -1,24 +1,33 @@
+# docker exec -ti -u root theia apk add --no-cache bash curl wget docker zsh git vim
+# grep -qxF 'docker' /etc/group || addgroup -g $DOCKER_GID docker
+# groups theia |grep docker || addgroup theia docker
+# groups theia |grep root || addgroup theia root
+# sed -i /etc/group 's/docker:x:101:theia/docker:x:998:theia/g'
+# sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+# sed -i /home/theia/.zshrc 's/robbyrussel/xiong-chiamiov-plus/g'
+# ssh-keygen -t rsa -b 4096 -C "shokohsc@gmail.com"
+# eval "$(ssh-agent -s)"
+# ssh-add ~/.ssh/id_rsa
+# cat /home/theia/.ssh/id_rsa.pub
+# git clone git@github.com:shokohsc/kind-test.git
+# wget https://github.com/kubernetes-sigs/kind/releases/download/v0.7.0/kind-linux-amd64
+# chmod +x kind-linux-amd64
+# mv /home/project/kind-linux-amd64 /usr/bin/kind
+# curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
+# chmod +x ./kubectl
+# mv /home/project/kubectl /usr/bin/kubectl
+# 
 # kubectl taint nodes --all node-role.kubernetes.io/master-
 # kubectl apply -f https://projectcontour.io/quickstart/contour.yaml
 # kubectl patch daemonsets -n projectcontour envoy -p '{"spec":{"template":{"spec":{"nodeSelector":{"ingress-ready":"true"},"tolerations":[{"key":"node-role.kubernetes.io/master","operator":"Equal","effect":"NoSchedule"}]}}}}'
 ---
 kind: Cluster
 apiVersion: kind.x-k8s.io/v1alpha4
+networking:
+  # WARNING: It is _strongly_ recommended that you keep this the default
+  # (127.0.0.1) for security reasons. However it is possible to change this.
+  apiServerAddress: "kind-external-load-balancer"
 nodes:
 - role: control-plane
-  kubeadmConfigPatches:
-  - |
-    kind: InitConfiguration
-    nodeRegistration:
-      kubeletExtraArgs:
-        node-labels: "ingress-ready=true"
-        authorization-mode: "AlwaysAllow"
-  extraPortMappings:
-  - containerPort: 80
-    hostPort: 80
-    protocol: TCP
-  - containerPort: 443
-    hostPort: 443
-    protocol: TCP
 - role: control-plane
 - role: worker
