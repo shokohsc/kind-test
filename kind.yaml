@@ -18,10 +18,15 @@
 # docker exec -ti theia curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
 # docker exec -ti theia chmod +x ./kubectl
 # docker exec -ti -u root theia mv /home/project/kubectl /usr/bin/kubectl
+# docker exec -ti theia wget https://github.com/derailed/k9s/releases/download/v0.19.1/k9s_Linux_x86_64.tar.gz
+# docker exec -ti theia tar xzf k9s_Linux_x86_64.tar.gz
+# docker exec -ti -u root theia mv /home/theia/k9s /usr/bin/k9s
+# docker exec -ti theia cat /home/theia/.zshrc |grep xterm-256color || echo 'export TERM=xterm-256color' >> /home/theia/.zshrc
 # docker network connect seedbox_connected kind-external-load-balancer
+# docker network connect bridge theia
 # export kubernetes=$(docker exec kind-external-load-balancer awk 'END{print $1}' /etc/hosts)
 # docker exec -ti theia sed -i /home/theia/.kube/config 's/127.0.0.1/kubernetes/g'
-# docker exec -e kubernetes=$kubernertes -ti theia -u root echo "$kubernetes  kubernetes"
+# docker exec -e kubernetes=$kubernertes -ti theia -u root echo "$kubernetes  kubernetes" >> /etc/hosts
 # 
 # kubectl taint nodes --all node-role.kubernetes.io/master-
 # kubectl apply -f https://projectcontour.io/quickstart/contour.yaml
