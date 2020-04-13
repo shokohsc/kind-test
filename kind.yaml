@@ -1,4 +1,4 @@
-# docker exec -ti -u root theia apk add --no-cache bash curl wget docker zsh git vim
+# docker exec -ti -u root theia apk add --no-cache bash curl wget docker zsh git vim openssl
 # docker exec -ti -u root theia grep -qxF 'docker' /etc/group || addgroup -g $DOCKER_GID docker
 # docker exec -ti -u root theia groups theia |grep docker || addgroup theia docker
 # docker exec -ti -u root theia groups theia |grep root || addgroup theia root
@@ -29,6 +29,7 @@
 # docker exec -e kubernetes=$kubernertes -ti theia -u root echo "$kubernetes  kubernetes" >> /etc/hosts
 # 
 # kubectl taint nodes --all node-role.kubernetes.io/master-
+# 
 # kubectl apply -f https://projectcontour.io/quickstart/contour.yaml
 # kubectl patch daemonsets -n projectcontour envoy -p '{"spec":{"template":{"spec":{"nodeSelector":{"ingress-ready":"true"},"tolerations":[{"key":"node-role.kubernetes.io/master","operator":"Equal","effect":"NoSchedule"}]}}}}'
 ---
