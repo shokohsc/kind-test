@@ -13,7 +13,7 @@ data:
     - name: default
       protocol: layer2
       addresses:
-      - 10.164.18.5-10.164.18.10
+      - 172.17.0.0/16
 ---
 apiVersion: apps/v1
 kind: Deployment
