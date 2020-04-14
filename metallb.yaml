@@ -1,7 +1,7 @@
 # kubectl apply -f https://raw.githubusercontent.com/google/metallb/v0.9.3/manifests/namespace.yaml
 # kubectl apply -f https://raw.githubusercontent.com/google/metallb/v0.9.3/manifests/metallb.yaml
-# # On first install only
 # kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="$(openssl rand -base64 128)"
+# # On first install only
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -13,7 +13,7 @@ data:
     - name: default
       protocol: layer2
       addresses:
-      - 172.17.0.0/16
+      - 172.17.255.1-172.17.255.250
 ---
 apiVersion: apps/v1
 kind: Deployment
