@@ -18,8 +18,6 @@ data:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  labels:
-    app: echo-server
   name: echo-server
 spec:
   replicas: 3
@@ -41,16 +39,27 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  labels:
-    app: echo-server
   name: echo-server
 spec:
   ports:
-    - name: http
-      port: 8080
-      protocol: TCP
-      targetPort: http
+  - port: 80
+    targetPort: 8080
+    protocol: TCP
   selector:
     app: echo-server
-  sessionAffinity: None
   type: LoadBalancer
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: echo-server
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /
+        backend:
+          serviceName: echo-server
+          servicePort: 80
