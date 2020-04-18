@@ -34,7 +34,9 @@ docker exec -ti theia bash -c "grep xterm-256color /home/theia/.zshrc || echo 'e
 docker network connect bridge theia
 
 docker exec -ti theia kind create cluster
-docker network connect seedbox_connected kind-external-load-balancer
+docker network connect seedbox_connected kind-control-plane
+docker network connect seedbox_connected kind-control-plane2
+docker network connect seedbox_connected kind-worker
 export kubernetes=$(docker exec kind-external-load-balancer awk 'END{print $1}' /etc/hosts)
 docker exec -e kubernetes=$kubernertes -ti -u root theia bash -c "echo $kubernetes  kubernetes >> /etc/hosts"
 docker exec -ti theia bash -c "sed -i 's/127.0.0.1/kubernetes/g' /home/theia/.kube/config"
