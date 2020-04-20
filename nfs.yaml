@@ -8,10 +8,10 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: nfs-default-claim
-  namespace: rook-nfs-system
+  namespace: rook-nfs
 spec:
   accessModes:
-  - ReadWriteMany
+  - ReadWriteOnce
   resources:
     requests:
       storage: 1Gi
@@ -20,7 +20,7 @@ apiVersion: nfs.rook.io/v1alpha1
 kind: NFSServer
 metadata:
   name: rook-nfs
-  namespace: rook-nfs-system
+  namespace: rook-nfs
 spec:
   serviceAccountName: rook-nfs
   replicas: 1
@@ -35,3 +35,29 @@ spec:
   # A key/value list of annotations
   annotations:
   #  key: value
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  labels:
+    app: rook-nfs
+  name: rook-nfs-share1
+parameters:
+  exportName: share1
+  nfsServerName: rook-nfs
+  nfsServerNamespace: rook-nfs
+provisioner: rook.io/nfs-provisioner
+reclaimPolicy: Delete
+volumeBindingMode: Immediate
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: rook-nfs-pv-claim
+spec:
+  storageClassName: "rook-nfs-share1"
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Mi
