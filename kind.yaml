@@ -15,5 +15,21 @@ networking:
   apiServerPort: 6443
 nodes:
 - role: control-plane
+  kubeadmConfigPatches:
+  - |
+    kind: InitConfiguration
+    nodeRegistration:
+      kubeletExtraArgs:
+        node-labels: "ingress-ready=true,overwatch=sombra"
+  # add a mount from /path/to/my/files on the host to /files on the node
+  extraMounts:
+  - hostPath: /mnt
+    containerPath: /mnt
 - role: control-plane
+  kubeadmConfigPatches:
+  - |
+    kind: InitConfiguration
+    nodeRegistration:
+      kubeletExtraArgs:
+        node-labels: "ingress-ready=true,overwatch=lucio"
 - role: worker

@@ -23,6 +23,15 @@ metadata:
   namespace: rook-nfs
 spec:
   serviceAccountName: rook-nfs
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: overwatch
+            operator: In
+            values:
+            - sombra
   replicas: 1
   exports:
   - name: share1
