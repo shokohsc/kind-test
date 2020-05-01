@@ -73,15 +73,3 @@ data:
 #   selector:
 #     k8s-app: kubernetes-dashboard
 #   type: LoadBalancer
----
-kind: Service
-apiVersion: v1
-metadata:
-  name: h5ai-lb
-spec:
-  ports:
-    - port: 80
-  selector:
-    app: h5ai
-    # role: web-frontend
-  type: LoadBalancer

@@ -1,72 +1,71 @@
 apiVersion: v1
-kind: Namespace
+kind: ReplicationController
 metadata:
-  name:  rook-nfs
----
-# A default storageclass must be present
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: nfs-default-claim
-  namespace: rook-nfs
+  name: nfs-server
 spec:
-  accessModes:
-  - ReadWriteOnce
-  resources:
-    requests:
-      storage: 1Gi
----
-apiVersion: nfs.rook.io/v1alpha1
-kind: NFSServer
-metadata:
-  name: rook-nfs
-  namespace: rook-nfs
-spec:
-  serviceAccountName: rook-nfs
-  affinity:
-    nodeAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        nodeSelectorTerms:
-        - matchExpressions:
-          - key: overwatch
-            operator: In
-            values:
-            - sombra
   replicas: 1
-  exports:
-  - name: share1
-    server:
-      accessMode: ReadWrite
-      squash: "none"
-    # A Persistent Volume Claim must be created before creating NFS CRD instance.
-    persistentVolumeClaim:
-      claimName: nfs-default-claim
-  # A key/value list of annotations
-  annotations:
-  #  key: value
+  selector:
+    role: nfs-server
+  template:
+    metadata:
+      labels:
+        role: nfs-server
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: overwatch
+                operator: In
+                values:
+                - sombra
+      containers:
+      #- env:
+       # - name: SHARED_DIRECTORY
+        #  value: /nfsshare
+      - name: nfs-server
+        image: k8s.gcr.io/volume-nfs:0.8
+        ports:
+          - name: nfs
+            containerPort: 2049
+        securityContext:
+          privileged: true
+        volumeMounts:
+          - mountPath: /exports/WD1To
+            name: one
+          - mountPath: /exports/WD2To
+            name: two
+      volumes:
+        - name: one
+          hostPath:
+            path: /data/WD1To
+        - name: two
+          hostPath:
+            path: /data/WD2To
+          # persistentVolumeClaim:
+            # claimName: rook-nfs-pv-claim
+            # claimName: nfs-pv-provisioning-demo
 ---
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  labels:
-    app: rook-nfs
-  name: rook-nfs-share1
-parameters:
-  exportName: share1
-  nfsServerName: rook-nfs
-  nfsServerNamespace: rook-nfs
-provisioner: rook.io/nfs-provisioner
-reclaimPolicy: Delete
-volumeBindingMode: Immediate
----
+kind: Service
 apiVersion: v1
-kind: PersistentVolumeClaim
 metadata:
-  name: rook-nfs-pv-claim
+  name: nfs-service
 spec:
-  storageClassName: "rook-nfs-share1"
-  accessModes:
-    - ReadWriteMany
-  resources:
-    requests:
-      storage: 1Mi
+  ports:
+    - name: nfs
+      port: 2049
+  selector:
+    role: nfs-server
+# ---
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#   name: nfs-pv-provisioning-demo
+#   labels:
+#     demo: nfs-pv-provisioning
+# spec:
+#   accessModes: [ "ReadWriteOnce" ]
+#   resources:
+#     requests:
+#       storage: 1Mi

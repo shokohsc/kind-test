@@ -2,33 +2,6 @@
 # apiVersion: v1
 # kind: PersistentVolume
 # metadata:
-#   name: task-pv-volume
-#   labels:
-#     type: local
-# spec:
-#   storageClassName: manual
-#   capacity:
-#     storage: 1Gi
-#   accessModes:
-#     - ReadWriteOnce
-#   hostPath:
-#     path: "/data"
-# ---
-# apiVersion: v1
-# kind: PersistentVolumeClaim
-# metadata:
-#   name: task-pv-claim
-# spec:
-#   storageClassName: "manual"
-#   accessModes:
-#     - ReadWriteOnce
-#   resources:
-#     requests:
-#       storage: 1Mi
-# ---
-# apiVersion: v1
-# kind: PersistentVolume
-# metadata:
 #   name: nfs-pv
 # spec:
 #   capacity:
@@ -37,7 +10,7 @@
 #     - ReadWriteMany
 #   nfs:
 #     # server: nfs-service.default.svc.cluster.local
-#     server: "10.96.124.204"
+#     server: "10.164.18.63"
 #     path: "/"
 # ---
 # apiVersion: v1
@@ -56,17 +29,17 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: h5ai
-  name: h5ai
+    app: commander
+  name: commander
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: h5ai
+      app: commander
   template:
     metadata:
       labels:
-        app: h5ai
+        app: commander
     spec:
       affinity:
         nodeAffinity:
@@ -78,13 +51,16 @@ spec:
                 values:
                 - sombra
       containers:
-      - image: corfr/h5ai
-        name: h5ai
+      - image: coderaiser/cloudcmd
+        name: commander
+        # ports:
+        # - containerPort: 8000
+        #   name: web
         volumeMounts:
             # name must match the volume name below
             - name: data-host-vol
-              mountPath: "/var/www/mnt"
-      hostname: h5ai
+              mountPath: "/root/media"
+      hostname: commander
       volumes:
       - name: data-host-vol
         hostPath:
@@ -92,17 +68,16 @@ spec:
         # persistentVolumeClaim:
         #   claimName: rook-nfs-pv-claim
         # persistentVolumeClaim:
-        #   claimName: task-pv-claim
-        # persistentVolumeClaim:
         #   claimName: nfs-pvc
 ---
 kind: Service
 apiVersion: v1
 metadata:
-  name: h5ai-lb
+  name: commander-lb
 spec:
   ports:
     - port: 80
+      targetPort: 8000
   selector:
-    app: h5ai
+    app: commander
   type: LoadBalancer

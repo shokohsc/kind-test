@@ -24,7 +24,7 @@ nodes:
   # add a mount from /path/to/my/files on the host to /files on the node
   extraMounts:
   - hostPath: /mnt
-    containerPath: /mnt
+    containerPath: /data
 - role: control-plane
   kubeadmConfigPatches:
   - |
