@@ -1,29 +1,3 @@
-# ---
-# apiVersion: v1
-# kind: PersistentVolume
-# metadata:
-#   name: nfs-pv
-# spec:
-#   capacity:
-#     storage: 10Mi
-#   accessModes:
-#     - ReadWriteMany
-#   nfs:
-#     # server: nfs-service.default.svc.cluster.local
-#     server: "10.164.18.63"
-#     path: "/"
-# ---
-# apiVersion: v1
-# kind: PersistentVolumeClaim
-# metadata:
-#   name: nfs-pvc
-# spec:
-#   accessModes:
-#     - ReadWriteMany
-#   storageClassName: ""
-#   resources:
-#     requests:
-#       storage: 1Mi
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -47,15 +21,12 @@ spec:
             nodeSelectorTerms:
             - matchExpressions:
               - key: overwatch
-                operator: In
+                operator: NotIn
                 values:
                 - sombra
       containers:
       - image: coderaiser/cloudcmd
         name: commander
-        # ports:
-        # - containerPort: 8000
-        #   name: web
         volumeMounts:
             # name must match the volume name below
             - name: data-host-vol
@@ -63,12 +34,10 @@ spec:
       hostname: commander
       volumes:
       - name: data-host-vol
-        hostPath:
-          path: /data
-        # persistentVolumeClaim:
-        #   claimName: rook-nfs-pv-claim
-        # persistentVolumeClaim:
-        #   claimName: nfs-pvc
+        nfs: 
+          # URL for the NFS server
+          server: 192.168.1.63 # Change this!
+          path: /
 ---
 kind: Service
 apiVersion: v1
