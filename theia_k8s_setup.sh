@@ -10,7 +10,7 @@ docker exec -ti theia bash -c "sed -i 's/robbyrussell/xiong-chiamiov-plus/g' /ho
 docker exec -ti theia bash -c "echo 'alias ll=\"ls -lah\"' >> /home/theia/.zshrc" 
 docker exec -ti theia git config --global user.email "shokohsc@gmail.com" 
 docker exec -ti theia git config --global user.name "shokohsc" 
-docker exec -ti theia wget https://github.com/kubernetes-sigs/kind/releases/download/v0.7.0/kind-linux-amd64 
+docker exec -ti theia wget https://github.com/kubernetes-sigs/kind/releases/download/v0.8.1/kind-linux-amd64 
 docker exec -ti -u root theia chmod +x kind-linux-amd64 
 docker exec -ti -u root theia mv /home/theia/kind-linux-amd64 /usr/bin/kind 
 docker exec -ti theia curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl 
@@ -34,7 +34,7 @@ docker exec -ti theia cat /home/theia/.ssh/id_rsa.pub
 
 docker network connect bridge theia
 docker exec -ti theia kind create cluster
-docker network connect seedbox_connected kind-external-load-balancer && \
+docker network connect kind kind-external-load-balancer && \
 docker network connect seedbox_connected kind-control-plane && \
 docker network connect seedbox_connected kind-control-plane2 && \
 docker network connect seedbox_connected kind-worker
