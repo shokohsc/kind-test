@@ -1,5 +1,5 @@
 # Install packages
-docker exec -ti -u root theia apk add --no-cache bash curl wget docker zsh git vim openssl
+docker exec -ti -u root theia apk add --no-cache bash curl wget docker zsh git vim openssl unzip
 # Config
 docker exec -ti -u root theia bash -c "grep -qxF 'docker' /etc/group || addgroup -g 998 docker"
 docker exec -ti -u root theia bash -c "groups theia |grep docker || addgroup theia docker"
@@ -26,6 +26,10 @@ docker exec -ti theia tar zxf helm-v3.2.0-linux-amd64.tar.gz
 docker exec -ti theia rm helm-v3.2.0-linux-amd64.tar.gz
 docker exec -ti -u root theia mv linux-amd64/helm /usr/bin/helm
 docker exec -ti theia rm -rf linux-amd64
+docker exec -ti theia wget https://releases.hashicorp.com/terraform/0.12.25/terraform_0.12.25_linux_amd64.zip
+docker exec -ti theia unzip terraform_0.12.25_linux_amd64.zip
+docker exec -ti -u root theia mv terraform /usr/bin/terraform
+docker exec -ti theia rm terraform_0.12.25_linux_amd64.zip
 
 docker exec -ti theia ssh-keygen -t rsa -b 4096 -C "shokohsc@gmail.com"
 docker exec -ti theia eval "$(ssh-agent -s)"
