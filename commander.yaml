@@ -24,20 +24,20 @@ spec:
                 operator: NotIn
                 values:
                 - sombra
+      hostname: commander
       containers:
       - image: coderaiser/cloudcmd
         name: commander
-        volumeMounts:
-            # name must match the volume name below
-            - name: data-host-vol
-              mountPath: "/root/media"
-      hostname: commander
-      volumes:
-      - name: data-host-vol
-        nfs: 
-          # URL for the NFS server
-          server: 192.168.1.63 # Change this!
-          path: /
+      #   volumeMounts:
+      #       # name must match the volume name below
+      #       - name: data-host-vol
+      #         mountPath: "/root/media"
+      # volumes:
+      # - name: data-host-vol
+      #   nfs: 
+      #     # URL for the NFS server
+      #     server: 192.168.1.63 # Change this!
+      #     path: /
 ---
 kind: Service
 apiVersion: v1

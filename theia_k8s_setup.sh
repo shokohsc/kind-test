@@ -32,12 +32,9 @@ docker exec -ti theia eval "$(ssh-agent -s)"
 docker exec -ti theia ssh-add ~/.ssh/id_rsa
 docker exec -ti theia cat /home/theia/.ssh/id_rsa.pub
 
-docker network connect bridge theia
 docker exec -ti theia kind create cluster
-docker network connect kind kind-external-load-balancer && \
-docker network connect seedbox_connected kind-control-plane && \
-docker network connect seedbox_connected kind-control-plane2 && \
-docker network connect seedbox_connected kind-worker
+docker network connect kind traefik && \
+docker network connect kind theia
 export kubernetes=$(docker exec kind-external-load-balancer awk 'END{print $1}' /etc/hosts)
 docker exec -e kubernetes=$kubernertes -ti -u root theia bash -c "echo $kubernetes  kubernetes >> /etc/hosts"
 docker exec -ti theia mkdir .kube

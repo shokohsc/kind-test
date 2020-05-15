@@ -36,17 +36,12 @@ spec:
         securityContext:
           privileged: true
         volumeMounts:
-          - mountPath: /exports/WD1To
-            name: one
-          - mountPath: /exports/WD2To
-            name: two
+          - mountPath: /exports
+            name: data
       volumes:
-        - name: one
+        - name: data
           hostPath:
-            path: /data/WD1To
-        - name: two
-          hostPath:
-            path: /data/WD2To
+            path: /data
           # persistentVolumeClaim:
             # claimName: rook-nfs-pv-claim
             # claimName: nfs-pv-provisioning-demo
