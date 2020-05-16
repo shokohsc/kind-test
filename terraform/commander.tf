@@ -1,66 +1,63 @@
-resource "kubernetes_deployment" "nginx" {
+resource "kubernetes_deployment" "commander" {
   metadata {
-    name = "scalable-nginx-example"
+    name = "commander"
     labels = {
-      App = "ScalableNginxExample"
+      app = "commander"
     }
   }
-
   spec {
-    replicas = 2
+    replicas = 1
     selector {
       match_labels = {
-        App = "ScalableNginxExample"
+        app = "commander"
       }
     }
     template {
       metadata {
         labels = {
-          App = "ScalableNginxExample"
+          app = "commander"
         }
       }
       spec {
+        affinity {
+          nodeAffinity {
+            requiredDuringSchedulingIgnoredDuringExecution {
+              nodeSelectorTerms {
+                matchExpressions {
+                  key = "overwatch"
+                  operator = "NotIn"
+                  values = [ "sombra" ]
+                }
+              }
+            }
+          }
+        }
+        hostname = "commander"
         container {
-          image = "nginx:1.7.8"
-          name  = "example"
-
-          port {
-            container_port = 80
-          }
-
-          resources {
-            limits {
-              cpu    = "0.5"
-              memory = "512Mi"
-            }
-            requests {
-              cpu    = "250m"
-              memory = "50Mi"
-            }
-          }
+          image = "coderaiser/cloudcmd"
+          name  = "commander"
         }
       }
     }
   }
 }
 
-resource "kubernetes_service" "nginx" {
+resource "kubernetes_service" "lb" {
   metadata {
-    name = "nginx-example"
+    name = "commander-lb"
   }
   spec {
     selector = {
-      App = kubernetes_deployment.nginx.spec.0.template.0.metadata[0].labels.App
+      app = "commander"
     }
     port {
       port        = 80
-      target_port = 80
+      target_port = 8000
     }
-
     type = "LoadBalancer"
   }
 }
 
 output "lb_ip" {
-  value = kubernetes_service.nginx.load_balancer_ingress[0].ip
+  value = kubernetes_service.commander.load_balancer_ingress[0].ip
 }
