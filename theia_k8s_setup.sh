@@ -30,6 +30,10 @@ docker exec -ti theia wget https://releases.hashicorp.com/terraform/0.12.25/terr
 docker exec -ti theia unzip terraform_0.12.25_linux_amd64.zip
 docker exec -ti -u root theia mv terraform /usr/bin/terraform
 docker exec -ti theia rm terraform_0.12.25_linux_amd64.zip
+docker exec -ti theia wget https://github.com/sl1pm4t/k2tf/releases/download/v0.4.1/k2tf_0.4.1_Linux_x86_64.tar.gz
+docker exec -ti theia tar xzf k2tf_0.4.1_Linux_x86_64.tar.gz
+docker exec -ti -u root theia mv k2tf /usr/bin/k2tf
+docker exec -ti theia rm k2tf_0.4.1_Linux_x86_64.tar.gz
 
 docker exec -ti theia ssh-keygen -t rsa -b 4096 -C "shokohsc@gmail.com"
 docker exec -ti theia eval "$(ssh-agent -s)"

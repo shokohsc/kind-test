@@ -1,25 +1,14 @@
-resource "kubernetes_config_map" "config" {
+resource "kubernetes_namespace" "metallb-system" {
   metadata {
-    name = "config"
+    name = "metallb-system"
   }
+}
 
-  data = {
-    api_host             = "myhost:443"
-    db_host              = "dbhost:5432"
-    "my_config_file.yml" = "${file("${path.module}/my_config_file.yml")}"
-  }
-
-  binary_data = {
-    "my_payload.bin" = "${filebase64("${path.module}/my_payload.bin")}"
-  }
-
-  data {
-    config {
-      address-pools {
-        name = "default"
-        protocol = "layer2"
-        addresses = [ "172.19.0.64/27" ]
-      }
-    }
-  }
+resource "helm_release" "metallb" {
+  name  = "metallb"
+  chart = "stable/metallb"
+  namespace = "metallb-system"
+  values = [
+    "${file("values.yaml")}"
+  ]
 }

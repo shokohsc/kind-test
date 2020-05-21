@@ -19,45 +19,29 @@ resource "kubernetes_deployment" "commander" {
         }
       }
       spec {
-        affinity {
-          nodeAffinity {
-            requiredDuringSchedulingIgnoredDuringExecution {
-              nodeSelectorTerms {
-                matchExpressions {
-                  key = "overwatch"
-                  operator = "NotIn"
-                  values = [ "sombra" ]
-                }
-              }
-            }
-          }
+        container {
+          name  = "commander"
+          image = "coderaiser/cloudcmd"
         }
         hostname = "commander"
-        container {
-          image = "coderaiser/cloudcmd"
-          name  = "commander"
-        }
       }
     }
   }
 }
 
-resource "kubernetes_service" "lb" {
+resource "kubernetes_service" "commander_lb" {
   metadata {
     name = "commander-lb"
   }
   spec {
-    selector = {
-      app = "commander"
-    }
     port {
       port        = 80
-      target_port = 8000
+      target_port = "8000"
+    }
+    selector = {
+      app = "commander"
     }
     type = "LoadBalancer"
   }
 }
 
-output "lb_ip" {
-  value = kubernetes_service.commander.load_balancer_ingress[0].ip
-}
