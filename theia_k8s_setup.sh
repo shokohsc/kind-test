@@ -34,6 +34,10 @@ docker exec -ti theia wget https://github.com/sl1pm4t/k2tf/releases/download/v0.
 docker exec -ti theia tar xzf k2tf_0.4.1_Linux_x86_64.tar.gz
 docker exec -ti -u root theia mv k2tf /usr/bin/k2tf
 docker exec -ti theia rm k2tf_0.4.1_Linux_x86_64.tar.gz
+docker exec -ti theia wget https://github.com/hashicorp/terraform-provider-kubernetes-alpha/releases/download/0.1.0/terraform-provider-kubernetes-alpha_0.1.0_linux_amd64.zip
+docker exec -ti theia unzip terraform-provider-kubernetes-alpha_0.1.0_linux_amd64.zip
+docker exec -ti theia cp terraform-provider-kubernetes-alpha ~/.terraform.d/plugins/terraform-provider-kubernetes-alpha
+docker exec -ti theia rm -rf terraform-provider-kubernetes-alpha
 
 docker exec -ti theia ssh-keygen -t rsa -b 4096 -C "shokohsc@gmail.com"
 docker exec -ti theia eval "$(ssh-agent -s)"
