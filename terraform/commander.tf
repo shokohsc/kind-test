@@ -28,22 +28,3 @@ resource "kubernetes_deployment" "commander" {
     }
   }
 }
-
-resource "kubernetes_service" "commander_lb" {
-  metadata {
-    name = "commander-lb"
-    labels = {
-        service = "commander-lb"
-    }
-  }
-  spec {
-    port {
-      port = "8000"
-      name = "http"
-   }
-    selector = {
-      app = "commander"
-    }
-  }
-}
-
