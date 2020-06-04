@@ -38,6 +38,10 @@ docker exec -ti theia wget https://github.com/hashicorp/terraform-provider-kuber
 docker exec -ti theia unzip terraform-provider-kubernetes-alpha_0.1.0_linux_amd64.zip
 docker exec -ti theia cp terraform-provider-kubernetes-alpha ~/.terraform.d/plugins/terraform-provider-kubernetes-alpha
 docker exec -ti theia rm -rf terraform-provider-kubernetes-alpha
+docker exec -ti theia rm terraform-provider-kubernetes-alpha_0.1.0_linux_amd64.zip
+docker exec -ti theia wget https://github.com/linkerd/linkerd2/releases/download/edge-20.6.1/linkerd2-cli-edge-20.6.1-linux
+docker exec -ti -u root theia mv linkerd2-cli-edge-20.6.1-linux /usr/bin/linkerd
+docker exec -ti -u root theia chmod +x /usr/bin/linkerd
 
 docker exec -ti theia ssh-keygen -t rsa -b 4096 -C "shokohsc@gmail.com"
 docker exec -ti theia eval "$(ssh-agent -s)"

@@ -32,16 +32,18 @@ resource "kubernetes_deployment" "commander" {
 resource "kubernetes_service" "commander_lb" {
   metadata {
     name = "commander-lb"
+    labels = {
+        service = "commander-lb"
+    }
   }
   spec {
     port {
-      port        = 80
-      target_port = "8000"
-    }
+      port = "8000"
+      name = "http"
+   }
     selector = {
       app = "commander"
     }
-    type = "LoadBalancer"
   }
 }
 
