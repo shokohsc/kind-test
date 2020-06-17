@@ -49,4 +49,19 @@ spec:
       targetPort: 8000
   selector:
     app: commander
-  type: LoadBalancer
+  # type: LoadBalancer
+---
+kind: IngressRoute
+apiVersion: traefik.containo.us/v1alpha1
+metadata:
+  name: commander-ingr
+spec:
+  entryPoints: 
+    - web
+  routes:
+  - match: Host(`kind.shokohsc.home`) 
+    kind: Rule
+    services:
+    - name: commander-lb
+      port: 80
+
