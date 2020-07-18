@@ -1,5 +1,5 @@
 # Install packages
-docker exec -ti -u root theia apk add --no-cache bash curl wget docker zsh git vim openssl unzip
+docker exec -ti -u root theia apk add --no-cache bash curl wget docker zsh git vim openssl unzip gnupg
 # Config
 docker exec -ti -u root theia bash -c "grep -qxF 'docker' /etc/group || addgroup -g 998 docker"
 docker exec -ti -u root theia bash -c "groups theia |grep docker || addgroup theia docker"
@@ -16,7 +16,7 @@ docker exec -ti -u root theia mv /home/theia/kind-linux-amd64 /usr/bin/kind
 docker exec -ti theia curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl 
 docker exec -ti -u root theia chmod +x ./kubectl 
 docker exec -ti -u root theia mv /home/theia/kubectl /usr/bin/kubectl 
-docker exec -ti theia wget https://github.com/derailed/k9s/releases/download/v0.19.1/k9s_Linux_x86_64.tar.gz 
+docker exec -ti theia wget https://github.com/derailed/k9s/releases/download/v0.21.2/k9s_Linux_x86_64.tar.gz 
 docker exec -ti theia tar xzf k9s_Linux_x86_64.tar.gz 
 docker exec -ti theia rm k9s_Linux_x86_64.tar.gz 
 docker exec -ti -u root theia mv /home/theia/k9s /usr/bin/k9s 
@@ -41,6 +41,9 @@ docker exec -ti theia rm terraform-provider-kubernetes-alpha_nightly20200608_lin
 docker exec -ti theia wget https://github.com/linkerd/linkerd2/releases/download/edge-20.6.1/linkerd2-cli-edge-20.6.1-linux
 docker exec -ti -u root theia mv linkerd2-cli-edge-20.6.1-linux /usr/bin/linkerd
 docker exec -ti -u root theia chmod +x /usr/bin/linkerd
+docker exec -ti theia wget https://github.com/mozilla/sops/releases/download/v3.5.0/sops-v3.5.0.linux
+docker exec -ti -u root theia mv sops-v3.5.0.linux /usr/bin/sops
+docker exec -ti -u root theia chmod +x /usr/bin/sops
 
 docker exec -ti theia ssh-keygen -t rsa -b 4096 -C "shokohsc@gmail.com"
 docker exec -ti theia eval "$(ssh-agent -s)"
