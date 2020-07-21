@@ -1,0 +1,107 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: dashboard
+  namespace: traefik
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`kind.shokohsc.home`) && (PathPrefix(`/dashboard`) || PathPrefix(`/api`))
+      kind: Rule
+      services:
+        - name: api@internal
+          kind: TraefikService
+
+---
+apiVersion: v1
+kind: Secret
+type: Opaque
+metadata:
+  name: web-ingress-auth
+  namespace: linkerd
+data:
+  auth: YWRtaW46JGFwcjEkbjdDdTZnSGwkRTQ3b2dmN0NPOE5SWWpFakJPa1dNLgoK
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: web-ingress
+  namespace: linkerd
+  annotations:
+    kubernetes.io/ingress.class: 'traefik'
+    ingress.kubernetes.io/custom-request-headers: l5d-dst-override:linkerd-web.linkerd.svc.cluster.local:8084
+    traefik.ingress.kubernetes.io/auth-type: basic
+    traefik.ingress.kubernetes.io/auth-secret: web-ingress-auth
+spec:
+  rules:
+    - host: linkerd.kind.shokohsc.home
+      http:
+        paths:
+          - backend:
+              serviceName: linkerd-web
+              servicePort: 8084
+
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: l5d-header-middleware
+  namespace: linkerd
+spec:
+  headers:
+    customRequestHeaders:
+      l5d-dst-override: "linkerd-web.linkerd.svc.cluster.local:8084"
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: traefik
+  creationTimestamp: null
+  name: linkerd
+  namespace: linkerd
+spec:
+  entryPoints: []
+  routes:
+  - kind: Rule
+    match: Host(`linkerd.kind.shokohsc.home`)
+    priority: 0
+    middlewares:
+    - name: l5d-header-middleware
+    services:
+    - kind: Service
+      name: linkerd-web
+      port: 8084
+
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: l5d-header-middleware
+  namespace: linkerd
+spec:
+  headers:
+    customRequestHeaders:
+      l5d-dst-override: "adminer.linkerd.svc.cluster.local:80"
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: traefik
+  creationTimestamp: null
+  name: adminer
+  namespace: linkerd
+spec:
+  entryPoints: []
+  routes:
+  - kind: Rule
+    match: Host(`adminer.kind.shokohsc.home`)
+    priority: 0
+    middlewares:
+    - name: l5d-header-middleware
+    services:
+    - kind: Service
+      name: adminer
+      port: 80

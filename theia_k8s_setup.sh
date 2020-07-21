@@ -44,6 +44,10 @@ docker exec -ti -u root theia chmod +x /usr/bin/linkerd
 docker exec -ti theia wget https://github.com/mozilla/sops/releases/download/v3.5.0/sops-v3.5.0.linux
 docker exec -ti -u root theia mv sops-v3.5.0.linux /usr/bin/sops
 docker exec -ti -u root theia chmod +x /usr/bin/sops
+docker exec -ti theia wget https://github.com/smallstep/cli/releases/download/v0.14.6/step_linux_0.14.6_amd64.tar.gz
+docker exec -ti theia tar xzf step_linux_0.14.6_amd64.tar.gz
+docker exec -ti -u root theia mv step_0.14.6/bin/step /usr/bin/step
+docker exec -ti theia rm -rf step_linux_0.14.6_amd64.tar.gz
 
 docker exec -ti theia ssh-keygen -t rsa -b 4096 -C "shokohsc@gmail.com"
 docker exec -ti theia eval "$(ssh-agent -s)"
