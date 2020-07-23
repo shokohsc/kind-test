@@ -1,6 +1,9 @@
 resource "kubernetes_namespace" "metallb" {
   metadata {
     name = "metallb"
+    annotations = {
+      "linkerd.io/inject" = "enabled"
+    }
   }
 }
 

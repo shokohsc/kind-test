@@ -1,6 +1,9 @@
 resource "kubernetes_namespace" "adminer" {
   metadata {
     name = "adminer"
+    annotations = {
+      "linkerd.io/inject" = "enabled"
+    }
   }
 }
 

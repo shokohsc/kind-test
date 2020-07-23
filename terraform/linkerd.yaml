@@ -93,6 +93,6 @@ service:
 # config:
 
 # Creates 'linkerd' namespace
-installNamespace: false
+# installNamespace: false
 
 enforcedHostRegexp: "linkerd.kind.shokohsc.home"

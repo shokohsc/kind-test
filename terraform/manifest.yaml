@@ -16,16 +16,6 @@ spec:
 
 ---
 apiVersion: traefik.containo.us/v1alpha1
-kind: Middleware
-metadata:
-  name: l5d-header-middleware
-  namespace: linkerd
-spec:
-  headers:
-    customRequestHeaders:
-      l5d-dst-override: "linkerd-web.linkerd.svc.cluster.local:8084"
----
-apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
   annotations:
@@ -39,23 +29,11 @@ spec:
   - kind: Rule
     match: Host(`linkerd.kind.shokohsc.home`)
     priority: 0
-    middlewares:
-    - name: l5d-header-middleware
     services:
     - kind: Service
       name: linkerd-web
       port: 8084
 
----
-apiVersion: traefik.containo.us/v1alpha1
-kind: Middleware
-metadata:
-  name: l5d-header-middleware
-  namespace: adminer
-spec:
-  headers:
-    customRequestHeaders:
-      l5d-dst-override: "adminer.linkerd.svc.cluster.local:80"
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
@@ -71,9 +49,47 @@ spec:
   - kind: Rule
     match: Host(`adminer.kind.shokohsc.home`)
     priority: 0
-    middlewares:
-    - name: l5d-header-middleware
     services:
     - kind: Service
       name: adminer
       port: 80
+
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: traefik
+  creationTimestamp: null
+  name: argocd
+  namespace: argocd
+spec:
+  entryPoints: []
+  routes:
+  - kind: Rule
+    match: Host(`argocd.kind.shokohsc.home`)
+    priority: 0
+    services:
+    - kind: Service
+      name: argocd-server
+      port: 80
+
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: traefik
+  creationTimestamp: null
+  name: dashboard
+  namespace: dashboard
+spec:
+  entryPoints: []
+  routes:
+  - kind: Rule
+    match: Host(`dashboard.kind.shokohsc.home`)
+    priority: 0
+    services:
+    - kind: Service
+      name: kubernetes-dashboard
+      port: 443

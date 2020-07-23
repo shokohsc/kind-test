@@ -17,7 +17,7 @@ nodes:
     kind: InitConfiguration
     nodeRegistration:
       kubeletExtraArgs:
-        node-labels: "ingress-ready=true,overwatch=sombra"
+        node-labels: "overwatch=sombra"
   # add a mount from /path/to/my/files on the host to /files on the node
   extraMounts:
   - hostPath: /mnt
@@ -28,5 +28,5 @@ nodes:
     kind: InitConfiguration
     nodeRegistration:
       kubeletExtraArgs:
-        node-labels: "ingress-ready=true,overwatch=lucio"
+        node-labels: "overwatch=lucio"
 - role: worker
