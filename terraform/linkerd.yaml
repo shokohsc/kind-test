@@ -92,4 +92,7 @@ service:
 # Allows to overrides the linkerd configuration
 # config:
 
+# Creates 'linkerd' namespace
 installNamespace: false
+
+enforcedHostRegexp: "linkerd.kind.shokohsc.home"
