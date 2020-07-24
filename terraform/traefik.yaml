@@ -146,6 +146,18 @@ ports:
     # The port protocol (TCP/UDP)
     protocol: TCP
     # nodePort: 32443
+  nfs-tcp:
+    port: 2049
+    expose: true
+    exposedPort: 2049
+    # The port protocol (TCP/UDP)
+    protocol: TCP
+  nfs-udp:
+    port: 2049
+    expose: true
+    exposedPort: 2049
+    # The port protocol (TCP/UDP)
+    protocol: UDP
 
 # Options for the main traefik service, where the entrypoints traffic comes
 # from.

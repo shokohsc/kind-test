@@ -24,7 +24,8 @@ metadata:
   name: linkerd
   namespace: linkerd
 spec:
-  entryPoints: []
+  entryPoints:
+    - web
   routes:
   - kind: Rule
     match: Host(`linkerd.kind.shokohsc.home`)
@@ -44,7 +45,8 @@ metadata:
   name: adminer
   namespace: adminer
 spec:
-  entryPoints: []
+  entryPoints:
+    - web
   routes:
   - kind: Rule
     match: Host(`adminer.kind.shokohsc.home`)
@@ -64,7 +66,8 @@ metadata:
   name: argocd
   namespace: argocd
 spec:
-  entryPoints: []
+  entryPoints:
+    - web
   routes:
   - kind: Rule
     match: Host(`argocd.kind.shokohsc.home`)
@@ -84,7 +87,8 @@ metadata:
   name: dashboard
   namespace: dashboard
 spec:
-  entryPoints: []
+  entryPoints:
+    - web
   routes:
   - kind: Rule
     match: Host(`dashboard.kind.shokohsc.home`)
@@ -113,3 +117,39 @@ subjects:
 - kind: ServiceAccount
   name: admin-user
   namespace: dashboard
+
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRouteTCP
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: traefik
+  creationTimestamp: null
+  name: nfs-tcp
+  namespace: nfs
+spec:
+  entryPoints:
+    - nfs-tcp
+  routes:
+  - match: HostSNI(`nfs.kind.shokohsc.home`)
+    services:
+    - kind: Service
+      name: nfs-nfs-server-provisioner
+      port: 2049
+  tls: {}
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRouteUDP
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: traefik
+  creationTimestamp: null
+  name: nfs-udp
+  namespace: nfs
+spec:
+  entryPoints:
+    - nfs-udp
+  routes:
+  - services:
+    - name: nfs-nfs-server-provisioner
+      port: 2049

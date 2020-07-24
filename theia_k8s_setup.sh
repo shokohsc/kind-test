@@ -1,5 +1,5 @@
 # Install packages
-docker exec -ti -u root theia apk add --no-cache bash curl wget docker zsh git vim openssl unzip gnupg
+docker exec -ti -u root theia apk add --no-cache bash curl wget docker zsh git vim openssl unzip gnupg netcat-openbsd
 # Config
 docker exec -ti -u root theia bash -c "grep -qxF 'docker' /etc/group || addgroup -g 998 docker"
 docker exec -ti -u root theia bash -c "groups theia |grep docker || addgroup theia docker"
