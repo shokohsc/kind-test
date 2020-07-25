@@ -10,40 +10,50 @@ docker exec -ti theia bash -c "sed -i 's/robbyrussell/xiong-chiamiov-plus/g' /ho
 docker exec -ti theia bash -c "echo 'alias ll=\"ls -lah\"' >> /home/theia/.zshrc" 
 docker exec -ti theia git config --global user.email "shokohsc@gmail.com" 
 docker exec -ti theia git config --global user.name "shokohsc" 
+
 docker exec -ti theia wget https://github.com/kubernetes-sigs/kind/releases/download/v0.8.1/kind-linux-amd64 
 docker exec -ti -u root theia chmod +x kind-linux-amd64 
 docker exec -ti -u root theia mv /home/theia/kind-linux-amd64 /usr/bin/kind 
+
 docker exec -ti theia curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl 
 docker exec -ti -u root theia chmod +x ./kubectl 
 docker exec -ti -u root theia mv /home/theia/kubectl /usr/bin/kubectl 
+
 docker exec -ti theia wget https://github.com/derailed/k9s/releases/download/v0.21.2/k9s_Linux_x86_64.tar.gz 
 docker exec -ti theia tar xzf k9s_Linux_x86_64.tar.gz 
 docker exec -ti theia rm k9s_Linux_x86_64.tar.gz 
 docker exec -ti -u root theia mv /home/theia/k9s /usr/bin/k9s 
 docker exec -ti theia bash -c "grep xterm-256color /home/theia/.zshrc || echo 'export TERM=xterm-256color' >> /home/theia/.zshrc"
+
 docker exec -ti theia wget https://get.helm.sh/helm-v3.2.0-linux-amd64.tar.gz
 docker exec -ti theia tar zxf helm-v3.2.0-linux-amd64.tar.gz
 docker exec -ti theia rm helm-v3.2.0-linux-amd64.tar.gz
 docker exec -ti -u root theia mv linux-amd64/helm /usr/bin/helm
 docker exec -ti theia rm -rf linux-amd64
+
 docker exec -ti theia wget https://releases.hashicorp.com/terraform/0.12.28/terraform_0.12.28_linux_amd64.zip
 docker exec -ti theia unzip terraform_0.12.28_linux_amd64.zip
 docker exec -ti -u root theia mv terraform /usr/bin/terraform
 docker exec -ti theia rm terraform_0.12.28_linux_amd64.zip
+
 docker exec -ti theia wget https://github.com/sl1pm4t/k2tf/releases/download/v0.4.1/k2tf_0.4.1_Linux_x86_64.tar.gz
 docker exec -ti theia tar xzf k2tf_0.4.1_Linux_x86_64.tar.gz
 docker exec -ti -u root theia mv k2tf /usr/bin/k2tf
 docker exec -ti theia rm k2tf_0.4.1_Linux_x86_64.tar.gz
+
 docker exec -ti theia wget https://github.com/hashicorp/terraform-provider-kubernetes-alpha/releases/download/nightly20200608/terraform-provider-kubernetes-alpha_nightly20200608_linux_amd64.zip
 docker exec -ti theia unzip terraform-provider-kubernetes-alpha_nightly20200608_linux_amd64.zip
 docker exec -ti theia mv terraform-provider-kubernetes-alpha ~/.terraform.d/plugins/terraform-provider-kubernetes-alpha
 docker exec -ti theia rm terraform-provider-kubernetes-alpha_nightly20200608_linux_amd64.zip
+
 docker exec -ti theia wget https://github.com/linkerd/linkerd2/releases/download/edge-20.6.1/linkerd2-cli-edge-20.6.1-linux
 docker exec -ti -u root theia mv linkerd2-cli-edge-20.6.1-linux /usr/bin/linkerd
 docker exec -ti -u root theia chmod +x /usr/bin/linkerd
+
 docker exec -ti theia wget https://github.com/mozilla/sops/releases/download/v3.5.0/sops-v3.5.0.linux
 docker exec -ti -u root theia mv sops-v3.5.0.linux /usr/bin/sops
 docker exec -ti -u root theia chmod +x /usr/bin/sops
+
 docker exec -ti theia wget https://github.com/smallstep/cli/releases/download/v0.14.6/step_linux_0.14.6_amd64.tar.gz
 docker exec -ti theia tar xzf step_linux_0.14.6_amd64.tar.gz
 docker exec -ti -u root theia mv step_0.14.6/bin/step /usr/bin/step
