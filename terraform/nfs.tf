@@ -5,6 +5,7 @@ resource "kubernetes_namespace" "nfs" {
       "linkerd.io/inject" = "enabled"
     }
   }
+  depends_on = [helm_release.linkerd]
 }
 
 resource "helm_release" "nfs" {
@@ -17,4 +18,5 @@ resource "helm_release" "nfs" {
   values = [
     "${file("nfs.yaml")}"
   ]
+  depends_on = [kubernetes_namespace.nfs]
 }

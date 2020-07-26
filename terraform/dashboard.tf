@@ -5,6 +5,7 @@ resource "kubernetes_namespace" "dashboard" {
       "linkerd.io/inject" = "enabled"
     }
   }
+  depends_on = [helm_release.linkerd]
 }
 
 resource "helm_release" "dashboard" {
@@ -17,4 +18,5 @@ resource "helm_release" "dashboard" {
   values = [
     "${file("dashboard.yaml")}"
   ]
+  depends_on = [kubernetes_namespace.dashboard]
 }

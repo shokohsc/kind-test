@@ -5,6 +5,7 @@ resource "kubernetes_namespace" "metallb" {
       "linkerd.io/inject" = "enabled"
     }
   }
+  depends_on = [helm_release.linkerd]
 }
 
 resource "helm_release" "metallb" {
@@ -17,4 +18,5 @@ resource "helm_release" "metallb" {
   values = [
     "${file("metallb.yaml")}"
   ]
+  depends_on = [kubernetes_namespace.metallb]
 }

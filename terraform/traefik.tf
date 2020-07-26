@@ -5,6 +5,7 @@ resource "kubernetes_namespace" "traefik" {
       "linkerd.io/inject" = "enabled"
     }
   }
+  depends_on = [helm_release.linkerd]
 }
 
 resource "helm_release" "traefik" {
@@ -17,4 +18,5 @@ resource "helm_release" "traefik" {
   values = [
     "${file("traefik.yaml")}"
   ]
+  depends_on = [kubernetes_namespace.traefik]
 }

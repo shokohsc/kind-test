@@ -118,38 +118,38 @@ subjects:
   name: admin-user
   namespace: dashboard
 
----
-apiVersion: traefik.containo.us/v1alpha1
-kind: IngressRouteTCP
-metadata:
-  annotations:
-    kubernetes.io/ingress.class: traefik
-  creationTimestamp: null
-  name: nfs-tcp
-  namespace: nfs
-spec:
-  entryPoints:
-    - nfs-tcp
-  routes:
-  - match: HostSNI(`nfs.kind.shokohsc.home`)
-    services:
-    - kind: Service
-      name: nfs-nfs-server-provisioner
-      port: 2049
-  tls: {}
----
-apiVersion: traefik.containo.us/v1alpha1
-kind: IngressRouteUDP
-metadata:
-  annotations:
-    kubernetes.io/ingress.class: traefik
-  creationTimestamp: null
-  name: nfs-udp
-  namespace: nfs
-spec:
-  entryPoints:
-    - nfs-udp
-  routes:
-  - services:
-    - name: nfs-nfs-server-provisioner
-      port: 2049
+# ---
+# apiVersion: traefik.containo.us/v1alpha1
+# kind: IngressRouteTCP
+# metadata:
+#   annotations:
+#     kubernetes.io/ingress.class: traefik
+#   creationTimestamp: null
+#   name: nfs-tcp
+#   namespace: nfs
+# spec:
+#   entryPoints:
+#     - nfs-tcp
+#   routes:
+#   - match: HostSNI(`nfs.kind.shokohsc.home`)
+#     services:
+#     - kind: Service
+#       name: nfs-nfs-server-provisioner
+#       port: 2049
+#   tls: {}
+# ---
+# apiVersion: traefik.containo.us/v1alpha1
+# kind: IngressRouteUDP
+# metadata:
+#   annotations:
+#     kubernetes.io/ingress.class: traefik
+#   creationTimestamp: null
+#   name: nfs-udp
+#   namespace: nfs
+# spec:
+#   entryPoints:
+#     - nfs-udp
+#   routes:
+#   - services:
+#     - name: nfs-nfs-server-provisioner
+#       port: 2049
