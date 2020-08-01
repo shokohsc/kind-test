@@ -68,6 +68,6 @@ docker exec -ti theia mkdir .kube
 docker exec -ti theia bash -c "kind get kubeconfig > /home/theia/.kube/config"
 docker exec -ti theia bash -c "sed -i 's/127.0.0.1/kubernetes/g' /home/theia/.kube/config"
 
-docker exec -ti -u root kind-control-plane bash -c "apt-get update && apt-get install -y nfs-common"
-docker exec -ti -u root kind-control-plane2 bash -c "apt-get update && apt-get install -y nfs-common"
-docker exec -ti -u root kind-worker bash -c "apt-get update && apt-get install -y nfs-common"
+docker exec -ti -u root kind-control-plane sh -c "echo 'nameserver 10.96.0.10' >> /etc/resolv.conf"
+docker exec -ti -u root kind-control-plane2 sh -c "echo 'nameserver 10.96.0.10' >> /etc/resolv.conf"
+docker exec -ti -u root kind-worker sh -c "echo 'nameserver 10.96.0.10' >> /etc/resolv.conf"

@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  # name: {{ .Values.daemonset.name }}
+  name: node-coredns-enable-ds
+  labels:
+    {{- include "nfs.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      # {{- include "nfs.selectorLabels" . | nindent 6 }}
+      name: node-coredns-enable-ds
+  template:
+    metadata:
+    {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      labels:
+        # {{- include "nfs.selectorLabels" . | nindent 8 }}
+        name: node-coredns-enable-ds
+    spec:
+      hostPID: true
+      containers:
+        - name: {{ .Values.daemonset.name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.daemonset.image.repository }}:{{ .Values.daemonset.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            {{- range .Values.daemonset.env }}
+            - name: {{ .name }}
+              value: "{{ .value }}"
+            {{- end }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
