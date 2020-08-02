@@ -11,3 +11,7 @@ terraform {
 provider "kubernetes" {
   config_path = "~/.kube/config"
 }
+
+module "kubernetes" {
+    source = "./modules"
+}

@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: shokohsc/volume-nfs
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   # Overrides the image tag whose default is the chart version.
   tag: latest
 
@@ -37,14 +37,11 @@ securityContext:
   # runAsNonRoot: true
   # runAsUser: 1000
 
-volumes:
-  - name: wd1to
-    mountPath: /exports/WD1To
-    path: /mnt/WD1To
-  - name: wd2to
-    mountPath: /exports/WD2To
-    path: /mnt/WD2To
-
+volumes: []
+  # example:
+  # - name: exports
+  #   mountPath: /exports
+  #   path: /mnt
 
 service:
   type: ClusterIP
@@ -54,19 +51,6 @@ ports:
     port: 2049
     expose: true
     exposedPort: 2049
-  rpcbind:
-    port: 111
-    expose: true
-    exposedPort: 111
-  rpcbind-udp:
-    port: 111
-    expose: true
-    exposedPort: 111
-    protocol: UDP
-  mountd:
-    port: 20048
-    expose: true
-    exposedPort: 20048
 
 ingress:
   enabled: false

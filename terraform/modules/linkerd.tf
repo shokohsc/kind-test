@@ -8,20 +8,20 @@ resource "helm_release" "linkerd" {
   version    = "2.8.1"
 
   values = [
-    "${file("linkerd.yaml")}"
+    file("${path.module}/linkerd.yaml")
   ]
 
   set {
       name  = "global.identityTrustAnchorsPEM"
-      value = file("ca.crt")
+      value = file("${path.module}/ca.crt")
   }
   set {
       name  = "identity.issuer.tls.crtPEM"
-      value = file("issuer.crt")
+      value = file("${path.module}/issuer.crt")
   }
   set {
       name  = "identity.issuer.tls.keyPEM"
-      value = file("issuer.key")
+      value = file("${path.module}/issuer.key")
   }
   set {
       name  = "identity.issuer.crtExpiry"

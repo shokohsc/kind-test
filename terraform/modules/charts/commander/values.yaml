@@ -38,13 +38,13 @@ securityContext: {}
 
 volumes:
   - name: wd1to
-    server: nfs.nfs.svc.cluster.local
+    server: nfs-wd1to.nfs.svc.cluster.local
     mountPath: /root/media/WD1To
-    path: /exports/WD1To
+    path: /
   - name: wd2to
-    server: nfs.nfs.svc.cluster.local
+    server: nfs-wd2to.nfs.svc.cluster.local
     mountPath: /root/media/WD2To
-    path: /exports/WD2To
+    path: /
 
 
 service:

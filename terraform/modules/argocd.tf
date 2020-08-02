@@ -5,7 +5,8 @@ resource "kubernetes_namespace" "argocd" {
       "linkerd.io/inject" = "enabled"
     }
   }
-  depends_on = [helm_release.linkerd]
+
+  depends_on = [helm_release.traefik]
 }
 
 resource "helm_release" "argocd" {
@@ -16,7 +17,8 @@ resource "helm_release" "argocd" {
   version    = "2.5.4"
 
   values = [
-    "${file("argocd.yaml")}"
+    file("${path.module}/argocd.yaml")
   ]
+
   depends_on = [kubernetes_namespace.argocd]
 }

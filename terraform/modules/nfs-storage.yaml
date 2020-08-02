@@ -1,0 +1,4 @@
+volumes:
+  - name: storage
+    mountPath: /exports
+    path: /mnt/WD1To/storage

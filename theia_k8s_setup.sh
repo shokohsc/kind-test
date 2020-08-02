@@ -36,15 +36,6 @@ docker exec -ti theia unzip terraform_0.12.29_linux_amd64.zip
 docker exec -ti -u root theia mv terraform /usr/bin/terraform
 docker exec -ti theia rm terraform_0.12.29_linux_amd64.zip
 
-docker exec -ti theia wget https://github.com/hashicorp/terraform-provider-kubernetes-alpha/releases/download/nightly20200608/terraform-provider-kubernetes-alpha_nightly20200608_linux_amd64.zip
-docker exec -ti theia unzip terraform-provider-kubernetes-alpha_nightly20200608_linux_amd64.zip
-docker exec -ti theia mv terraform-provider-kubernetes-alpha ~/.terraform.d/plugins/terraform-provider-kubernetes-alpha
-docker exec -ti theia rm terraform-provider-kubernetes-alpha_nightly20200608_linux_amd64.zip
-
-docker exec -ti theia wget https://github.com/linkerd/linkerd2/releases/download/edge-20.6.1/linkerd2-cli-edge-20.6.1-linux
-docker exec -ti -u root theia mv linkerd2-cli-edge-20.6.1-linux /usr/bin/linkerd
-docker exec -ti -u root theia chmod +x /usr/bin/linkerd
-
 docker exec -ti theia wget https://github.com/mozilla/sops/releases/download/v3.5.0/sops-v3.5.0.linux
 docker exec -ti -u root theia mv sops-v3.5.0.linux /usr/bin/sops
 docker exec -ti -u root theia chmod +x /usr/bin/sops

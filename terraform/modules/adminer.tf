@@ -5,7 +5,8 @@ resource "kubernetes_namespace" "adminer" {
       "linkerd.io/inject" = "enabled"
     }
   }
-  depends_on = [helm_release.linkerd]
+
+  depends_on = [helm_release.traefik]
 }
 
 resource "helm_release" "adminer" {
@@ -16,7 +17,8 @@ resource "helm_release" "adminer" {
   version    = "0.1.3"
 
   values = [
-    "${file("adminer.yaml")}"
+    file("${path.module}/adminer.yaml")
   ]
+
   depends_on = [kubernetes_namespace.adminer]
 }

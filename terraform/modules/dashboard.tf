@@ -5,7 +5,8 @@ resource "kubernetes_namespace" "dashboard" {
       "linkerd.io/inject" = "enabled"
     }
   }
-  depends_on = [helm_release.linkerd]
+
+  depends_on = [helm_release.traefik]
 }
 
 resource "helm_release" "dashboard" {
@@ -16,7 +17,8 @@ resource "helm_release" "dashboard" {
   version    = "2.3.0"
 
   values = [
-    "${file("dashboard.yaml")}"
+    file("${path.module}/dashboard.yaml")
   ]
+
   depends_on = [kubernetes_namespace.dashboard]
 }
