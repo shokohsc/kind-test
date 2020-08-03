@@ -6,7 +6,7 @@ resource "kubernetes_namespace" "adminer" {
     }
   }
 
-  depends_on = [helm_release.traefik]
+  depends_on = [helm_release.traefik, helm_release.postgresql]
 }
 
 resource "helm_release" "adminer" {

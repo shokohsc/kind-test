@@ -1,4 +1,4 @@
 volumes:
   - name: wd1to
-    mountPath: /exports
+    mountPath: /wd1to
     path: /mnt/WD1To

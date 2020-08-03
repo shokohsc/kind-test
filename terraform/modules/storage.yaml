@@ -16,6 +16,9 @@ nfs:
   mountOptions:
     - vers=4.2
     - hard
+    - proto=tcp
+    - port=2049
+    - exec
 
 # For creating the StorageClass automatically:
 storageClass:

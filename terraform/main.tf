@@ -12,6 +12,6 @@ provider "kubernetes" {
   config_path = "~/.kube/config"
 }
 
-module "kubernetes" {
+module "apps" {
     source = "./modules"
 }
