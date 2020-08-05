@@ -29,7 +29,7 @@ storageClass:
 
   # Set StorageClass as the default StorageClass
   # Ignored if storageClass.create is false
-  defaultClass: true
+  defaultClass: false
 
   # Set a StorageClass name
   # Ignored if storageClass.create is false

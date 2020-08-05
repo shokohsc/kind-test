@@ -1,4 +1,4 @@
 volumes:
   - name: storage
     mountPath: /storage
-    path: /mnt/WD1To/storage
+    path: /storage

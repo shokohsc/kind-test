@@ -314,7 +314,7 @@ persistence:
   ##
   subPath: ""
 
-  # storageClass: "-"
+  storageClass: "nfs-client"
   accessModes:
     - ReadWriteOnce
   size: 8Gi
@@ -345,10 +345,14 @@ master:
   ## Extra init containers
   ## Example
   ##
-  ## extraInitContainers:
-  ##   - name: do-something
-  ##     image: busybox
-  ##     command: ['do', 'something']
+  # extraInitContainers:
+  #   - name: do-something
+  #     image: busybox
+  #     command: ['chown', '1001:1001', '/bitnami/postgresql']
+  #     volumeMounts:
+  #       - name: data
+  #         mountPath: /bitnami/postgresql
+  #         readOnly: false
   extraInitContainers: []
 
   ## Additional PostgreSQL Master Volume mounts
