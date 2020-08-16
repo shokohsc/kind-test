@@ -25,9 +25,9 @@ docker exec -ti theia rm k9s_Linux_x86_64.tar.gz
 docker exec -ti -u root theia mv /home/theia/k9s /usr/bin/k9s 
 docker exec -ti theia bash -c "grep xterm-256color /home/theia/.zshrc || echo 'export TERM=xterm-256color' >> /home/theia/.zshrc"
 
-docker exec -ti theia wget https://get.helm.sh/helm-v3.2.0-linux-amd64.tar.gz
-docker exec -ti theia tar zxf helm-v3.2.0-linux-amd64.tar.gz
-docker exec -ti theia rm helm-v3.2.0-linux-amd64.tar.gz
+docker exec -ti theia wget https://get.helm.sh/helm-v3.3.0-linux-amd64.tar.gz
+docker exec -ti theia tar zxf helm-v3.3.0-linux-amd64.tar.gz
+docker exec -ti theia rm helm-v3.3.0-linux-amd64.tar.gz
 docker exec -ti -u root theia mv linux-amd64/helm /usr/bin/helm
 docker exec -ti theia rm -rf linux-amd64
 
