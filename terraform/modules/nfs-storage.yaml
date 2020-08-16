@@ -1,4 +1,0 @@
-volumes:
-  - name: storage
-    mountPath: /storage
-    path: /storage

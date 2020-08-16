@@ -1,0 +1,11 @@
+apiVersion: v2
+name: nfs-client-provisionner
+description: nfs-client-provisionner
+type: application
+
+version: 0.1.0
+
+dependencies:
+  - name: nfs-client-provisioner
+    version: 1.2.8
+    repository: https://kubernetes-charts.storage.googleapis.com

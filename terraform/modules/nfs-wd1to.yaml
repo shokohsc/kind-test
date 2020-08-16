@@ -1,4 +1,0 @@
-volumes:
-  - name: wd1to
-    mountPath: /wd1to
-    path: /mnt/WD1To

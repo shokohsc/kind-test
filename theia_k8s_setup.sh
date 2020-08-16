@@ -31,10 +31,10 @@ docker exec -ti theia rm helm-v3.2.0-linux-amd64.tar.gz
 docker exec -ti -u root theia mv linux-amd64/helm /usr/bin/helm
 docker exec -ti theia rm -rf linux-amd64
 
-docker exec -ti theia wget https://releases.hashicorp.com/terraform/0.12.29/terraform_0.12.29_linux_amd64.zip
-docker exec -ti theia unzip terraform_0.12.29_linux_amd64.zip
+docker exec -ti theia wget https://releases.hashicorp.com/terraform/0.13.0/terraform_0.13.0_linux_amd64.zip
+docker exec -ti theia unzip terraform_0.13.0_linux_amd64.zip
 docker exec -ti -u root theia mv terraform /usr/bin/terraform
-docker exec -ti theia rm terraform_0.12.29_linux_amd64.zip
+docker exec -ti theia rm terraform_0.13.0_linux_amd64.zip
 
 docker exec -ti theia wget https://github.com/mozilla/sops/releases/download/v3.5.0/sops-v3.5.0.linux
 docker exec -ti -u root theia mv sops-v3.5.0.linux /usr/bin/sops

@@ -11,14 +11,9 @@ resource "kubernetes_namespace" "adminer" {
 
 resource "helm_release" "adminer" {
   name       = "adminer"
-  repository = "https://cetic.github.io/helm-charts" 
-  chart      = "adminer"
+  chart      = "${path.module}/charts/adminer"
   namespace  = "adminer"
-  version    = "0.1.3"
-
-  values = [
-    file("${path.module}/adminer.yaml")
-  ]
+  version    = "0.1.0"
 
   depends_on = [kubernetes_namespace.adminer]
 }

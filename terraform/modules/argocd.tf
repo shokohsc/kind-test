@@ -11,14 +11,9 @@ resource "kubernetes_namespace" "argocd" {
 
 resource "helm_release" "argocd" {
   name       = "argocd"
-  repository = "https://argoproj.github.io/argo-helm" 
-  chart      = "argo-cd"
+  chart      = "${path.module}/charts/argocd"
   namespace  = "argocd"
-  version    = "2.5.4"
-
-  values = [
-    file("${path.module}/argocd.yaml")
-  ]
+  version    = "0.1.0"
 
   depends_on = [kubernetes_namespace.argocd]
 }

@@ -1,0 +1,11 @@
+apiVersion: v2
+name: traefik
+description: traefik
+type: application
+
+version: 0.1.0
+
+dependencies:
+  - name: traefik
+    version: 8.9.1
+    repository: https://containous.github.io/traefik-helm-chart

@@ -11,14 +11,9 @@ resource "kubernetes_namespace" "dashboard" {
 
 resource "helm_release" "dashboard" {
   name       = "dashboard"
-  repository = "https://kubernetes.github.io/dashboard" 
-  chart      = "kubernetes-dashboard"
+  chart      = "${path.module}/charts/dashboard"
   namespace  = "dashboard"
-  version    = "2.3.0"
-
-  values = [
-    file("${path.module}/dashboard.yaml")
-  ]
+  version    = "0.1.0"
 
   depends_on = [kubernetes_namespace.dashboard]
 }

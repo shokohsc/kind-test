@@ -1,0 +1,6 @@
+dependencies:
+- name: nfs-client-provisioner
+  repository: https://kubernetes-charts.storage.googleapis.com
+  version: 1.2.8
+digest: sha256:fc778d10a0e54db00ca3a47a78111a61e463d5a53f16c88fe0eb7b066cdaa809
+generated: "2020-08-16T11:26:37.531718715Z"

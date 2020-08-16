@@ -11,14 +11,9 @@ resource "kubernetes_namespace" "postgresql" {
 
 resource "helm_release" "postgresql" {
   name       = "postgresql"
-  repository = "https://charts.bitnami.com/bitnami"
-  chart      = "postgresql"
+  chart      = "${path.module}/charts/postgresql"
   namespace  = "postgresql"
-  version    = "9.1.2"
-
-  values = [
-    file("${path.module}/postgresql.yaml")
-  ]
+  version    = "0.1.0"
 
   depends_on = [kubernetes_namespace.postgresql]
 }

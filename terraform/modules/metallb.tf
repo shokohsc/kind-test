@@ -11,14 +11,9 @@ resource "kubernetes_namespace" "metallb" {
 
 resource "helm_release" "metallb" {
   name       = "metallb"
-  repository = "https://charts.bitnami.com/bitnami" 
-  chart      = "metallb"
+  chart      = "${path.module}/charts/metallb"
   namespace  = "metallb"
-  version    = "0.1.17"
-
-  values = [
-    file("${path.module}/metallb.yaml")
-  ]
+  version    = "0.1.0"
 
   depends_on = [kubernetes_namespace.metallb]
 }

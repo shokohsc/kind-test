@@ -1,0 +1,22 @@
+nfs:
+  volumes:
+    - name: storage
+      mountPath: /storage
+      path: /storage
+
+  replicaCount: 2
+
+  nodeSelector:
+    type: nuc
+
+  affinity:
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        - podAffinityTerm:
+          labelSelector:
+            matchExpressions:
+            - key: app.kubernetes.io/name
+              operator: NotIn
+              values:
+              - nfs
+          topologyKey: "kubernetes.io/hostname"

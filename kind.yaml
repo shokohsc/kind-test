@@ -22,7 +22,7 @@ nodes:
   extraMounts:
   - hostPath: /mnt
     containerPath: /mnt
-  - hostPath: /home/sombra/storage
+  - hostPath: /home/sombra/storage/sombra
     containerPath: /storage
   image: kindest/node:v1.18.6@sha256:b9f76dd2d7479edcfad9b4f636077c606e1033a2faf54a8e1dee6509794ce87d
 
@@ -33,6 +33,9 @@ nodes:
     nodeRegistration:
       kubeletExtraArgs:
         node-labels: "overwatch=lucio,type=nuc"
+  extraMounts:
+  - hostPath: /home/sombra/storage/lucio
+    containerPath: /storage
   image: kindest/node:v1.18.6@sha256:b9f76dd2d7479edcfad9b4f636077c606e1033a2faf54a8e1dee6509794ce87d
 
 - role: worker

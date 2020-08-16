@@ -3,28 +3,23 @@
 
 resource "helm_release" "linkerd" {
   name       = "linkerd"
-  repository = "https://helm.linkerd.io/stable" 
-  chart      = "linkerd2"
-  version    = "2.8.1"
-
-  values = [
-    file("${path.module}/linkerd.yaml")
-  ]
+  chart      = "${path.module}/charts/linkerd"
+  version    = "0.1.0"
 
   set {
-      name  = "global.identityTrustAnchorsPEM"
-      value = file("${path.module}/ca.crt")
+      name  = "linkerd2.global.identityTrustAnchorsPEM"
+      value = file("${path.module}/charts/linkerd/files/ca.crt")
   }
   set {
-      name  = "identity.issuer.tls.crtPEM"
-      value = file("${path.module}/issuer.crt")
+      name  = "linkerd2.identity.issuer.tls.crtPEM"
+      value = file("${path.module}/charts/linkerd/files/issuer.crt")
   }
   set {
-      name  = "identity.issuer.tls.keyPEM"
-      value = file("${path.module}/issuer.key")
+      name  = "linkerd2.identity.issuer.tls.keyPEM"
+      value = file("${path.module}/charts/linkerd/files/issuer.key")
   }
   set {
-      name  = "identity.issuer.crtExpiry"
-      value = "2021-07-21T14:13:57Z"
+      name  = "linkerd2.identity.issuer.crtExpiry"
+      value = "2021-08-15T20:32:32Z"
   }
 }

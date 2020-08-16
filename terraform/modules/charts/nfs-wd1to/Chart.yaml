@@ -1,11 +1,11 @@
 apiVersion: v2
-name: commander
-description: commander
+name: nfs-wd1to
+description: nfs-wd1to
 type: application
 
 version: 0.1.0
 
 dependencies:
-  - name: commander
+  - name: nfs
     version: 0.1.0
     repository: file://../dependency_charts
