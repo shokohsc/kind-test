@@ -6,7 +6,7 @@ resource "kubernetes_namespace" "mongodb" {
     }
   }
 
-  depends_on = [helm_release.storage]
+  depends_on = [helm_release.nfs-client-provisionner]
 }
 
 resource "helm_release" "mongodb" {

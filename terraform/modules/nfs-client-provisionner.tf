@@ -6,7 +6,7 @@ resource "kubernetes_namespace" "nfs-client-provisionner" {
     }
   }
 
-  depends_on = [helm_release.nfs-nfs-client-provisionner]
+  depends_on = [helm_release.nfs-storage]
 }
 
 resource "helm_release" "nfs-client-provisionner" {

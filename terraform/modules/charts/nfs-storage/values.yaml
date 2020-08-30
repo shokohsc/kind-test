@@ -4,7 +4,7 @@ nfs:
       mountPath: /storage
       path: /storage
 
-  replicaCount: 2
+  replicaCount: 1
 
   nodeSelector:
     type: nuc
