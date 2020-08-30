@@ -7,5 +7,5 @@ version: 0.1.0
 
 dependencies:
   - name: commander
-    version: 0.1.0
-    repository: file://../dependency_charts
+    version: 0.0.1
+    repository: https://shokohsc.github.io/charts

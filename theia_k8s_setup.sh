@@ -13,6 +13,7 @@ docker exec -ti theia bash -c "kind get kubeconfig > /home/theia/.kube/config"
 docker exec -ti theia bash -c "sed -i 's/127.0.0.1/kubernetes/g' /home/theia/.kube/config"
 
 docker exec -ti theia kubectl cluster-info --context kind-kind
+docker exec -ti theia kubectl taint nodes --all node-role.kubernetes.io/master-
 
 docker exec -ti -u root kind-control-plane sh -c "echo 'nameserver 10.96.0.10' >> /etc/resolv.conf"
 docker exec -ti -u root kind-control-plane2 sh -c "echo 'nameserver 10.96.0.10' >> /etc/resolv.conf"

@@ -40,10 +40,10 @@ nfs-client-provisioner:
     allowVolumeExpansion: true
 
     # Method used to reclaim an obsoleted volume
-    reclaimPolicy: Delete
+    reclaimPolicy: Retain
 
     # When set to false your PVs will not be archived by the provisioner upon deletion of the PVC.
-    archiveOnDelete: false
+    archiveOnDelete: true
 
   ## For RBAC support:
   rbac:
