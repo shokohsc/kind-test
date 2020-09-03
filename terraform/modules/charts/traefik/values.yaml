@@ -2,7 +2,7 @@ traefik:
   # Default values for Traefik
   image:
     name: traefik
-    tag: 2.2.5
+    # tag: 2.2.5
 
   #
   # Configure the deployment

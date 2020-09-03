@@ -7,7 +7,7 @@ nfs:
   replicaCount: 1
 
   nodeSelector:
-    type: nuc
+    overwatch: sombra
 
   affinity:
     podAntiAffinity:

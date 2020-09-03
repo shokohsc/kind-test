@@ -1,0 +1,45 @@
+nfs-server-provisioner:
+  # For a list of available arguments
+  # Please see https://github.com/kubernetes-incubator/external-storage/blob/master/nfs/docs/deployment.md#arguments
+  extraArgs: {}
+    # device-based-fsids: false
+  persistence:
+    enabled: true
+
+    ## Persistent Volume Storage Class
+    ## If defined, storageClassName: <storageClass>
+    ## If set to "-", storageClassName: "", which disables dynamic provisioning
+    ## If undefined (the default) or set to null, no storageClassName spec is
+    ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
+    ##   GKE, AWS & OpenStack)
+    ##
+    # storageClass: "-"
+
+    accessMode: ReadWriteOnce
+    size: 1Gi
+
+  ## For creating the StorageClass automatically:
+  storageClass:
+    create: true
+
+    ## Set a provisioner name. If unset, a name will be generated.
+    # provisionerName:
+
+    ## Set StorageClass as the default StorageClass
+    ## Ignored if storageClass.create is false
+    defaultClass: false
+
+    ## Set a StorageClass name
+    ## Ignored if storageClass.create is false
+    name: nfs-server
+
+    # set to null to prevent expansion
+    allowVolumeExpansion: true
+    ## StorageClass parameters
+    parameters: {}
+
+    mountOptions:
+      - vers=3
+
+    ## ReclaimPolicy field of the class, which can be either Delete or Retain
+    reclaimPolicy: Retain

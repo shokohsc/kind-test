@@ -88,13 +88,4 @@ commander:
 
   tolerations: []
 
-  affinity:
-    nodeAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        nodeSelectorTerms:
-        - matchExpressions:
-          - key: overwatch
-            operator: NotIn
-            values:
-            - sombra
-
+  affinity: {}

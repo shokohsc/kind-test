@@ -8,11 +8,12 @@ nfs-client-provisioner:
 
   image:
     repository: quay.io/external_storage/nfs-client-provisioner
-    tag: v3.1.0-k8s1.11
+    # tag: v3.1.0-k8s1.11
     pullPolicy: IfNotPresent
 
   nfs:
-    server: nfs-storage.nfs.svc.cluster.local
+    # server: nfs-storage.nfs.svc.cluster.local
+    server: 192.168.1.63
     path: /
     mountOptions:
       - vers=4.2
@@ -20,6 +21,8 @@ nfs-client-provisioner:
       - proto=tcp
       - port=2049
       - exec
+      - timeo=20
+      - retrans=1
 
   # For creating the StorageClass automatically:
   storageClass:
@@ -74,9 +77,6 @@ nfs-client-provisioner:
     #  cpu: 100m
     #  memory: 128Mi
 
-  nodeSelector:
-    type: nuc
-
   tolerations: []
 
   affinity:
@@ -88,5 +88,5 @@ nfs-client-provisioner:
             - key: app.kubernetes.io/name
               operator: NotIn
               values:
-              - storage
+              - nfs-client-provisionner
           topologyKey: "kubernetes.io/hostname"

@@ -11,7 +11,6 @@ argo-cd:
   global:
     image:
       repository: argoproj/argocd
-      tag: v1.6.1
       imagePullPolicy: IfNotPresent
     securityContext: {}
     #  runAsUser: 999
