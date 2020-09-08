@@ -6,7 +6,7 @@ resource "kubernetes_namespace" "commander" {
     }
   }
 
-  depends_on = [helm_release.nfs-wd1to, helm_release.nfs-wd2to]
+  depends_on = [helm_release.nfs-wd1to]
 }
 
 resource "helm_release" "commander" {

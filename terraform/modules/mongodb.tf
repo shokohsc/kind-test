@@ -6,7 +6,7 @@ resource "kubernetes_namespace" "mongodb" {
     }
   }
 
-  depends_on = [helm_release.nfs-server-provisioner]
+  depends_on = [helm_release.longhorn]
 }
 
 resource "helm_release" "mongodb" {
