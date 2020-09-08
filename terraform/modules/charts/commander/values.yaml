@@ -2,6 +2,10 @@
 commander:
   volumes:
     - name: wd1to
-      server: nfs-wd1to.nfs.svc.cluster.local
+      server: wd1to.shokohsc.home
       mountPath: /root/media/WD1To
+      path: /
+    - name: wd2to
+      server: wd2to.shokohsc.home
+      mountPath: /root/media/WD2To
       path: /
