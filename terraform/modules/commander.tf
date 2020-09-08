@@ -6,7 +6,7 @@ resource "kubernetes_namespace" "commander" {
     }
   }
 
-  depends_on = [helm_release.nfs-wd1to]
+  depends_on = [helm_release.traefik]
 }
 
 resource "helm_release" "commander" {
