@@ -2,10 +2,13 @@
 commander:
   volumes:
     - name: wd1to
-      server: wd1to.shokohsc.home
+      server: nfs-wd1to.nfs.svc.cluster.local
       mountPath: /root/media/WD1To
       path: /
     - name: wd2to
-      server: wd2to.shokohsc.home
+      server: nfs-wd2to.nfs.svc.cluster.local
       mountPath: /root/media/WD2To
       path: /
+
+  # securityContext:
+  #   privileged: true

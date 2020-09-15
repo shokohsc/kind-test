@@ -1,0 +1,20 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: traefik
+  creationTimestamp: null
+  name: commander
+  namespace: commander
+spec:
+  entryPoints:
+    - web
+  routes:
+  - kind: Rule
+    match: Host(`commander.kind.shokohsc.home`)
+    priority: 0
+    services:
+    - kind: Service
+      name: commander
+      port: 8000
