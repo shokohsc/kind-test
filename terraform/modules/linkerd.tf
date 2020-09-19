@@ -20,6 +20,6 @@ resource "helm_release" "linkerd" {
   }
   set {
       name  = "linkerd2.identity.issuer.crtExpiry"
-      value = "2021-08-15T20:32:32Z"
+      value = "2021-09-19T03:26:21Z"
   }
 }

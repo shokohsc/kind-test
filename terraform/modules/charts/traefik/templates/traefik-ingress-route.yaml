@@ -13,3 +13,23 @@ spec:
       services:
         - name: api@internal
           kind: TraefikService
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: traefik
+  creationTimestamp: null
+  name: linkerd
+  namespace: linkerd
+spec:
+  entryPoints:
+    - web
+  routes:
+  - kind: Rule
+    match: Host(`linkerd.kind.shokohsc.home`)
+    priority: 0
+    services:
+    - kind: Service
+      name: linkerd-web
+      port: 8084

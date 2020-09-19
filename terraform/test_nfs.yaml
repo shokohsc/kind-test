@@ -1,18 +1,22 @@
 ---
-apiVersion: v1
-kind: ReplicationController
+apiVersion: apps/v1
+kind: StatefulSet
 metadata:
   name: nfs-wd1to
   namespace: nfs
 spec:
   replicas: 1
+  serviceName: nfs-wd1to
   selector:
-    role: nfs-wd1to
+    matchLabels:
+      app: nfs-wd1to
   template:
     metadata:
       labels:
-        role: nfs-wd1to
+        app: nfs-wd1to
     spec:
+      # hostname: nfs
+      # subdomain: nfs-wd1to
       affinity:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
@@ -25,18 +29,14 @@ spec:
       containers:
       - name: nfs
         imagePullPolicy: Always
-        image: k8s.gcr.io/volume-nfs:0.8
+        image: shokohsc/volume-nfs:v0.0.2
         ports:
           - name: nfs
             containerPort: 2049
-          - name: mountd
-            containerPort: 20048
-          - name: rpcbind
-            containerPort: 111
         securityContext:
           privileged: true
         volumeMounts:
-          - mountPath: /exports
+          - mountPath: /srv
             name: wd1to
       volumes:
         - name: wd1to
@@ -52,31 +52,29 @@ spec:
   ports:
     - name: nfs
       port: 2049
-    - name: rpcbind
-      port: 111
-    - name: rpcbind-udp
-      port: 111
-      protocol: UDP
-    - name: mountd
-      port: 20048
+  # clusterIP: None
   selector:
-    role: nfs-wd1to
+    app: nfs-wd1to
 
 ---
-apiVersion: v1
-kind: ReplicationController
+apiVersion: apps/v1
+kind: StatefulSet
 metadata:
   name: nfs-wd2to
   namespace: nfs
 spec:
   replicas: 1
+  serviceName: nfs-wd2to
   selector:
-    role: nfs-wd2to
+    matchLabels:
+      app: nfs-wd2to
   template:
     metadata:
       labels:
-        role: nfs-wd2to
+        app: nfs-wd2to
     spec:
+      # hostname: nfs
+      # subdomain: nfs-wd2to
       affinity:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
@@ -89,18 +87,14 @@ spec:
       containers:
       - name: nfs
         imagePullPolicy: Always
-        image: k8s.gcr.io/volume-nfs:0.8
+        image: shokohsc/volume-nfs:v0.0.2
         ports:
           - name: nfs
             containerPort: 2049
-          - name: mountd
-            containerPort: 20048
-          - name: rpcbind
-            containerPort: 111
         securityContext:
           privileged: true
         volumeMounts:
-          - mountPath: /exports
+          - mountPath: /srv
             name: wd2to
       volumes:
         - name: wd2to
@@ -116,12 +110,88 @@ spec:
   ports:
     - name: nfs
       port: 2049
-    - name: rpcbind
-      port: 111
-    - name: rpcbind-udp
-      port: 111
-      protocol: UDP
-    - name: mountd
-      port: 20048
+  # clusterIP: None
   selector:
-    role: nfs-wd2to
+    app: nfs-wd2to
+
+
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: commander
+  namespace: commander
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: commander
+  template:
+    metadata:
+      labels:
+        app: commander
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: overwatch
+                operator: NotIn
+                values:
+                - sombra
+      containers:
+      - name: commander
+        imagePullPolicy: Always
+        image: coderaiser/cloudcmd
+        ports:
+          - name: http
+            containerPort: 8000
+        volumeMounts:
+          - mountPath: /root/media/WD1To
+            name: wd1to
+          - mountPath: /root/media/WD2To
+            name: wd2to
+      volumes:
+        - name: wd1to
+          nfs:
+            server: nfs-wd1to-0.nfs-wd1to.nfs.svc.cluster.local
+            path: /
+        - name: wd2to
+          nfs:
+            server: nfs-wd2to-0.nfs-wd2to.nfs.svc.cluster.local
+            path: /
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: commander
+  namespace: commander
+spec:
+  ports:
+    - name: http
+      port: 8000
+  selector:
+    app: commander
+
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: traefik
+  creationTimestamp: null
+  name: commander
+  namespace: commander
+spec:
+  entryPoints:
+    - web
+  routes:
+  - kind: Rule
+    match: Host(`commander.kind.shokohsc.home`)
+    priority: 0
+    services:
+    - kind: Service
+      name: commander
+      port: 8000

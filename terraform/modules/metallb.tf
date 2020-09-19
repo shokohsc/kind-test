@@ -6,6 +6,7 @@ resource "kubernetes_namespace" "metallb" {
     }
   }
 
+  depends_on = [helm_release.linkerd]
 }
 
 resource "helm_release" "metallb" {

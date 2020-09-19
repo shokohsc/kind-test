@@ -9,6 +9,3 @@ commander:
       server: nfs-wd2to.nfs.svc.cluster.local
       mountPath: /root/media/WD2To
       path: /
-
-  # securityContext:
-  #   privileged: true
