@@ -1,6 +1,6 @@
 dependencies:
 - name: nfs
   repository: https://shokohsc.github.io/charts
-  version: 0.1.0
-digest: sha256:3c8a08a1603113ccb1f2200c3e2e14bcc000c85a2cafc81c78f4dc0d374f3b4b
-generated: "2020-09-11T19:14:50.876548075Z"
+  version: 0.2.0
+digest: sha256:ca7d727afaa27b3c93275868e1cd187b6196379d069a4799a99e3978e0698e0a
+generated: "2020-09-20T16:30:54.325532961Z"
