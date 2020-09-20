@@ -15,8 +15,6 @@ spec:
       labels:
         app: nfs-wd1to
     spec:
-      # hostname: nfs
-      # subdomain: nfs-wd1to
       affinity:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
@@ -52,7 +50,6 @@ spec:
   ports:
     - name: nfs
       port: 2049
-  # clusterIP: None
   selector:
     app: nfs-wd1to
 
@@ -73,8 +70,6 @@ spec:
       labels:
         app: nfs-wd2to
     spec:
-      # hostname: nfs
-      # subdomain: nfs-wd2to
       affinity:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
@@ -110,11 +105,8 @@ spec:
   ports:
     - name: nfs
       port: 2049
-  # clusterIP: None
   selector:
     app: nfs-wd2to
-
-
 
 ---
 apiVersion: apps/v1

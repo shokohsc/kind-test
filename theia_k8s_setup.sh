@@ -16,11 +16,10 @@ docker exec -ti theia bash -c "sed -i 's/127.0.0.1/kubernetes/g' /home/theia/.ku
 docker exec -ti theia kubectl cluster-info --context kind-kind
 docker exec -ti theia kubectl taint nodes --all node-role.kubernetes.io/master-
 
-docker exec -ti -u root kind-control-plane apt update
-docker exec -ti -u root kind-control-plane2 apt update
-
-docker exec -ti -u root kind-control-plane apt install -y jq open-iscsi
-docker exec -ti -u root kind-control-plane2 apt install -y jq open-iscsi
-
 docker exec -ti -u root kind-control-plane sh -c "echo 'nameserver 10.96.0.10' >> /etc/resolv.conf"
 docker exec -ti -u root kind-control-plane2 sh -c "echo 'nameserver 10.96.0.10' >> /etc/resolv.conf"
+
+docker exec -ti -u root kind-control-plane apt update
+docker exec -ti -u root kind-control-plane2 apt update
+docker exec -ti -u root kind-control-plane apt install -y jq open-iscsi
+docker exec -ti -u root kind-control-plane2 apt install -y jq open-iscsi
