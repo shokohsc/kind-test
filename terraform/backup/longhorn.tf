@@ -6,7 +6,7 @@ resource "kubernetes_namespace" "longhorn-system" {
     }
   }
 
-  depends_on = [helm_release.traefik]
+  depends_on = [helm_release.nfs-wd1to]
 }
 
 resource "helm_release" "longhorn" {

@@ -1,0 +1,4 @@
+# https://github.com/helm/charts/tree/master/stable/nfs-server-provisioner
+nfs-server-provisioner:
+  nodeSelector:
+    overwatch: sombra

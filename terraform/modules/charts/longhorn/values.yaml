@@ -1,2 +1,7 @@
 # https://github.com/longhorn/charts/tree/master/charts/longhorn
-longhorn: {}
+# longhorn:
+#   persistence:
+#     defaultClassReplicaCount: 2
+#   defaultSettings:
+#     # backupTarget: nfs://nfs-wd1to-0.nfs-wd1to.nfs.svc.cluster.local:/storage
+#     defaultReplicaCount: 2

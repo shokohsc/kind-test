@@ -6,7 +6,7 @@ resource "kubernetes_namespace" "postgresql" {
     }
   }
 
-  depends_on = [helm_release.longhorn]
+  depends_on = [helm_release.nfs-server-provisioner]
 }
 
 resource "helm_release" "postgresql" {

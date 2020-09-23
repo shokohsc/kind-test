@@ -3,4 +3,4 @@ dependencies:
   repository: https://charts.longhorn.io
   version: 1.0.2
 digest: sha256:164ccfa54098c2e6b54c486bb6555ce300074cfd33a85dd0bdc27accadc6d7c3
-generated: "2020-09-08T19:44:48.824005753Z"
+generated: "2020-09-22T13:03:32.202410876Z"
