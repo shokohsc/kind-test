@@ -1,0 +1,11 @@
+apiVersion: v2
+name: mongo-express
+description: Mongo-Express
+type: application
+
+version: 0.1.0
+
+dependencies:
+  - name: mongo-express
+    version: 1.3.0
+    repository: https://cowboysysop.github.io/charts

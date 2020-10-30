@@ -4,16 +4,16 @@ kind: IngressRoute
 metadata:
   annotations:
     kubernetes.io/ingress.class: traefik
-  name: argocd
-  namespace: argocd
+  name: mongo-express
+  namespace: mongo-express
 spec:
   entryPoints:
     - web
   routes:
   - kind: Rule
-    match: Host(`argocd.kind.shokohsc.home`)
+    match: Host(`mongo.kind.shokohsc.home`)
     priority: 0
     services:
     - kind: Service
-      name: argocd-server
-      port: 80
+      name: mongo-express
+      port: 8081

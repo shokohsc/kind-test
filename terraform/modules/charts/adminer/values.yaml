@@ -1,2 +1,7 @@
 # https://github.com/cetic/helm-adminer
-adminer: {}
+adminer:
+  service:
+    type: ClusterIP
+  config:
+    design: pepa-linha
+    plugins: "dump-alter edit-calendar edit-foreign edit-textarea enum-option enum-types file-upload tables-filter tinymce"

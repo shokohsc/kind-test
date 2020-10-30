@@ -1,0 +1,3 @@
+# https://github.com/cowboysysop/charts/tree/master/charts/mongo-express
+mongo-express:
+  mongodbServer: mongodb.mongodb

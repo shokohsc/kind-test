@@ -6,7 +6,7 @@ resource "kubernetes_namespace" "nfs" {
     }
   }
 
-  depends_on = [helm_release.traefik]
+  depends_on = [helm_release.linkerd]
 }
 
 resource "helm_release" "nfs-wd1to" {

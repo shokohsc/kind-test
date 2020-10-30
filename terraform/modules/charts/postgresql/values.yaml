@@ -2,5 +2,3 @@
 postgresql:
   global:
     storageClass: nfs
-  replication:
-    enabled: true

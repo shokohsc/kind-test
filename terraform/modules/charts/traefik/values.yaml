@@ -6,10 +6,8 @@ traefik:
   # All available options available on https://docs.traefik.io/reference/static-configuration/cli/
   ## Use curly braces to pass values: `helm install --set="additionalArguments={--providers.kubernetesingress.ingressclass=traefik-internal,--log.level=DEBUG}"`
   additionalArguments: 
-  - "--accesslog"
   - "--api"
   - "--log"
-  - "--log.level=DEBUG"
 
   service:
     # Additional annotations (e.g. for cloud provider specific config)
