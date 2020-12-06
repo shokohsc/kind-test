@@ -1,0 +1,11 @@
+apiVersion: v2
+name: openvpn-server
+description: openvpn-server
+type: application
+
+version: 0.1.0
+
+dependencies:
+  - name: openvpn-server
+    version: 0.1.5
+    repository: https://shokohsc.github.io/charts

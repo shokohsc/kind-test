@@ -8,6 +8,8 @@ traefik:
   additionalArguments: 
   - "--api"
   - "--log"
+  - "--entrypoints.openvpn-tcp.address=:32765"
+  - "--entrypoints.openvpn-udp.address=:32765/udp"
 
   service:
     # Additional annotations (e.g. for cloud provider specific config)

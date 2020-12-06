@@ -1,0 +1,6 @@
+# https://github.com/shokohsc/charts/tree/main/charts/openvpn-server
+openvpn-server:
+  externalHostname: openvpn.kind.shokohsc.home
+  service:
+    port: 32765
+    fallback: true

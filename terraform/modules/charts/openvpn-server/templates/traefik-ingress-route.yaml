@@ -1,0 +1,40 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRouteTCP
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: traefik
+  name: openvpn-server-tcp
+  namespace: openvpn-server
+spec:
+  entryPoints:
+    - openvpn-tcp
+  routes:
+  - kind: Rule
+    match: HostSNI(`*`)
+    priority: 0
+    services:
+    - kind: Service
+      name: openvpn-server-tcp
+      port: 32765
+  tls: {}
+
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRouteUDP
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: traefik
+  name: openvpn-server-udp
+  namespace: openvpn-server
+spec:
+  entryPoints:
+    - openvpn-udp
+  routes:
+  - kind: Rule
+    match: HostSNI(`*`)
+    priority: 0
+    services:
+    - kind: Service
+      name: openvpn-server-udp
+      port: 32765
