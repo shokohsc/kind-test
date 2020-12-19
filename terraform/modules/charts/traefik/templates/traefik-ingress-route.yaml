@@ -32,3 +32,13 @@ spec:
 #     - kind: Service
 #       name: linkerd-web
 #       port: 8084
+
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: redirectscheme
+spec:
+  redirectScheme:
+    scheme: https
+    permanent: true

@@ -1,0 +1,119 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: traefik
+  name: pihole
+  namespace: pihole
+spec:
+  entryPoints:
+    - web
+  routes:
+  - kind: Rule
+    match: Host(`pihole.kind.shokohsc.home`)
+    priority: 0
+    services:
+    - kind: Service
+      name: pihole
+      port: 80
+
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: traefik
+  name: pihole-metrics
+  namespace: pihole
+spec:
+  entryPoints:
+    - web
+  routes:
+  - kind: Rule
+    match: Host(`pihole-metrics.kind.shokohsc.home`)
+    priority: 0
+    services:
+    - kind: Service
+      name: pihole
+      port: 49312
+
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRouteTCP
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: traefik
+  name: pihole-dns-tcp
+  namespace: pihole
+spec:
+  entryPoints:
+    - pihole-dns-tcp
+  routes:
+  - kind: Rule
+    match: HostSNI(`*`)
+    priority: 0
+    services:
+    - kind: Service
+      name: pihole
+      port: 53
+  tls: {}
+
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRouteUDP
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: traefik
+  name: pihole-dns-udp
+  namespace: pihole
+spec:
+  entryPoints:
+    - pihole-dns-udp
+  routes:
+  - kind: Rule
+    priority: 0
+    services:
+    - kind: Service
+      name: pihole
+      port: 53
+
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRouteTCP
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: traefik
+  name: pihole-dhcp-tcp
+  namespace: pihole
+spec:
+  entryPoints:
+    - pihole-dhcp-tcp
+  routes:
+  - kind: Rule
+    match: HostSNI(`*`)
+    priority: 0
+    services:
+    - kind: Service
+      name: pihole
+      port: 67
+  tls: {}
+
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRouteUDP
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: traefik
+  name: pihole-dhcp-udp
+  namespace: pihole
+spec:
+  entryPoints:
+    - pihole-dhcp-udp
+  routes:
+  - kind: Rule
+    priority: 0
+    services:
+    - kind: Service
+      name: pihole
+      port: 67

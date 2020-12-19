@@ -6,7 +6,7 @@ resource "kubernetes_namespace" "openvpn-server" {
     }
   }
 
-  depends_on = [helm_release.traefik]
+  depends_on = [helm_release.pihole]
 }
 
 resource "helm_release" "openvpn-server" {

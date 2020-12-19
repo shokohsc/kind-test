@@ -1,0 +1,11 @@
+apiVersion: v2
+name: pihole
+description: pihole
+type: application
+
+version: 0.1.0
+
+dependencies:
+  - name: pihole
+    version: 0.1.0
+    repository: https://shokohsc.github.io/charts

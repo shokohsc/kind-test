@@ -16,7 +16,7 @@ spec:
     services:
     - kind: Service
       name: openvpn-server-tcp
-      port: 32765
+      port: 1194
   tls: {}
 
 ---
@@ -32,9 +32,8 @@ spec:
     - openvpn-udp
   routes:
   - kind: Rule
-    match: HostSNI(`*`)
     priority: 0
     services:
     - kind: Service
       name: openvpn-server-udp
-      port: 32765
+      port: 1194

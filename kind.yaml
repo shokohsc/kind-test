@@ -24,7 +24,7 @@ nodes:
     containerPath: /mnt
   - hostPath: /home/sombra/storage/sombra
     containerPath: /storage
-  image: kindest/node:v1.18.8@sha256:f4bcc97a0ad6e7abaf3f643d890add7efe6ee4ab90baeb374b4f41a4c95567eb
+  # image: kindest/node:v1.18.8@sha256:f4bcc97a0ad6e7abaf3f643d890add7efe6ee4ab90baeb374b4f41a4c95567eb
 
 - role: control-plane
   kubeadmConfigPatches:
@@ -36,7 +36,18 @@ nodes:
   extraMounts:
   - hostPath: /home/sombra/storage/lucio
     containerPath: /storage
-  image: kindest/node:v1.18.8@sha256:f4bcc97a0ad6e7abaf3f643d890add7efe6ee4ab90baeb374b4f41a4c95567eb
+  # image: kindest/node:v1.18.8@sha256:f4bcc97a0ad6e7abaf3f643d890add7efe6ee4ab90baeb374b4f41a4c95567eb
+# - role: control-plane
+#   kubeadmConfigPatches:
+#   - |
+#     kind: JoinConfiguration
+#     nodeRegistration:
+#       kubeletExtraArgs:
+#         node-labels: "overwatch=zarya"
+#   extraMounts:
+#   - hostPath: /home/sombra/storage/zarya
+#     containerPath: /storage
+#   # image: kindest/node:v1.18.8@sha256:f4bcc97a0ad6e7abaf3f643d890add7efe6ee4ab90baeb374b4f41a4c95567eb
 kubeadmConfigPatches:
 - |
   kind: ClusterConfiguration

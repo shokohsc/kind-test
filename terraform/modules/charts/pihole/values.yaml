@@ -1,0 +1,13 @@
+# https://github.com/shokohsc/charts/tree/main/charts/pihole
+pihole:
+  virtualHost: pihole.kind.shokohsc.home
+  timezone: Europe/Paris
+  dhcp:
+    enabled: true
+  doh:
+    enabled: true
+  dnsmasq:
+    upstreamServers:
+      - server=/cluster.local/10.96.0.10
+  extraEnvVars:
+    DNSMASQ_LISTENING: all
