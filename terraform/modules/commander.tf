@@ -1,8 +1,8 @@
 resource "kubernetes_namespace" "commander" {
   metadata {
     name = "commander"
-    annotations = {
-      "linkerd.io/inject" = "enabled"
+    labels = {
+      namespace = "commander"
     }
   }
 
@@ -14,6 +14,16 @@ resource "helm_release" "commander" {
   chart      = "${path.module}/charts/commander"
   namespace  = "commander"
   version    = "0.1.0"
+
+  recreate_pods = true
+  cleanup_on_fail = true
+  max_history = 3
+  dependency_update = true
+  lint = true
+
+  values = [
+    "${file("charts/commander/values.yaml")}"
+  ]
 
   depends_on = [kubernetes_namespace.commander]
 }

@@ -1,0 +1,9 @@
+# https://github.com/shokohsc/charts/tree/main/charts/nfs
+nfs:
+  volumes:
+    - name: shared
+      mountPath: /shared
+      path: /mnt/shared
+
+  nodeSelector:
+    overwatch: sombra

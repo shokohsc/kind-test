@@ -1,8 +1,8 @@
 resource "kubernetes_namespace" "mongo-express" {
   metadata {
     name = "mongo-express"
-    annotations = {
-      "linkerd.io/inject" = "enabled"
+    labels = {
+      namespace = "mongo-express"
     }
   }
 
@@ -14,6 +14,16 @@ resource "helm_release" "mongo-express" {
   chart      = "${path.module}/charts/mongo-express"
   namespace  = "mongo-express"
   version    = "0.1.0"
+
+  recreate_pods = true
+  cleanup_on_fail = true
+  max_history = 3
+  dependency_update = true
+  lint = true
+
+  values = [
+    "${file("charts/mongo-express/values.yaml")}"
+  ]
 
   depends_on = [kubernetes_namespace.mongo-express]
 }

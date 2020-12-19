@@ -1,8 +1,8 @@
 resource "kubernetes_namespace" "pihole" {
   metadata {
     name = "pihole"
-    annotations = {
-      "linkerd.io/inject" = "disabled"
+    labels = {
+      namespace = "pihole"
     }
   }
 
@@ -14,6 +14,16 @@ resource "helm_release" "pihole" {
   chart      = "${path.module}/charts/pihole"
   namespace  = "pihole"
   version    = "0.1.0"
+
+  recreate_pods = true
+  cleanup_on_fail = true
+  max_history = 3
+  dependency_update = true
+  lint = true
+
+  values = [
+    "${file("charts/pihole/values.yaml")}"
+  ]
 
   depends_on = [kubernetes_namespace.pihole]
 }

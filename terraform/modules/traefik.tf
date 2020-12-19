@@ -1,8 +1,8 @@
 resource "kubernetes_namespace" "traefik" {
   metadata {
     name = "traefik"
-    annotations = {
-      "linkerd.io/inject" = "enabled"
+    labels = {
+      namespace = "traefik"
     }
   }
 
@@ -14,6 +14,16 @@ resource "helm_release" "traefik" {
   chart      = "${path.module}/charts/traefik"
   namespace  = "traefik"
   version    = "0.1.0"
+
+  recreate_pods = true
+  cleanup_on_fail = true
+  max_history = 3
+  dependency_update = true
+  lint = true
+
+  values = [
+    "${file("charts/traefik/values.yaml")}"
+  ]
 
   depends_on = [kubernetes_namespace.traefik]
 }

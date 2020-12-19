@@ -1,8 +1,8 @@
 resource "kubernetes_namespace" "adminer" {
   metadata {
     name = "adminer"
-    annotations = {
-      "linkerd.io/inject" = "enabled"
+    labels = {
+      namespace = "adminer"
     }
   }
 
@@ -14,6 +14,16 @@ resource "helm_release" "adminer" {
   chart      = "${path.module}/charts/adminer"
   namespace  = "adminer"
   version    = "0.1.0"
+
+  recreate_pods = true
+  cleanup_on_fail = true
+  max_history = 3
+  dependency_update = true
+  lint = true
+
+  values = [
+    "${file("charts/adminer/values.yaml")}"
+  ]
 
   depends_on = [kubernetes_namespace.adminer]
 }

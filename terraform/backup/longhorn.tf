@@ -1,8 +1,8 @@
 resource "kubernetes_namespace" "longhorn-system" {
   metadata {
     name = "longhorn-system"
-    annotations = {
-      "linkerd.io/inject" = "enabled"
+    labels = {
+      namespace = "longhorn-system"
     }
   }
 
@@ -14,6 +14,16 @@ resource "helm_release" "longhorn" {
   chart      = "${path.module}/charts/longhorn"
   namespace  = "longhorn-system"
   version    = "0.1.0"
+
+  recreate_pods = true
+  cleanup_on_fail = true
+  max_history = 3
+  dependency_update = true
+  lint = true
+
+  values = [
+    "${file("charts/longhorn/values.yaml")}"
+  ]
 
   depends_on = [kubernetes_namespace.longhorn-system]
 }
