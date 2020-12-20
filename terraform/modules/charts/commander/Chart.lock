@@ -1,6 +1,0 @@
-dependencies:
-- name: commander
-  repository: https://shokohsc.github.io/charts
-  version: 0.1.3
-digest: sha256:17357ab5688f0c484e1c090fb4db67451bba6744298734620e8c860b878be41b
-generated: "2020-09-11T18:39:17.554839762Z"

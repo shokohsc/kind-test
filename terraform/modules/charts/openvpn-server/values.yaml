@@ -4,6 +4,7 @@ openvpn-server:
   service:
     protocol: UDP
     type: LoadBalancer
+    port: 41194
     fallback: true
     annotations:
       metallb.universe.tf/allow-shared-ip: "true"

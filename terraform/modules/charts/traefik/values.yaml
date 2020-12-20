@@ -8,12 +8,6 @@ traefik:
   additionalArguments: 
   - "--api"
   - "--log"
-  - "--entrypoints.openvpn-tcp.address=:41194"
-  - "--entrypoints.openvpn-udp.address=:41194/udp"
-  - "--entrypoints.pihole-dns-tcp.address=:40053"
-  - "--entrypoints.pihole-dns-udp.address=:40053/udp"
-  - "--entrypoints.pihole-dhcp-tcp.address=:40067"
-  - "--entrypoints.pihole-dhcp-udp.address=:40067/udp"
 
   service:
     # Additional annotations (e.g. for cloud provider specific config)
