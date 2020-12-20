@@ -10,6 +10,8 @@ spec:
     automated:
       prune: true
       selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
   source:
     repoURL: https://github.com/shokohsc/kind-test.git
     path: applications/traefik
