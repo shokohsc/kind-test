@@ -22,7 +22,7 @@ resource "helm_release" "mongo-express" {
   lint = true
 
   values = [
-    "${file("charts/mongo-express/values.yaml")}"
+    file("${path.module}/charts/mongo-express/values.yaml")
   ]
 
   depends_on = [kubernetes_namespace.mongo-express]

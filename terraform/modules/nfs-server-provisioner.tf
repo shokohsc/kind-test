@@ -5,8 +5,6 @@ resource "kubernetes_namespace" "nfs-server-provisioner" {
       namespace = "nfs-server-provisioner"
     }
   }
-
-#  depends_on = [helm_release.linkerd]
 }
 
 resource "helm_release" "nfs-server-provisioner" {
@@ -22,7 +20,7 @@ resource "helm_release" "nfs-server-provisioner" {
   lint = true
 
   values = [
-    "${file("charts/nfs-server-provisioner/values.yaml")}"
+    file("${path.module}/charts/nfs-server-provisioner/values.yaml")
   ]
 
   depends_on = [kubernetes_namespace.nfs-server-provisioner]

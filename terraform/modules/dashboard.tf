@@ -22,7 +22,7 @@ resource "helm_release" "dashboard" {
   lint = true
 
   values = [
-    "${file("charts/dashboard/values.yaml")}"
+    file("${path.module}/charts/dashboard/values.yaml")
   ]
 
   depends_on = [kubernetes_namespace.dashboard]

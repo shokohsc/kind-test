@@ -22,7 +22,7 @@ resource "helm_release" "pihole" {
   lint = true
 
   values = [
-    "${file("charts/pihole/values.yaml")}"
+    file("${path.module}/charts/pihole/values.yaml")
   ]
 
   depends_on = [kubernetes_namespace.pihole]

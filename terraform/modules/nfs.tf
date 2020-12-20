@@ -5,8 +5,6 @@ resource "kubernetes_namespace" "nfs" {
       namespace = "nfs"
     }
   }
-
-#  depends_on = [helm_release.linkerd]
 }
 
 resource "helm_release" "nfs-wd1to" {
@@ -22,7 +20,7 @@ resource "helm_release" "nfs-wd1to" {
   lint = true
 
   values = [
-    "${file("charts/nfs-wd1to/values.yaml")}"
+    file("${path.module}/charts/nfs-wd1to/values.yaml")
   ]
 
   depends_on = [kubernetes_namespace.nfs]
@@ -41,7 +39,7 @@ resource "helm_release" "nfs-wd2to" {
   lint = true
 
   values = [
-    "${file("charts/nfs-wd2to/values.yaml")}"
+    file("${path.module}/charts/nfs-wd2to/values.yaml")
   ]
 
   depends_on = [kubernetes_namespace.nfs]
@@ -60,7 +58,7 @@ resource "helm_release" "nfs-shared" {
   lint = true
 
   values = [
-    "${file("charts/nfs-shared/values.yaml")}"
+    file("${path.module}/charts/nfs-shared/values.yaml")
   ]
 
   depends_on = [kubernetes_namespace.nfs]

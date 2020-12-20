@@ -22,7 +22,7 @@ resource "helm_release" "traefik" {
   lint = true
 
   values = [
-    "${file("charts/traefik/values.yaml")}"
+    file("${path.module}/charts/traefik/values.yaml")
   ]
 
   depends_on = [kubernetes_namespace.traefik]

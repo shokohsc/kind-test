@@ -22,7 +22,7 @@ resource "helm_release" "openvpn-server" {
   lint = true
 
   values = [
-    "${file("charts/openvpn-server/values.yaml")}"
+    file("${path.module}/charts/openvpn-server/values.yaml")
   ]
 
   depends_on = [kubernetes_namespace.openvpn-server]

@@ -22,7 +22,7 @@ resource "helm_release" "adminer" {
   lint = true
 
   values = [
-    "${file("charts/adminer/values.yaml")}"
+    file("${path.module}/charts/adminer/values.yaml")
   ]
 
   depends_on = [kubernetes_namespace.adminer]

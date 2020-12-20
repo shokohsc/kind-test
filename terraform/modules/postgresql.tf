@@ -22,7 +22,7 @@ resource "helm_release" "postgresql" {
   lint = true
 
   values = [
-    "${file("charts/postgresql/values.yaml")}"
+    file("${path.module}/charts/postgresql/values.yaml")
   ]
 
   depends_on = [kubernetes_namespace.postgresql]

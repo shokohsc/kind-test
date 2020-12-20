@@ -22,7 +22,7 @@ resource "helm_release" "mongodb" {
   lint = true
 
   values = [
-    "${file("charts/mongodb/values.yaml")}"
+    file("${path.module}/charts/mongodb/values.yaml")
   ]
 
   depends_on = [kubernetes_namespace.mongodb]

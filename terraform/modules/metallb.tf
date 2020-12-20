@@ -5,8 +5,6 @@ resource "kubernetes_namespace" "metallb" {
       namespace = "metallb"
     }
   }
-
-#  depends_on = [helm_release.linkerd]
 }
 
 resource "helm_release" "metallb" {
@@ -22,7 +20,7 @@ resource "helm_release" "metallb" {
   lint = true
 
   values = [
-    "${file("charts/metallb/values.yaml")}"
+    file("${path.module}/charts/metallb/values.yaml")
   ]
 
   depends_on = [kubernetes_namespace.metallb]

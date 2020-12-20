@@ -6,7 +6,7 @@ resource "kubernetes_namespace" "commander" {
     }
   }
 
-  depends_on = [helm_release.traefik, helm_release.nfs-wd1to, helm_release.nfs-wd2to]
+  depends_on = [helm_release.traefik, helm_release.nfs-wd1to, helm_release.nfs-wd2to, helm_release.nfs-shared]
 }
 
 resource "helm_release" "commander" {
@@ -22,7 +22,7 @@ resource "helm_release" "commander" {
   lint = true
 
   values = [
-    "${file("charts/commander/values.yaml")}"
+    file("${path.module}/charts/commander/values.yaml")
   ]
 
   depends_on = [kubernetes_namespace.commander]
