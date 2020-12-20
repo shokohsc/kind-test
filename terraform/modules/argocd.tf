@@ -19,7 +19,7 @@ resource "helm_release" "argocd" {
   lint = true
 
   values = [
-    "${file("charts/argocd/values.yaml")}"
+    file("${path.module}/charts/argocd/values.yaml")
   ]
 
   depends_on = [kubernetes_namespace.argocd]
