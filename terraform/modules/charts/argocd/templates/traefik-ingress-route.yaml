@@ -1,19 +1,19 @@
----
-apiVersion: traefik.containo.us/v1alpha1
-kind: IngressRoute
-metadata:
-  annotations:
-    kubernetes.io/ingress.class: traefik
-  name: argocd
-  namespace: argocd
-spec:
-  entryPoints:
-    - web
-  routes:
-  - kind: Rule
-    match: Host(`argocd.kind.shokohsc.home`)
-    priority: 0
-    services:
-    - kind: Service
-      name: argocd-server
-      port: 80
+# ---
+# apiVersion: traefik.containo.us/v1alpha1
+# kind: IngressRoute
+# metadata:
+#   annotations:
+#     kubernetes.io/ingress.class: traefik
+#   name: argocd
+#   namespace: argocd
+# spec:
+#   entryPoints:
+#     - web
+#   routes:
+#   - kind: Rule
+#     match: Host(`argocd.kind.shokohsc.home`)
+#     priority: 0
+#     services:
+#     - kind: Service
+#       name: argocd-server
+#       port: 80

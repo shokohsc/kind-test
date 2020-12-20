@@ -1,0 +1,114 @@
+# https://github.com/shokohsc/charts/tree/main/charts/openvpn-client
+openvpn-client:
+  sidecars:
+    - name: transmission
+      image:
+        repository: linuxserver/transmission
+        tag: latest
+        pullPolicy: IfNotPresent
+      service:
+        type: ClusterIP
+        port: 9091
+        annotations: {}
+      annotations: {}
+      persistence:
+        - name: config
+          mountPath: /config
+          accessModes:
+            - ReadWriteOnce
+          size: 200Mi
+          annotations: {}
+        - name: download
+          mountPath: /downloads
+          accessModes:
+            - ReadWriteOnce
+          size: 10Gi
+          annotations: {}
+        # - name: download-incomplete
+        #   mountPath: /downloads/incomplete
+        #   accessModes:
+        #     - ReadWriteOnce
+        #   size: 10Gi
+        #   annotations: {}
+      # nfs:
+      #   - name: download-complete
+      #     server: shared-0.shared.nfs.svc.cluster.local
+      #     path: /
+      #     mountPath: /downloads/complete
+      configMap:
+        name: transmission-settings
+        mountPath: /cfg
+        source: /cfg/settings.json
+        target: /config/settings.json
+      envVars:
+        TZ: UTC
+      resources: {}
+      startupProbe: "ps -fe | grep '/usr/bin/trans[m]ission-daemon -g /config -c /watch -f'"
+    - name: peerflix
+      image:
+        repository: shokohsc/peerflix-server
+        tag: latest
+        pullPolicy: IfNotPresent
+      service:
+        type: ClusterIP
+        port: 9000
+        annotations: {}
+      annotations: {}
+      persistence:
+        - name: data
+          mountPath: /tmp/torrent-stream
+          accessModes:
+            - ReadWriteOnce
+          size: 10Gi
+          annotations: {}
+      envVars: {}
+      resources: {}
+      startupProbe: "ps -fe | grep 'no[d]e ./server/bin.js'"
+    - name: cloudtorrent
+      image:
+        repository: shokohsc/cloud-torrent
+        tag: latest
+        pullPolicy: IfNotPresent
+      service:
+        type: ClusterIP
+        port: 3000
+        annotations: {}
+      annotations: {}
+      persistence:
+        - name: data
+          mountPath: /downloads
+          accessModes:
+            - ReadWriteOnce
+          size: 10Gi
+          annotations: {}
+      envVars: {}
+      resources: {}
+      startupProbe: "ps -fe | grep 'clo[u]d-torrent'"
+    - name: deluge
+      image:
+        repository: linuxserver/deluge
+        tag: latest
+        pullPolicy: IfNotPresent
+      service:
+        type: ClusterIP
+        port: 8112
+        annotations: {}
+      annotations: {}
+      persistence:
+        - name: config
+          mountPath: /config
+          accessModes:
+            - ReadWriteOnce
+          size: 200Mi
+          annotations: {}
+        - name: data
+          mountPath: /downloads
+          accessModes:
+            - ReadWriteOnce
+          size: 10Gi
+          annotations: {}
+      envVars:
+        TZ: UTC
+        DELUGE_LOGLEVEL: error
+      resources: {}
+      startupProbe: "ps -fe | grep '/usr/bin/python3 /usr/bin/del[u]ged -c /config -d'"

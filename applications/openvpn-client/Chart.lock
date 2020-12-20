@@ -1,0 +1,6 @@
+dependencies:
+- name: openvpn-client
+  repository: https://shokohsc.github.io/charts
+  version: 0.1.0
+digest: sha256:e87748d3679957a08e11565c12722e299eef5afd68218ee89ff013bf1650c65f
+generated: "2020-12-20T20:22:20.603838873Z"

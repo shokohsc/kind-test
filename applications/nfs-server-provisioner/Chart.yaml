@@ -1,0 +1,11 @@
+apiVersion: v2
+name: nfs-server-provisioner
+description: nfs-server-provisioner
+type: application
+
+version: 0.1.0
+
+dependencies:
+  - name: nfs-server-provisioner
+    version: 1.2.0
+    repository: https://kvaps.github.io/charts
