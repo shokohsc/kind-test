@@ -1,0 +1,6 @@
+dependencies:
+- name: pihole
+  repository: https://shokohsc.github.io/charts
+  version: 0.1.2
+digest: sha256:a63bd6df612fddb59c35c73213de4d9e0bf9e877c1b363b4c72af35b206601b8
+generated: "2020-12-20T18:52:55.961320251Z"

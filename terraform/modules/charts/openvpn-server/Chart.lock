@@ -1,0 +1,6 @@
+dependencies:
+- name: openvpn-server
+  repository: https://shokohsc.github.io/charts
+  version: 0.1.7
+digest: sha256:03e2029a26aca1562e75d163cff8cb29589eaeb6950d4232577d5a3b4d2d714e
+generated: "2020-12-20T18:52:59.618214138Z"

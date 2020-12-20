@@ -1,0 +1,6 @@
+dependencies:
+- name: adminer
+  repository: https://cetic.github.io/helm-charts
+  version: 0.1.5
+digest: sha256:74b37456229677d3fcf61f51d1ac3f885bf388b8b6fbcb40e185d54b62821d40
+generated: "2020-12-20T18:52:55.892049471Z"
