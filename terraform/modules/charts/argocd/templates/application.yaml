@@ -13,7 +13,7 @@ spec:
     automated:
       prune: true
   source:
-    path: applications
+    path: applications/traefik
     repoURL: https://github.com/shokohsc/kind-test.git
     targetRevision: HEAD
     helm:
