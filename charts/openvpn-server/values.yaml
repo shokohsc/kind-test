@@ -13,6 +13,3 @@ openvpn-server:
   extraOptions:
     - 'management 0.0.0.0 5555'
     - 'push "redirect-gateway def1 bypass-dhcp"'
-  # jobs:
-  #   annotations:
-  #     argocd.argoproj.io/hook: PreSync
