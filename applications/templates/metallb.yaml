@@ -13,6 +13,8 @@ spec:
     syncOptions:
       - Validate=true
       - CreateNamespace=true
+    retry:
+      limit: 2
   source:
     repoURL: https://github.com/shokohsc/kind-test.git
     path: charts/metallb
