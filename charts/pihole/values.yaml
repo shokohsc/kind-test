@@ -5,10 +5,14 @@ pihole:
   dns:
     service:
       type: LoadBalancer
+      annotations:
+        metallb.universe.tf/allow-shared-ip: "true"
   dhcp:
     enabled: true
     service:
       type: LoadBalancer
+      annotations:
+        metallb.universe.tf/allow-shared-ip: "true"
   doh:
     enabled: true
   dnsmasq:
@@ -16,6 +20,3 @@ pihole:
       - server=/cluster.local/10.96.0.10
   extraEnvVars:
     DNSMASQ_LISTENING: all
-  service:
-    annotations:
-      metallb.universe.tf/allow-shared-ip: "true"
