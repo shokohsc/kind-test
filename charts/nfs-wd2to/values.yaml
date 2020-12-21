@@ -2,7 +2,7 @@
 nfs-wd2to:
   volumes:
     - name: wd2to
-      mountPath: /wd2to
+      mountPath: /srv
       path: /mnt/WD2To
 
   nodeSelector:
