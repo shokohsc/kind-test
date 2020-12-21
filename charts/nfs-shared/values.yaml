@@ -2,7 +2,7 @@
 nfs-shared:
   volumes:
     - name: shared
-      mountPath: /mnt
+      mountPath: /shared
       path: /mnt/shared
 
   nodeSelector:

@@ -2,7 +2,7 @@
 nfs-wd1to:
   volumes:
     - name: wd1to
-      mountPath: /mnt
+      mountPath: /wd1to
       path: /mnt/WD1To
 
   nodeSelector:
