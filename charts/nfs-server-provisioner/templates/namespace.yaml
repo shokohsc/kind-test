@@ -1,0 +1,7 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: nfs-server-provisioner
+  labels:
+    namespace: nfs-server-provisioner
