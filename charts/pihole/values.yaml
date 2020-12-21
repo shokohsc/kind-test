@@ -2,6 +2,9 @@
 pihole:
   virtualHost: pihole.kind.shokohsc.home
   timezone: Europe/Paris
+  persistence:
+    enabled: true
+    storageClass: nfs
   dns:
     service:
       type: LoadBalancer
