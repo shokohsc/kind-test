@@ -1,5 +1,5 @@
 # https://github.com/shokohsc/charts/tree/main/charts/nfs
-nfs-wd1to:
+nfs:
   volumes:
     - name: wd1to
       mountPath: /wd1to

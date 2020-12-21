@@ -1,5 +1,5 @@
 # https://github.com/shokohsc/charts/tree/main/charts/nfs
-nfs-wd2to:
+nfs:
   volumes:
     - name: wd2to
       mountPath: /wd2to
