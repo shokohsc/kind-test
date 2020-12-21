@@ -2,14 +2,14 @@
 commander:
   volumes:
     - name: wd1to
-      server: nfs-wd1to-0.nfs-wd1to.svc.cluster.local
+      server: nfs-wd1to-0.nfs-wd1to.nfs-wd1to.svc.cluster.local
       mountPath: /root/media/WD1To
       path: /
     - name: wd2to
-      server: nfs-wd2to-0.nfs-wd2to.svc.cluster.local
+      server: nfs-wd2to-0.nfs-wd2to.nfs-wd2to.svc.cluster.local
       mountPath: /root/media/WD2To
       path: /
     - name: shared
-      server: nfs-shared-0.nfs-shared..svc.cluster.local
+      server: nfs-shared-0.nfs-shared.nfs-shared.svc.cluster.local
       mountPath: /root/shared
       path: /
