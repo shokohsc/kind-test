@@ -6,4 +6,4 @@ metadata:
   labels:
     namespace: openvpn-server
   annotations:
-    argocd.argoproj.io/hook: PreSync
+    argocd.argoproj.io/hook: Sync
