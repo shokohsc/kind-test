@@ -1,4 +1,11 @@
 ---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: nfs-wd1to
+  labels:
+    namespace: nfs-wd1to
+---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -19,5 +26,5 @@ spec:
     path: charts/nfs-wd1to
     targetRevision: HEAD
   destination:
-    namespace: nfs
+    namespace: nfs-wd1to
     server: https://kubernetes.default.svc

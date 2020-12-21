@@ -1,7 +1,0 @@
----
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: nfs-wd1to
-  labels:
-    namespace: nfs-wd1to
