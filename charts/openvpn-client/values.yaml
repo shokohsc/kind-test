@@ -1,5 +1,7 @@
 # https://github.com/shokohsc/charts/tree/main/charts/openvpn-client
 openvpn-client:
+  persistence:
+    storageClass: nfs
   sidecars:
     - name: transmission
       image:
