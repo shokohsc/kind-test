@@ -4,14 +4,15 @@ kind: Application
 metadata:
   name: nfs-wd2to
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-options: Validate=true
+    argocd.argoproj.io/sync-options: CreateNamespace=true
 spec:
   project: default
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
   source:
     repoURL: https://github.com/shokohsc/kind-test.git
     path: charts/nfs-wd2to
