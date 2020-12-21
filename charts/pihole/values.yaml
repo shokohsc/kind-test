@@ -2,8 +2,13 @@
 pihole:
   virtualHost: pihole.kind.shokohsc.home
   timezone: Europe/Paris
+  dns:
+    service:
+      type: LoadBalancer
   dhcp:
     enabled: true
+    service:
+      type: LoadBalancer
   doh:
     enabled: true
   dnsmasq:
