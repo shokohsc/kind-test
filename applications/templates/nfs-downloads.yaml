@@ -1,0 +1,30 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: nfs-downloads
+  labels:
+    namespace: nfs-downloads
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nfs-downloads
+  namespace: argocd
+spec:
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - Validate=true
+    retry:
+      limit: 2
+  source:
+    repoURL: https://github.com/shokohsc/kind-test.git
+    path: charts/nfs-downloads
+    targetRevision: HEAD
+  destination:
+    namespace: nfs-downloads
+    server: https://kubernetes.default.svc

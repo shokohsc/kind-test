@@ -1,11 +1,11 @@
 apiVersion: v2
-name: openvpn-client
-description: openvpn-client
+name: nfs-downloads
+description: nfs-downloads
 type: application
 
 version: 0.1.0
 
 dependencies:
-  - name: openvpn-client
-    version: 0.1.4
+  - name: nfs
+    version: 0.2.0
     repository: https://shokohsc.github.io/charts

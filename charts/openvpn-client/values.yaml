@@ -5,7 +5,7 @@ openvpn-client:
     ROUTE: 10.0.0.0/8
     TZ: Europe/Paris
   persistence:
-    storageClass: nfs
+    storageClass: longhorn
   sidecars:
     - name: transmission
       image:
@@ -38,9 +38,10 @@ openvpn-client:
           annotations: {}
       nfs:
         - name: download-complete
-          server: nfs-shared-0.nfs-shared.nfs-shared.svc.cluster.local
+          server: nfs-downloads-0.nfs-downloads.nfs-downloads.svc.cluster.local
           path: /
           mountPath: /downloads/complete
+          subPath: transmission
       configMap:
         name: transmission-settings
         mountPath: /cfg
@@ -121,9 +122,10 @@ openvpn-client:
       #     annotations: {}
       # nfs:
       #   - name: download-complete
-      #     server: nfs-shared-0.nfs-shared.nfs-shared.svc.cluster.local
+      #     server: nfs-downloads-0.nfs-downloads.nfs-downloads.svc.cluster.local
       #     path: /
       #     mountPath: /downloads/complete
+          # subPath: deluge
       # configMap:
       #   name: deluge-settings
       #   mountPath: /cfg

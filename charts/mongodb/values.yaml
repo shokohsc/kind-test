@@ -5,4 +5,4 @@ mongodb:
     enabled: false
   directoryPerDB: true
   persistence:
-    storageClass: nfs
+    storageClass: longhorn

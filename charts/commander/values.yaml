@@ -13,3 +13,7 @@ commander:
       server: nfs-shared-0.nfs-shared.nfs-shared.svc.cluster.local
       mountPath: /root/shared
       path: /
+    - name: downloads
+      server: nfs-downloads-0.nfs-downloads.nfs-downloads.svc.cluster.local
+      mountPath: /root/downloads
+      path: /
