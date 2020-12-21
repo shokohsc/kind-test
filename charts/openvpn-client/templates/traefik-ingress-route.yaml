@@ -38,42 +38,42 @@ spec:
       name: openvpn-client
       port: 9000
 
----
-apiVersion: traefik.containo.us/v1alpha1
-kind: IngressRoute
-metadata:
-  annotations:
-    kubernetes.io/ingress.class: traefik
-  name: cloudtorrent
-  namespace: openvpn-client
-spec:
-  entryPoints:
-    - web
-  routes:
-  - kind: Rule
-    match: Host(`cloudtorrent.kind.shokohsc.home`)
-    priority: 0
-    services:
-    - kind: Service
-      name: openvpn-client
-      port: 3000
-
----
-apiVersion: traefik.containo.us/v1alpha1
-kind: IngressRoute
-metadata:
-  annotations:
-    kubernetes.io/ingress.class: traefik
-  name: deluge
-  namespace: openvpn-client
-spec:
-  entryPoints:
-    - web
-  routes:
-  - kind: Rule
-    match: Host(`deluge.kind.shokohsc.home`)
-    priority: 0
-    services:
-    - kind: Service
-      name: openvpn-client
-      port: 8112
+# ---
+# apiVersion: traefik.containo.us/v1alpha1
+# kind: IngressRoute
+# metadata:
+#   annotations:
+#     kubernetes.io/ingress.class: traefik
+#   name: cloudtorrent
+#   namespace: openvpn-client
+# spec:
+#   entryPoints:
+#     - web
+#   routes:
+#   - kind: Rule
+#     match: Host(`cloudtorrent.kind.shokohsc.home`)
+#     priority: 0
+#     services:
+#     - kind: Service
+#       name: openvpn-client
+#       port: 3000
+#
+# ---
+# apiVersion: traefik.containo.us/v1alpha1
+# kind: IngressRoute
+# metadata:
+#   annotations:
+#     kubernetes.io/ingress.class: traefik
+#   name: deluge
+#   namespace: openvpn-client
+# spec:
+#   entryPoints:
+#     - web
+#   routes:
+#   - kind: Rule
+#     match: Host(`deluge.kind.shokohsc.home`)
+#     priority: 0
+#     services:
+#     - kind: Service
+#       name: openvpn-client
+#       port: 8112
