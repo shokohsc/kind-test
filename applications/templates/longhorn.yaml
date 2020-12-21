@@ -23,7 +23,7 @@ spec:
       limit: 2
   source:
     repoURL: https://github.com/shokohsc/kind-test.git
-    path: charts/longhorn-system
+    path: charts/longhorn
     targetRevision: HEAD
   destination:
     namespace: longhorn-system
