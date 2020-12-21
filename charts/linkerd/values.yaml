@@ -1,4 +1,0 @@
-# https://github.com/linkerd/linkerd2/tree/main/charts/linkerd2
-linkerd2:
-  # Host header validation regex for the dashboard.
-  enforcedHostRegexp: "linkerd.kind.shokohsc.home"
