@@ -4,6 +4,8 @@ kind: Application
 metadata:
   name: openvpn-server
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-options: CreateNamespace=true
 spec:
   project: default
   syncPolicy:
