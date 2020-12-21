@@ -16,3 +16,6 @@ pihole:
       - server=/cluster.local/10.96.0.10
   extraEnvVars:
     DNSMASQ_LISTENING: all
+  service:
+    annotations:
+      metallb.universe.tf/allow-shared-ip: "true"
