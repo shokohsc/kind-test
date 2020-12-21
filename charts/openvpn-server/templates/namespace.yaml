@@ -5,5 +5,3 @@ metadata:
   name: openvpn-server
   labels:
     namespace: openvpn-server
-  annotations:
-    argocd.argoproj.io/hook: PreSync
