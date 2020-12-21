@@ -1,5 +1,9 @@
 # https://github.com/shokohsc/charts/tree/main/charts/openvpn-client
 openvpn-client:
+  envVars:
+    FIREWALL: ''
+    ROUTE: 10.0.0.0/8
+    TZ: Europe/Paris
   persistence:
     storageClass: nfs
   sidecars:
