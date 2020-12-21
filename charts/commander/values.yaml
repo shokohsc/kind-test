@@ -17,3 +17,7 @@ commander:
       server: nfs-downloads-0.nfs-downloads.nfs-downloads.svc.cluster.local
       mountPath: /root/downloads
       path: /
+    - name: backups
+      server: nfs-backups-0.nfs-backups.nfs-backups.svc.cluster.local
+      mountPath: /root/backups
+      path: /

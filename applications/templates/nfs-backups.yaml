@@ -2,14 +2,14 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: nfs-server-provisioner
+  name: nfs-backups
   labels:
-    namespace: nfs-server-provisioner
+    namespace: nfs-backups
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: nfs-server-provisioner
+  name: nfs-backups
   namespace: argocd
 spec:
   project: default
@@ -23,8 +23,8 @@ spec:
       limit: 2
   source:
     repoURL: https://github.com/shokohsc/kind-test.git
-    path: charts/nfs-server-provisioner
+    path: charts/nfs-backups
     targetRevision: HEAD
   destination:
-    namespace: nfs-server-provisioner
+    namespace: nfs-backups
     server: https://kubernetes.default.svc
