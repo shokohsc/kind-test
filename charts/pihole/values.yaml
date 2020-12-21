@@ -2,7 +2,7 @@
 pihole:
   virtualHost: pihole.kind.shokohsc.home
   timezone: Europe/Paris
-  persistence:
+  persistentVolumeClaim:
     enabled: true
     storageClass: nfs
   dns:
