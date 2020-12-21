@@ -113,6 +113,22 @@ openvpn-client:
     #         - ReadWriteOnce
     #       size: 10Gi
     #       annotations: {}
+      #   - name: download-incomplete
+      #     mountPath: /downloads/incomplete
+      #     accessModes:
+      #       - ReadWriteOnce
+      #     size: 10Gi
+      #     annotations: {}
+      # nfs:
+      #   - name: download-complete
+      #     server: nfs-shared-0.nfs-shared.nfs-shared.svc.cluster.local
+      #     path: /
+      #     mountPath: /downloads/complete
+      # configMap:
+      #   name: deluge-settings
+      #   mountPath: /cfg
+      #   source: /cfg/core.conf
+      #   target: /config/core.conf
     #   envVars:
     #     TZ: UTC
     #     DELUGE_LOGLEVEL: error
