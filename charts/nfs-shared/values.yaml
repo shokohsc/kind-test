@@ -1,5 +1,5 @@
 # https://github.com/shokohsc/charts/tree/main/charts/nfs
-nfs:
+nfs-shared:
   volumes:
     - name: shared
       mountPath: /shared
