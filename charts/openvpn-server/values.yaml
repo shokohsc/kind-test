@@ -9,7 +9,7 @@ openvpn-server:
     annotations:
       metallb.universe.tf/allow-shared-ip: "true"
   persistence:
-    storageClass: longhorn
+    storageClass: nfs
   extraOptions:
     - 'management 0.0.0.0 5555'
     - 'push "redirect-gateway def1 bypass-dhcp"'
