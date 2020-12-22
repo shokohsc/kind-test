@@ -1,9 +1,9 @@
 # https://github.com/shokohsc/charts/tree/main/charts/nfs
 nfs:
   volumes:
-    - name: downloads
-      mountPath: /downloads
-      path: /mnt/downloads
+    - name: backups
+      mountPath: /backups
+      path: /mnt/backups
 
   nodeSelector:
     overwatch: sombra
