@@ -4,5 +4,5 @@ longhorn:
     defaultClass: false
     defaultClassReplicaCount: 2
   defaultSettings:
-    backupTarget: nfs://nfs-backups-0.nfs-backups.nfs-backups.svc.cluster.local:/storage
+    backupTarget: nfs://nfs-backups-0.nfs-backups.nfs-backups.svc.cluster.local:/
     defaultReplicaCount: 2
