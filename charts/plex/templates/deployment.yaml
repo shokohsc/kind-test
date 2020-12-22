@@ -1,3 +1,4 @@
+{{- $ctx := . }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -86,7 +87,7 @@ spec:
         {{- range $volume := .Values.extraVolumes }}
         - name: {{ $volume.name }}
           persistentVolumeClaim:
-            claimName: {{ include "plex.fullname" . }}-{{ $volume.name }}
+            claimName: {{ include "plex.fullname" $ctx }}-{{ $volume.name }}
         {{- end }}
         {{- range $nfs := .Values.nfsVolumes }}
         - name: {{ $nfs.name }}
