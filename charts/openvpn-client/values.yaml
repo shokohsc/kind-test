@@ -5,7 +5,7 @@ openvpn-client:
     ROUTE: 10.0.0.0/8
     TZ: Europe/Paris
   persistence:
-    storageClass: nfs
+    storageClass: longhorn
   sidecars:
     - name: transmission
       image:

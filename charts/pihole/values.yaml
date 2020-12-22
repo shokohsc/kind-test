@@ -4,7 +4,7 @@ pihole:
   timezone: Europe/Paris
   persistentVolumeClaim:
     enabled: true
-    storageClass: nfs
+    storageClass: longhorn
   dns:
     service:
       type: LoadBalancer
