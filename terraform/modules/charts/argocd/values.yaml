@@ -3,5 +3,8 @@ argo-cd:
   ## Server
   server:
     ## Additional command line arguments to pass to argocd-server
-    extraArgs: 
+    extraArgs:
     - --insecure
+  global:
+    image:
+      tag: v1.8.1
