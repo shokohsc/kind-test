@@ -86,7 +86,7 @@ spec:
         {{- range $volume := .Values.extraVolumes }}
         - name: {{ $volume.name }}
           persistentVolumeClaim:
-            claimName: {{ $volume.name }}
+            claimName: {{ include "plex.fullname" . }}-{{ $volume.name }}
         {{- end }}
         {{- range $nfs := .Values.nfsVolumes }}
         - name: {{ $nfs.name }}
