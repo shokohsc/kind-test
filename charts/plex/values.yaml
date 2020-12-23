@@ -127,7 +127,7 @@ extraVolumes:
     size: 10Gi
     annotations: {}
 
-# storageClass: ''
+storageClass: 'nfs'
 
 nfsVolumes:
   - name: wd1to
