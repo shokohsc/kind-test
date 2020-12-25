@@ -1,140 +1,48 @@
-# Default values for plex.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
-
-replicaCount: 1
-
-image:
-  repository: plexinc/pms-docker
-  pullPolicy: IfNotPresent
-  # Overrides the image tag whose default is the chart appVersion.
-  tag: ""
-
-imagePullSecrets: []
-nameOverride: ""
-fullnameOverride: ""
-
-serviceAccount:
-  # Specifies whether a service account should be created
-  create: true
-  # Annotations to add to the service account
-  annotations: {}
-  # The name of the service account to use.
-  # If not set and create is true, a name is generated using the fullname template
-  name: ""
-
-podAnnotations: {}
-
-podSecurityContext: {}
-  # fsGroup: 2000
-
-securityContext: {}
-  # capabilities:
-  #   drop:
-  #   - ALL
-  # readOnlyRootFilesystem: true
-  # runAsNonRoot: true
-  # runAsUser: 1000
-
-service:
-  type: ClusterIP
-  port: 32400
-  annotations:
-    metallb.universe.tf/allow-shared-ip: "true"
-
-ingress:
-  enabled: false
-  annotations: {}
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
-  hosts:
-    - host: chart-example.local
-      paths: []
-  tls: []
-  #  - secretName: chart-example-tls
-  #    hosts:
-  #      - chart-example.local
-
-resources: {}
-  # We usually recommend not to specify default resources and to leave this as a conscious
-  # choice for the user. This also increases chances charts run on environments with little
-  # resources, such as Minikube. If you do want to specify resources, uncomment the following
-  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-  # limits:
-  #   cpu: 100m
-  #   memory: 128Mi
-  # requests:
-  #   cpu: 100m
-  #   memory: 128Mi
-
-autoscaling:
-  enabled: false
-  minReplicas: 1
-  maxReplicas: 100
-  targetCPUUtilizationPercentage: 80
-  # targetMemoryUtilizationPercentage: 80
-
-nodeSelector: {}
-
-tolerations: []
-
-affinity: {}
-
-# envVars -- Pod environment variables
-envVars:
-  HOSTNAME: plex
-  PLEX_CLAIM: some_plex_claim
-  TZ: UTC
-  ADVERTISE_IP: 'http://172.19.0.64:32400'
-  CHANGE_CONFIG_DIR_OWNERSHIP: false
-  ALLOWED_NETWORKS: 10.0.0.0/8
-
-extraPorts:
-  - name: dlna-udp
-    containerPort: 1900
-    protocol: UDP
-    type: LoadBalancer
-  - name: dlna-tcp
-    containerPort: 32469
-    protocol: TCP
-    type: LoadBalancer
-  - name: gdm-first
-    containerPort: 32410
-    protocol: UDP
-    type: LoadBalancer
-  - name: gdm-second
-    containerPort: 32411
-    protocol: UDP
-    type: LoadBalancer
-  - name: gdm-third
-    containerPort: 32412
-    protocol: UDP
-    type: LoadBalancer
-  - name: gdm-fourth
-    containerPort: 32413
-    protocol: UDP
-    type: LoadBalancer
-  - name: gdm-fifth
-    containerPort: 32414
-    protocol: UDP
-    type: LoadBalancer
-
-extraVolumes:
-  - name: config
-    mountPath: /config
-    accessModes:
-      - ReadWriteOnce
-    size: 10Gi
-    annotations: {}
-
-storageClass: 'nfs'
-
-nfsVolumes:
-  - name: wd1to
-    server: nfs-wd1to-0.nfs-wd1to.nfs-wd1to.svc.cluster.local
-    path: /
-    mountPath: /data/WD1To
-  - name: wd2to
-    server: nfs-wd2to-0.nfs-wd2to.nfs-wd2to.svc.cluster.local
-    path: /
-    mountPath: /data/WD2To
+# https://github.com/shokohsc/charts/tree/main/charts/plex
+plex:
+  envVars:
+    HOSTNAME: plex
+    PLEX_CLAIM: some_plex_claim
+    TZ: Europe/Paris
+    ADVERTISE_IP: 'http://172.19.0.64:32400'
+    CHANGE_CONFIG_DIR_OWNERSHIP: false
+    ALLOWED_NETWORKS: 10.0.0.0/8
+  extraPorts:
+    - name: dlna-udp
+      containerPort: 1900
+      protocol: UDP
+      type: LoadBalancer
+    - name: dlna-tcp
+      containerPort: 32469
+      protocol: TCP
+      type: LoadBalancer
+    - name: gdm-first
+      containerPort: 32410
+      protocol: UDP
+      type: LoadBalancer
+    - name: gdm-second
+      containerPort: 32411
+      protocol: UDP
+      type: LoadBalancer
+    - name: gdm-third
+      containerPort: 32412
+      protocol: UDP
+      type: LoadBalancer
+    - name: gdm-fourth
+      containerPort: 32413
+      protocol: UDP
+      type: LoadBalancer
+    - name: gdm-fifth
+      containerPort: 32414
+      protocol: UDP
+      type: LoadBalancer
+  storageClass: 'nfs'
+  nfsVolumes:
+    - name: wd1to
+      server: nfs-wd1to-0.nfs-wd1to.nfs-wd1to.svc.cluster.local
+      path: /
+      mountPath: /data/WD1To
+    - name: wd2to
+      server: nfs-wd2to-0.nfs-wd2to.nfs-wd2to.svc.cluster.local
+      path: /
+      mountPath: /data/WD2To
