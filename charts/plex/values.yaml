@@ -1,5 +1,8 @@
 # https://github.com/shokohsc/charts/tree/main/charts/plex
 plex:
+  service:
+    annotations:
+      metallb.universe.tf/allow-shared-ip: "true"
   envVars:
     HOSTNAME: plex
     PLEX_CLAIM: some_plex_claim
