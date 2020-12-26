@@ -21,18 +21,14 @@ plex:
       protocol: UDP
       type: LoadBalancer
     - name: gdm-second
-      containerPort: 32411
-      protocol: UDP
-      type: LoadBalancer
-    - name: gdm-third
       containerPort: 32412
       protocol: UDP
       type: LoadBalancer
-    - name: gdm-fourth
+    - name: gdm-third
       containerPort: 32413
       protocol: UDP
       type: LoadBalancer
-    - name: gdm-fifth
+    - name: gdm-fourth
       containerPort: 32414
       protocol: UDP
       type: LoadBalancer
