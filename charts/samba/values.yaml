@@ -1,0 +1,25 @@
+# https://github.com/shokohsc/charts/tree/main/charts/plex
+samba:
+  service:
+    type: LoadBalancer
+  nfsVolumes:
+    - name: wd1to
+      server: nfs-wd1to-0.nfs-wd1to.nfs-wd1to.svc.cluster.local
+      path: /
+      mountPath: /mount/WD1To
+    - name: wd2to
+      server: nfs-wd2to-0.nfs-wd2to.nfs-wd2to.svc.cluster.local
+      path: /
+      mountPath: /mount/WD2To
+    - name: shared
+      server: nfs-shared-0.nfs-shared.nfs-shared.svc.cluster.local
+      mountPath: /mount/shared
+      path: /
+    - name: downloads
+      server: nfs-downloads-0.nfs-downloads.nfs-downloads.svc.cluster.local
+      mountPath: /mount/downloads
+      path: /
+    - name: backups
+      server: nfs-backups-0.nfs-backups.nfs-backups.svc.cluster.local
+      mountPath: /mount/backups
+      path: /
