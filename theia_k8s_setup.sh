@@ -21,5 +21,5 @@ docker exec -ti -u root kind-control-plane2 sh -c "echo 'nameserver 10.96.0.10' 
 
 docker exec -ti -u root kind-control-plane apt update
 docker exec -ti -u root kind-control-plane2 apt update
-docker exec -ti -u root kind-control-plane apt install -y open-iscsi
-docker exec -ti -u root kind-control-plane2 apt install -y open-iscsi
+docker exec -ti -u root kind-control-plane apt install -y curl findmnt grep awk blkid open-iscsi
+docker exec -ti -u root kind-control-plane2 apt install -y curl findmnt grep awk blkid open-iscsi
