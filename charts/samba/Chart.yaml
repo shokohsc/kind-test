@@ -7,5 +7,5 @@ version: 0.1.0
 
 dependencies:
   - name: samba
-    version: 0.1.0
+    version: 0.1.1
     repository: https://shokohsc.github.io/charts
