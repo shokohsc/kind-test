@@ -1,5 +1,8 @@
 # https://github.com/shokohsc/charts/tree/main/charts/plex
 plex:
+  image:
+    repository: linuxserver/plex
+    tag: latest
   service:
     annotations:
       metallb.universe.tf/allow-shared-ip: "true"
