@@ -7,10 +7,10 @@ argo-cd:
     - --insecure
     config:
       url: https://argocd.kind.shokohsc.home
-      repositories: |
-        - type: helm
-          url: https://charts.helm.sh/stable
-          name: stable
+#      repositories: |
+#        - type: helm
+#          url: https://charts.helm.sh/stable
+#          name: stable
   global:
     image:
       tag: v1.8.1
