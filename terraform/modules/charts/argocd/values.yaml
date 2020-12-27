@@ -5,6 +5,11 @@ argo-cd:
     ## Additional command line arguments to pass to argocd-server
     extraArgs:
     - --insecure
+    config:
+      repositories: |
+        - type: helm
+          url: https://charts.helm.sh/stable
+          name: stable
   global:
     image:
       tag: v1.8.1
