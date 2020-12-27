@@ -4,11 +4,11 @@ plex:
     annotations:
       metallb.universe.tf/allow-shared-ip: "true"
   envVars:
-    HOSTNAME: plex
-    PLEX_CLAIM: some_plex_claim
+    HOSTNAME: ""
+    PLEX_CLAIM: ""
     TZ: Europe/Paris
     ADVERTISE_IP: 'http://172.19.0.64:32400'
-    CHANGE_CONFIG_DIR_OWNERSHIP: false
+    CHANGE_CONFIG_DIR_OWNERSHIP: true
     ALLOWED_NETWORKS: 10.0.0.0/8
   extraPorts:
     - name: dlna-udp
