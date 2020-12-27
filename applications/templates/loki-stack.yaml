@@ -2,14 +2,14 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: longhorn-system
+  name: loki-stack
   labels:
-    namespace: longhorn-system
+    namespace: loki-stack
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: longhorn
+  name: loki-stack
   namespace: argocd
 spec:
   project: default
@@ -23,8 +23,8 @@ spec:
       limit: 2
   source:
     repoURL: https://github.com/shokohsc/kind-test.git
-    path: charts/longhorn
+    path: charts/loki-stack
     targetRevision: HEAD
   destination:
-    namespace: longhorn-system
+    namespace: loki-stack
     server: https://kubernetes.default.svc

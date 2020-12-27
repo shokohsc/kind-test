@@ -1,0 +1,2 @@
+# https://github.com/grafana/helm-charts/tree/main/charts/loki-stack
+loki-stack: {}

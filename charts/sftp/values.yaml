@@ -1,31 +1,29 @@
 # https://github.com/shokohsc/charts/tree/main/charts/plex
-samba:
+sftp:
   service:
     type: LoadBalancer
     annotations:
       metallb.universe.tf/allow-shared-ip: "true"
   args:
-    - -s
-    - "shared;/mount;yes;no;yes;all;none"
-    - -p
+    - "admin:password:1001"
   nfsVolumes:
     - name: wd1to
       server: nfs-wd1to-0.nfs-wd1to.nfs-wd1to.svc.cluster.local
       path: /
-      mountPath: /mount/WD1To
+      mountPath: /home/shokohsc/upload/media/WD1To
     - name: wd2to
       server: nfs-wd2to-0.nfs-wd2to.nfs-wd2to.svc.cluster.local
       path: /
-      mountPath: /mount/WD2To
+      mountPath: /home/shokohsc/upload/media/WD2To
     - name: shared
       server: nfs-shared-0.nfs-shared.nfs-shared.svc.cluster.local
-      mountPath: /mount/shared
+      mountPath: /home/shokohsc/upload/shared
       path: /
     - name: downloads
       server: nfs-downloads-0.nfs-downloads.nfs-downloads.svc.cluster.local
-      mountPath: /mount/downloads
+      mountPath: /home/shokohsc/upload/downloads
       path: /
     - name: backups
       server: nfs-backups-0.nfs-backups.nfs-backups.svc.cluster.local
-      mountPath: /mount/backups
+      mountPath: /home/shokohsc/upload/backups
       path: /

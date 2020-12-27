@@ -1,5 +1,5 @@
 # https://github.com/longhorn/charts/tree/master/charts/longhorn
-longhorn:
+longhorn-system:
   persistence:
     defaultClass: false
     defaultClassReplicaCount: 2
