@@ -7,5 +7,5 @@ version: 0.1.0
 
 dependencies:
   - name: mongodb
-    version: 9.0.1
+    version: 10.3.3
     repository: https://charts.bitnami.com/bitnami

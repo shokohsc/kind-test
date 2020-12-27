@@ -7,5 +7,5 @@ version: 0.1.0
 
 dependencies:
   - name: kubernetes-dashboard
-    version: 2.3.0
+    version: 4.0.0
     repository: https://kubernetes.github.io/dashboard
