@@ -1,0 +1,11 @@
+apiVersion: v2
+name: vertical-pod-autoscaler
+description: vertical-pod-autoscaler
+type: application
+
+version: 0.1.0
+
+dependencies:
+  - name: vertical-pod-autoscaler
+    version: 3.0.0
+    repository: https://cowboysysop.github.io/charts/
