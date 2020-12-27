@@ -13,6 +13,7 @@ plex:
     ADVERTISE_IP: 'http://172.19.0.64:32400'
     CHANGE_CONFIG_DIR_OWNERSHIP: true
     ALLOWED_NETWORKS: 10.0.0.0/8
+    VERSION: docker
   extraPorts:
     - name: dlna-udp
       containerPort: 1900
