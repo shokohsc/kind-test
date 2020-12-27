@@ -15,5 +15,5 @@ spec:
     priority: 0
     services:
     - kind: Service
-      name: grafana
-      port: 3000
+      name: kube-prometheus-stack-grafana
+      port: 80
