@@ -1,30 +1,30 @@
----
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: sftp
-  labels:
-    namespace: sftp
----
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: sftp
-  namespace: argocd
-spec:
-  project: default
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-      - Validate=true
-    retry:
-      limit: 2
-  source:
-    repoURL: https://github.com/shokohsc/kind-test.git
-    path: charts/sftp
-    targetRevision: HEAD
-  destination:
-    namespace: sftp
-    server: https://kubernetes.default.svc
+# ---
+# apiVersion: v1
+# kind: Namespace
+# metadata:
+#   name: sftp
+#   labels:
+#     namespace: sftp
+# ---
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: sftp
+#   namespace: argocd
+# spec:
+#   project: default
+#   syncPolicy:
+#     automated:
+#       prune: true
+#       selfHeal: true
+#     syncOptions:
+#       - Validate=true
+#     retry:
+#       limit: 2
+#   source:
+#     repoURL: https://github.com/shokohsc/kind-test.git
+#     path: charts/sftp
+#     targetRevision: HEAD
+#   destination:
+#     namespace: sftp
+#     server: https://kubernetes.default.svc

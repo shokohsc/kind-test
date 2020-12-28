@@ -1,30 +1,30 @@
----
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: nfs-server-provisioner
-  labels:
-    namespace: nfs-server-provisioner
----
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: nfs-server-provisioner
-  namespace: argocd
-spec:
-  project: default
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-      - Validate=true
-    retry:
-      limit: 2
-  source:
-    repoURL: https://github.com/shokohsc/kind-test.git
-    path: charts/nfs-server-provisioner
-    targetRevision: HEAD
-  destination:
-    namespace: nfs-server-provisioner
-    server: https://kubernetes.default.svc
+# ---
+# apiVersion: v1
+# kind: Namespace
+# metadata:
+#   name: nfs-server-provisioner
+#   labels:
+#     namespace: nfs-server-provisioner
+# ---
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: nfs-server-provisioner
+#   namespace: argocd
+# spec:
+#   project: default
+#   syncPolicy:
+#     automated:
+#       prune: true
+#       selfHeal: true
+#     syncOptions:
+#       - Validate=true
+#     retry:
+#       limit: 2
+#   source:
+#     repoURL: https://github.com/shokohsc/kind-test.git
+#     path: charts/nfs-server-provisioner
+#     targetRevision: HEAD
+#   destination:
+#     namespace: nfs-server-provisioner
+#     server: https://kubernetes.default.svc

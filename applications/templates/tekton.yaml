@@ -1,30 +1,30 @@
----
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: tekton
-  labels:
-    namespace: tekton
----
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: tekton
-  namespace: argocd
-spec:
-  project: default
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-      - Validate=true
-    retry:
-      limit: 2
-  source:
-    repoURL: https://github.com/shokohsc/kind-test.git
-    path: charts/tekton
-    targetRevision: HEAD
-  destination:
-    namespace: tekton
-    server: https://kubernetes.default.svc
+# ---
+# apiVersion: v1
+# kind: Namespace
+# metadata:
+#   name: tekton
+#   labels:
+#     namespace: tekton
+# ---
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: tekton
+#   namespace: argocd
+# spec:
+#   project: default
+#   syncPolicy:
+#     automated:
+#       prune: true
+#       selfHeal: true
+#     syncOptions:
+#       - Validate=true
+#     retry:
+#       limit: 2
+#   source:
+#     repoURL: https://github.com/shokohsc/kind-test.git
+#     path: charts/tekton
+#     targetRevision: HEAD
+#   destination:
+#     namespace: tekton
+#     server: https://kubernetes.default.svc

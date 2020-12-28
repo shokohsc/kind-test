@@ -10,12 +10,12 @@ pihole:
       type: LoadBalancer
       annotations:
         metallb.universe.tf/allow-shared-ip: "true"
-  dhcp:
-    enabled: true
-    service:
-      type: LoadBalancer
-      annotations:
-        metallb.universe.tf/allow-shared-ip: "true"
+  # dhcp:
+  #   enabled: true
+  #   service:
+  #     type: LoadBalancer
+  #     annotations:
+  #       metallb.universe.tf/allow-shared-ip: "true"
   doh:
     enabled: true
   dnsmasq:
