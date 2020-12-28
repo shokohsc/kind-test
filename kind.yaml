@@ -50,23 +50,23 @@ nodes:
   #   containerPath: /storage
   # image: kindest/node:v1.18.8@sha256:f4bcc97a0ad6e7abaf3f643d890add7efe6ee4ab90baeb374b4f41a4c95567eb
 
-featureGates:
-  DynamicKubeletConfig: true
-  ExecProbeTimeout: true
-  ExpandInUsePersistentVolumes: true
-  ExpandPersistentVolumes: true
-  GenericEphemeralVolume: true
-  GracefulNodeShutdown: true
-  MixedProtocolLBService: true
-  PodDisruptionBudget: true
-  RunAsGroup: true
-  SCTPSupport: true
-  SetHostnameAsFQDN: true
-  SupportPodPidsLimit: true
-  TaintBasedEvictions: true
-  TaintNodesByCondition: true
-  TTLAfterFinished: true
-  VolumeSubpathEnvExpansion: true
+# featureGates:
+#   DynamicKubeletConfig: true
+#   ExecProbeTimeout: true
+#   ExpandInUsePersistentVolumes: true
+#   ExpandPersistentVolumes: true
+#   GenericEphemeralVolume: true
+#   GracefulNodeShutdown: true
+#   MixedProtocolLBService: true
+#   PodDisruptionBudget: true
+#   RunAsGroup: true
+#   SCTPSupport: true
+#   SetHostnameAsFQDN: true
+#   SupportPodPidsLimit: true
+#   TaintBasedEvictions: true
+#   TaintNodesByCondition: true
+#   TTLAfterFinished: true
+#   VolumeSubpathEnvExpansion: true
 
 # kubeadmConfigPatches:
 # - |
