@@ -5,5 +5,5 @@ nfs:
       mountPath: /backups
       path: /mnt/backups
 
-  nodeSelector:
-    overwatch: sombra
+  # nodeSelector:
+  #   overwatch: sombra
