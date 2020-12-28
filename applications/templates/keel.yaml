@@ -1,0 +1,30 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: keel
+  labels:
+    namespace: keel
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: keel
+  namespace: argocd
+spec:
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - Validate=true
+    retry:
+      limit: 2
+  source:
+    repoURL: https://github.com/shokohsc/kind-test.git
+    path: charts/keel
+    targetRevision: HEAD
+  destination:
+    namespace: keel
+    server: https://kubernetes.default.svc
