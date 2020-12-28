@@ -18,8 +18,11 @@ docker exec -ti theia kubectl taint nodes --all node-role.kubernetes.io/master-
 
 docker exec -ti -u root kind-control-plane sh -c "echo 'nameserver 10.96.0.10' >> /etc/resolv.conf"
 docker exec -ti -u root kind-control-plane2 sh -c "echo 'nameserver 10.96.0.10' >> /etc/resolv.conf"
+docker exec -ti -u root kind-control-plane3 sh -c "echo 'nameserver 10.96.0.10' >> /etc/resolv.conf"
 
 docker exec -ti -u root kind-control-plane apt update
 docker exec -ti -u root kind-control-plane2 apt update
-docker exec -ti -u root kind-control-plane apt install -y curl findmnt grep awk blkid open-iscsi
-docker exec -ti -u root kind-control-plane2 apt install -y curl findmnt grep awk blkid open-iscsi
+docker exec -ti -u root kind-control-plane3 apt update
+docker exec -ti -u root kind-control-plane apt install -y curl grep original-awk open-iscsi
+docker exec -ti -u root kind-control-plane2 apt install -y curl grep original-awk open-iscsi
+docker exec -ti -u root kind-control-plane3 apt install -y curl grep original-awk open-iscsi
