@@ -2,14 +2,14 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: nfs-wd2to
+  name: home
   labels:
-    namespace: nfs-wd2to
+    namespace: home
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: nfs-wd2to
+  name: home
   namespace: argocd
 spec:
   project: default
@@ -23,8 +23,8 @@ spec:
       limit: 2
   source:
     repoURL: https://github.com/shokohsc/kind-test.git
-    path: charts/nfs-wd2to
+    path: charts/home
     targetRevision: HEAD
   destination:
-    namespace: nfs-wd2to
+    namespace: home
     server: https://kubernetes.default.svc

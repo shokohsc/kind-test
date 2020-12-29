@@ -1,0 +1,11 @@
+# https://github.com/shokohsc/charts/tree/main/charts/comics
+comics:
+  volumes:
+    - name: wd2to
+      server: nfs-wd2to-0.nfs-wd2to.nfs-wd2to.svc.cluster.local
+      mountPath: /root/media/WD2To
+      path: /
+    - name: shared
+      server: nfs-shared-0.nfs-shared.nfs-shared.svc.cluster.local
+      mountPath: /root/shared
+      path: /
