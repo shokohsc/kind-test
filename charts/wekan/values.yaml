@@ -50,7 +50,7 @@ service:
   # service.type -- Service type
   type: ClusterIP
   # service.port -- Pihole web port
-  port: 32400
+  port: 8080
   # Annotations to add to the service
   # service.annotations -- Service annotations
   annotations: {}

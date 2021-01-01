@@ -16,4 +16,4 @@ spec:
     services:
     - kind: Service
       name: wekan
-      port: 3000
+      port: 8080
