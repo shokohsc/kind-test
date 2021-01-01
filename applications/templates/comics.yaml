@@ -23,7 +23,7 @@ spec:
       limit: 2
   source:
     repoURL: https://github.com/shokohsc/kind-test.git
-    path: charts/test-comics
+    path: charts/comics
     targetRevision: HEAD
   destination:
     namespace: comics
