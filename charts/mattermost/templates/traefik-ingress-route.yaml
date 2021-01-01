@@ -1,0 +1,19 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: traefik
+  name: mattermost
+  namespace: mattermost
+spec:
+  entryPoints:
+    - web
+  routes:
+  - kind: Rule
+    match: Host(`mattermost.kind.shokohsc.home`)
+    priority: 0
+    services:
+    - kind: Service
+      name: mattermost
+      port: 8000

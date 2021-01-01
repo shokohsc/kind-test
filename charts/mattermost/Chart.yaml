@@ -1,0 +1,11 @@
+apiVersion: v2
+name: mattermost
+description: mattermost
+type: application
+
+version: 0.1.0
+
+dependencies:
+  - name: mattermost
+    version: 3.19.0
+    repository: https://helm.mattermost.com
