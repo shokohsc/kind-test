@@ -49,11 +49,11 @@ securityContext: {}
 volumes:
   - name: wd2to
     server: nfs-wd2to-0.nfs-wd2to.nfs-wd2to.svc.cluster.local
-    mountPath: /var/www/symfony/public/files/all
-    path: /
+    mountPath: /mnt/all
+    path: /comics
   - name: shared
     server: nfs-shared-0.nfs-shared.nfs-shared.svc.cluster.local
-    mountPath: /var/www/symfony/public/files/weekly
+    mountPath: /mnt/weekly
     path: /
   # - name: wd1to
   #   server: nfs-wd1to.nfs.svc.cluster.local
