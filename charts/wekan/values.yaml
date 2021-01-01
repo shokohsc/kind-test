@@ -108,5 +108,5 @@ affinity: {}
 
 # envVars -- Pod environment variables
 envVars:
-  ROOT_URL: wekan.kind.shokohsc.home
+  ROOT_URL: https://wekan.kind.shokohsc.home
   MONGO_URL: mongodb://mongodb.mongodb/wekan
