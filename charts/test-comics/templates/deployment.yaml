@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "comics.fullname" . }}
+  name: {{ include "comics.fullname" . }}-php-fpm
   labels:
     {{- include "comics.labels" . | nindent 4 }}
 spec:
@@ -65,6 +65,78 @@ spec:
               mountPath: {{ .mountPath }}
             {{- end }}
 
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+
+      volumes:
+        - name: shared-files
+          emptyDir: {}
+        {{- range .Values.volumes }}
+        - name: {{ .name }}
+          nfs:
+            server: {{ .server }}
+            path: {{ .path }}
+          {{- if .mountOptions }}
+          mountOptions:
+            {{- range .mountOptions }}
+            - {{ . }}
+            {{- end }}
+          {{- end }}
+        {{- end }}
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "comics.fullname" . }}-nginx
+  labels:
+    {{- include "comics.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "comics.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "comics.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "comics.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+
+      initContainers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: ["/bin/sh", "-c", "cp -r /var/www/symfony/. /app"]
+          volumeMounts:
+            - name: shared-files
+              mountPath: /app
+
+      containers:
         - name: nginx
           image: shokohsc/alpine-nginx
           env:
@@ -104,15 +176,3 @@ spec:
       volumes:
         - name: shared-files
           emptyDir: {}
-        {{- range .Values.volumes }}
-        - name: {{ .name }}
-          nfs:
-            server: {{ .server }}
-            path: {{ .path }}
-          {{- if .mountOptions }}
-          mountOptions:
-            {{- range .mountOptions }}
-            - {{ . }}
-            {{- end }}
-          {{- end }}
-        {{- end }}
