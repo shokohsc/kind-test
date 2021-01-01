@@ -1,0 +1,19 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: traefik
+  name: wekan
+  namespace: wekan
+spec:
+  entryPoints:
+    - web
+  routes:
+  - kind: Rule
+    match: Host(`wekan.kind.shokohsc.home`)
+    priority: 0
+    services:
+    - kind: Service
+      name: wekan
+      port: 3000

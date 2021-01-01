@@ -2,14 +2,14 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: mongo-express
+  name: wekan
   labels:
-    namespace: mongo-express
+    namespace: wekan
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: mongo-express
+  name: wekan
   namespace: argocd
 spec:
   project: default
@@ -23,8 +23,8 @@ spec:
       limit: 2
   source:
     repoURL: https://github.com/shokohsc/kind-test.git
-    path: charts/mongo-express
+    path: charts/wekan
     targetRevision: HEAD
   destination:
-    namespace: mongo-express
+    namespace: wekan
     server: https://kubernetes.default.svc
