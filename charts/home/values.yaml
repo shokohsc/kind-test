@@ -1,2 +1,29 @@
-# https://github.com/shokohsc/charts/tree/main/charts/home
-home: {}
+# https://github.com/shokohsc/charts/tree/main/charts/symfony
+symfony:
+  initContainers:
+    - name: app-copy
+      image: shokohsc/server-wol
+      command: ["/bin/sh", "-c", "cp -r /var/www/symfony/. /app"]
+      volumeMounts:
+        - name: shared-files
+          mountPath: /app
+  nginx:
+    volumeMounts:
+      - name: shared-files
+        mountPath: /var/www/symfony
+      - name: nginx-config
+        mountPath: /etc/nginx/nginx.conf
+        subPath: nginx.conf
+      - name: nginx-config
+        mountPath: /etc/nginx/conf.d/symfony.conf
+        subPath: symfony.conf
+  php:
+    volumeMounts:
+      - name: shared-files
+        mountPath: /var/www/symfony
+  extraVolumes:
+    - name: shared-files
+      emptyDir: {}
+    - name: nginx-config
+      configMap:
+        name: nginx-config

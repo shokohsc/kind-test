@@ -5,6 +5,7 @@
 #   name: goldilocks
 #   labels:
 #     namespace: goldilocks
+#     goldilocks.fairwinds.com/enabled: true
 # ---
 # apiVersion: argoproj.io/v1alpha1
 # kind: Application

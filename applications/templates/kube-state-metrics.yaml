@@ -5,6 +5,7 @@
 #   name: kube-state-metrics
 #   labels:
 #     namespace: kube-state-metrics
+#     goldilocks.fairwinds.com/enabled: true
 # ---
 # apiVersion: argoproj.io/v1alpha1
 # kind: Application

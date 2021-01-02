@@ -5,6 +5,7 @@
 #   name: nfs-server-provisioner
 #   labels:
 #     namespace: nfs-server-provisioner
+#     goldilocks.fairwinds.com/enabled: true
 # ---
 # apiVersion: argoproj.io/v1alpha1
 # kind: Application

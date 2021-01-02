@@ -5,6 +5,7 @@
 #   name: nfs-downloads
 #   labels:
 #     namespace: nfs-downloads
+#     goldilocks.fairwinds.com/enabled: true
 # ---
 # apiVersion: argoproj.io/v1alpha1
 # kind: Application

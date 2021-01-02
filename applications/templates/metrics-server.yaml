@@ -2,15 +2,15 @@
 # apiVersion: v1
 # kind: Namespace
 # metadata:
-#   name: tekton
+#   name: metrics-server
 #   labels:
-#     namespace: tekton
+#     namespace: metrics-server
 #     goldilocks.fairwinds.com/enabled: true
 # ---
 # apiVersion: argoproj.io/v1alpha1
 # kind: Application
 # metadata:
-#   name: tekton
+#   name: metrics-server
 #   namespace: argocd
 # spec:
 #   project: default
@@ -24,8 +24,8 @@
 #       limit: 2
 #   source:
 #     repoURL: https://github.com/shokohsc/kind-test.git
-#     path: charts/tekton
+#     path: charts/metrics-server
 #     targetRevision: HEAD
 #   destination:
-#     namespace: tekton
+#     namespace: metrics-server
 #     server: https://kubernetes.default.svc

@@ -1,2 +1,5 @@
 # https://github.com/itzg/minecraft-server-charts
-minecraft: {}
+minecraft:
+  minecraftServer:
+    eula: "TRUE"
+    

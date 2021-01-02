@@ -5,6 +5,7 @@
 #   name: adminer
 #   labels:
 #     namespace: adminer
+#     goldilocks.fairwinds.com/enabled: true
 # ---
 # apiVersion: argoproj.io/v1alpha1
 # kind: Application

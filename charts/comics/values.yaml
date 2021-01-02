@@ -1,11 +1,39 @@
-# https://github.com/shokohsc/charts/tree/main/charts/comics
-comics:
-  volumes:
-    - name: wd2to
+# https://github.com/shokohsc/charts/tree/main/charts/symfony
+symfony:
+  initContainers:
+    - name: app-copy
+      image: shokohsc/server-comic-reader
+      command: ["/bin/sh", "-c", "cp -r /var/www/symfony/. /app"]
+      volumeMounts:
+        - name: shared-files
+          mountPath: /app
+  nginx:
+    volumeMounts:
+      - name: shared-files
+        mountPath: /var/www/symfony
+      - name: nginx-config
+        mountPath: /etc/nginx/nginx.conf
+        subPath: nginx.conf
+      - name: nginx-config
+        mountPath: /etc/nginx/conf.d/symfony.conf
+        subPath: symfony.conf
+  php:
+    volumeMounts:
+      - name: shared-files
+        mountPath: /var/www/symfony
+      - name: nfs-shared
+        mountPath: /mnt/shared
+      - name: nfs-wd2to
+        mountPath: /mnt/wd2to
+  extraVolumes:
+    - name: shared-files
+      emptyDir: {}
+    - name: nginx-config
+      configMap:
+        name: nginx-config
+    - name: nfs-wd2to
       server: nfs-wd2to-0.nfs-wd2to.nfs-wd2to.svc.cluster.local
-      mountPath: /mnt/wd2to
       path: /
-    - name: shared
+    - name: nfs-shared
       server: nfs-shared-0.nfs-shared.nfs-shared.svc.cluster.local
-      mountPath: /mnt/shared
       path: /

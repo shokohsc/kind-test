@@ -5,6 +5,7 @@
 #   name: nfs-wd2to
 #   labels:
 #     namespace: nfs-wd2to
+#     goldilocks.fairwinds.com/enabled: true
 # ---
 # apiVersion: argoproj.io/v1alpha1
 # kind: Application

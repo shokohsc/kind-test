@@ -5,6 +5,7 @@
 #   name: kube-prometheus-stack
 #   labels:
 #     namespace: kube-prometheus-stack
+#     goldilocks.fairwinds.com/enabled: true
 # ---
 # apiVersion: argoproj.io/v1alpha1
 # kind: Application
