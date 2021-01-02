@@ -3,3 +3,5 @@ wekan:
   envVars:
     ROOT_URL: https://wekan.kind.shokohsc.home
     MONGO_URL: mongodb://mongodb.mongodb/wekan
+  mongodb:
+    enabled: false
