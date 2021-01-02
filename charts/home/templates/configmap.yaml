@@ -4,7 +4,6 @@ metadata:
   name: nginx-config
 data:
   nginx.conf: |
-    user app;
     worker_processes auto;
     pid /run/nginx.pid;
 
