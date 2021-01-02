@@ -1,0 +1,11 @@
+apiVersion: v2
+name: argocd-notifications
+description: argocd-notifications
+type: application
+
+version: 0.1.0
+
+dependencies:
+  - name: argocd-notifications
+    version: 1.0.11
+    repository: https://argoproj.github.io/argo-helm

@@ -3,6 +3,7 @@ resource "kubernetes_namespace" "argocd" {
     name = "argocd"
     labels = {
       namespace = "argocd"
+      "goldilocks.fairwinds.com/enabled" = "true"
     }
   }
 }

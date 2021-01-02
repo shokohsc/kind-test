@@ -1,0 +1,31 @@
+# ---
+# apiVersion: v1
+# kind: Namespace
+# metadata:
+#   name: argocd-notifications
+#   labels:
+#     namespace: argocd-notifications
+#     goldilocks.fairwinds.com/enabled: true
+# ---
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: argocd-notifications
+#   namespace: argocd
+# spec:
+#   project: default
+#   syncPolicy:
+#     automated:
+#       prune: true
+#       selfHeal: true
+#     syncOptions:
+#       - Validate=true
+#     retry:
+#       limit: 2
+#   source:
+#     repoURL: https://github.com/shokohsc/kind-test.git
+#     path: charts/argocd-notifications
+#     targetRevision: HEAD
+#   destination:
+#     namespace: argocd-notifications
+#     server: https://kubernetes.default.svc
