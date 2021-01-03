@@ -1,31 +1,31 @@
----
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: home
-  labels:
-    namespace: home
-    goldilocks.fairwinds.com/enabled: true
----
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: home
-  namespace: argocd
-spec:
-  project: default
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-      - Validate=true
-    retry:
-      limit: 2
-  source:
-    repoURL: https://github.com/shokohsc/kind-test.git
-    path: charts/home
-    targetRevision: HEAD
-  destination:
-    namespace: home
-    server: https://kubernetes.default.svc
+# ---
+# apiVersion: v1
+# kind: Namespace
+# metadata:
+#   name: home
+#   labels:
+#     namespace: home
+#     goldilocks.fairwinds.com/enabled: true
+# ---
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: home
+#   namespace: argocd
+# spec:
+#   project: default
+#   syncPolicy:
+#     automated:
+#       prune: true
+#       selfHeal: true
+#     syncOptions:
+#       - Validate=true
+#     retry:
+#       limit: 2
+#   source:
+#     repoURL: https://github.com/shokohsc/kind-test.git
+#     path: charts/home
+#     targetRevision: HEAD
+#   destination:
+#     namespace: home
+#     server: https://kubernetes.default.svc
