@@ -37,7 +37,7 @@ data:
       gzip_types text/plain text/css application/json application/x-javascript
                  text/xml application/xml application/xml+rss text/javascript;
 
-      include /etc/nginx/conf.d/*.conf;
+      include /etc/nginx/conf.d/symfony.conf;
 
       open_file_cache max=100;
       client_max_body_size 2G;
