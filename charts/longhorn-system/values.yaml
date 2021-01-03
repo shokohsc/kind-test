@@ -1,5 +1,5 @@
 # https://github.com/longhorn/charts/tree/master/charts/longhorn
-longhorn-system:
+longhorn:
   persistence:
     defaultClass: false
   defaultSettings:
