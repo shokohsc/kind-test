@@ -34,7 +34,7 @@ symfony:
     - name: nfs-wd2to
       nfs:
         server: nfs-wd2to-0.nfs-wd2to.nfs-wd2to.svc.cluster.local
-        path: /
+        path: /comics
     - name: nfs-shared
       nfs:
         server: nfs-shared-0.nfs-shared.nfs-shared.svc.cluster.local
