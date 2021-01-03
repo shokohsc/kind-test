@@ -4,6 +4,5 @@ nfs:
     - name: shared
       mountPath: /shared
       path: /mnt/shared
-
-  # nodeSelector:
-  #   overwatch: sombra
+  nodeSelector:
+    overwatch: sombra

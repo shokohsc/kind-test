@@ -1,0 +1,6 @@
+# https://github.com/shokohsc/charts/tree/main/charts/duckdns
+duckdns:
+  subDomains: "shokohsc"
+  secret:
+    existingSecret: "duckdns-token"
+    tokenKey: "token"

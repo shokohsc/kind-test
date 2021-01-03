@@ -1,11 +1,11 @@
 apiVersion: v2
-name: commander
-description: commander
+name: duckdns
+description: duckdns
 type: application
 
 version: 0.1.0
 
 dependencies:
-  - name: commander
-    version: 0.1.4
+  - name: duckdns
+    version: 0.1.1
     repository: https://shokohsc.github.io/charts
