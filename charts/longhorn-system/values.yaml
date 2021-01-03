@@ -3,5 +3,5 @@ longhorn-system:
   persistence:
     defaultClass: false
   defaultSettings:
-    backupTarget: nfs://nfs-backups-0.nfs-backups.nfs-backups.svc.cluster.local:/
+    # backupTarget: nfs://nfs-backups-0.nfs-backups.nfs-backups.svc.cluster.local:/
     defaultDataPath: /storage
