@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: longhorn
+  name: longhorn-system
   labels:
     namespace: longhorn-system
     goldilocks.fairwinds.com/enabled: "true"
