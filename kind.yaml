@@ -17,7 +17,7 @@ nodes:
     kind: InitConfiguration
     nodeRegistration:
       kubeletExtraArgs:
-        node-labels: "overwatch=sombra"
+        node-labels: "overwatch=sombra,node.longhorn.io/create-default-disk=true"
   # add a mount from /path/to/my/files on the host to /files on the node
   extraMounts:
   - hostPath: /mnt
@@ -32,7 +32,7 @@ nodes:
     kind: JoinConfiguration
     nodeRegistration:
       kubeletExtraArgs:
-        node-labels: "overwatch=lucio"
+        node-labels: "overwatch=lucio,node.longhorn.io/create-default-disk=true"
   extraMounts:
   - hostPath: /home/sombra/storage/lucio
     containerPath: /storage
@@ -44,9 +44,21 @@ nodes:
     kind: JoinConfiguration
     nodeRegistration:
       kubeletExtraArgs:
-        node-labels: "overwatch=zarya"
+        node-labels: "overwatch=zarya,node.longhorn.io/create-default-disk=true"
   extraMounts:
   - hostPath: /home/sombra/storage/zarya
+    containerPath: /storage
+  # image: kindest/node:v1.18.8@sha256:f4bcc97a0ad6e7abaf3f643d890add7efe6ee4ab90baeb374b4f41a4c95567eb
+
+- role: worker
+  kubeadmConfigPatches:
+  - |
+    kind: JoinConfiguration
+    nodeRegistration:
+      kubeletExtraArgs:
+        node-labels: "overwatch=orisa"
+  extraMounts:
+  - hostPath: /home/sombra/storage/orisa
     containerPath: /storage
   # image: kindest/node:v1.18.8@sha256:f4bcc97a0ad6e7abaf3f643d890add7efe6ee4ab90baeb374b4f41a4c95567eb
 
