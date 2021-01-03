@@ -5,7 +5,7 @@
 #   name: openvpn-server
 #   labels:
 #     namespace: openvpn-server
-#     goldilocks.fairwinds.com/enabled: true
+#     goldilocks.fairwinds.com/enabled: "true"
 # ---
 # apiVersion: argoproj.io/v1alpha1
 # kind: Application
