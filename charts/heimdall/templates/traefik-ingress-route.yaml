@@ -1,0 +1,19 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: traefik
+  name: heimdall
+  namespace: heimdall
+spec:
+  entryPoints:
+    - web
+  routes:
+  - kind: Rule
+    match: Host(`heimdall.kind.shokohsc.home`)
+    priority: 0
+    services:
+    - kind: Service
+      name: heimdall
+      port: 80

@@ -3,6 +3,7 @@ docker exec -ti theia eval "$(ssh-agent -s)"
 docker exec -ti theia ssh-add ~/.ssh/id_rsa
 docker exec -ti theia cat /home/theia/.ssh/id_rsa.pub
 
+docker network create --subnet 172.19.0.0/16 --gateway 172.19.0.1 kind
 docker exec -ti theia kind create cluster --config /home/project/kind/kind.yaml
 
 docker network connect kind traefik && \
