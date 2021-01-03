@@ -1,0 +1,11 @@
+apiVersion: v2
+name: commafeed
+description: commafeed
+type: application
+
+version: 0.1.0
+
+dependencies:
+  - name: commafeed
+    version: 0.1.0
+    repository: https://shokohsc.github.io/charts

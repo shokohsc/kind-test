@@ -1,0 +1,31 @@
+# ---
+# apiVersion: v1
+# kind: Namespace
+# metadata:
+#   name: theia
+#   labels:
+#     namespace: theia
+#     goldilocks.fairwinds.com/enabled: "true"
+# ---
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: theia
+#   namespace: argocd
+# spec:
+#   project: default
+#   syncPolicy:
+#     automated:
+#       prune: true
+#       selfHeal: true
+#     syncOptions:
+#       - Validate=true
+#     retry:
+#       limit: 2
+#   source:
+#     repoURL: https://github.com/shokohsc/kind-test.git
+#     path: charts/theia
+#     targetRevision: HEAD
+#   destination:
+#     namespace: theia
+#     server: https://kubernetes.default.svc

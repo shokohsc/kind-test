@@ -1,0 +1,11 @@
+# https://github.com/shokohsc/charts/tree/main/charts/commafeed
+commafeed:
+  extraVolumes:
+    volumeMounts:
+      - name: commafeed-config
+        mountPath: /config/config.yml
+        subPath: config.yml
+    volumes:
+      - name: commafeed-config
+        configMap:
+          name: commafeed-config
