@@ -22,9 +22,9 @@ symfony:
       - name: shared-files
         mountPath: /var/www/symfony
       - name: nfs-shared
-        mountPath: /mnt/shared
+        mountPath: /var/www/symfony/public/files/weekly
       - name: nfs-wd2to
-        mountPath: /mnt/wd2to
+        mountPath: /var/www/symfony/public/files/all
   extraVolumes:
     - name: shared-files
       emptyDir: {}
