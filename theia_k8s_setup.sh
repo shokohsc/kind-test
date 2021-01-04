@@ -29,6 +29,14 @@ docker exec -ti -u root kind-control-plane apt install -y nfs-common open-iscsi
 docker exec -ti -u root kind-control-plane2 apt install -y nfs-common open-iscsi
 docker exec -ti -u root kind-control-plane3 apt install -y nfs-common open-iscsi
 
-docker exec -ti -u root kind-control-plane service start iscsid
-docker exec -ti -u root kind-control-plane2 service start iscsid
-docker exec -ti -u root kind-control-plane3 service start iscsid
+docker exec -ti -u root kind-control-plane service iscsid start
+docker exec -ti -u root kind-control-plane2 service iscsid start
+docker exec -ti -u root kind-control-plane3 service iscsid start
+
+docker exec -ti -u root kind-control-plane service iscsid status
+docker exec -ti -u root kind-control-plane2 service iscsid status
+docker exec -ti -u root kind-control-plane3 service iscsid status
+
+docker exec -ti -u root kind-control-plane service iscsid stop
+docker exec -ti -u root kind-control-plane2 service iscsid stop
+docker exec -ti -u root kind-control-plane3 service iscsid stop
