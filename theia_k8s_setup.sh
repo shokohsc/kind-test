@@ -21,22 +21,23 @@ docker exec -ti -u root kind-control-plane sh -c "echo 'nameserver 10.96.0.10' >
 docker exec -ti -u root kind-control-plane2 sh -c "echo 'nameserver 10.96.0.10' >> /etc/resolv.conf"
 docker exec -ti -u root kind-control-plane3 sh -c "echo 'nameserver 10.96.0.10' >> /etc/resolv.conf"
 
-docker exec -ti -u root kind-control-plane apt update
-docker exec -ti -u root kind-control-plane2 apt update
-docker exec -ti -u root kind-control-plane3 apt update
+docker exec -ti -u root kind-control-plane apt-get update -qy
+docker exec -ti -u root kind-control-plane2 apt-get update -qy
+docker exec -ti -u root kind-control-plane3 apt-get update -qy
 
-docker exec -ti -u root kind-control-plane apt install -y nfs-common open-iscsi
-docker exec -ti -u root kind-control-plane2 apt install -y nfs-common open-iscsi
-docker exec -ti -u root kind-control-plane3 apt install -y nfs-common open-iscsi
+docker exec -ti -u root kind-control-plane apt-get install -qy open-iscsi
+docker exec -ti -u root kind-control-plane2 apt-get install -qy open-iscsi
+docker exec -ti -u root kind-control-plane3 apt-get install -qy open-iscsi
 
-docker exec -ti -u root kind-control-plane service iscsid start
-docker exec -ti -u root kind-control-plane2 service iscsid start
-docker exec -ti -u root kind-control-plane3 service iscsid start
+docker exec -ti -u root kind-control-plane systemctl enable iscsid
+docker exec -ti -u root kind-control-plane2 systemctl enable iscsid
+docker exec -ti -u root kind-control-plane3 systemctl enable iscsid
 
-docker exec -ti -u root kind-control-plane service iscsid status
-docker exec -ti -u root kind-control-plane2 service iscsid status
-docker exec -ti -u root kind-control-plane3 service iscsid status
+docker exec -ti -u root kind-control-plane systemctl start iscsid
+docker exec -ti -u root kind-control-plane2 systemctl start iscsid
+docker exec -ti -u root kind-control-plane3 systemctl start iscsid
 
-docker exec -ti -u root kind-control-plane service iscsid stop
-docker exec -ti -u root kind-control-plane2 service iscsid stop
-docker exec -ti -u root kind-control-plane3 service iscsid stop
+
+docker exec -ti -u root kind-control-plane systemctl status iscsid
+docker exec -ti -u root kind-control-plane2 systemctl status iscsid
+docker exec -ti -u root kind-control-plane3 systemctl status iscsid
