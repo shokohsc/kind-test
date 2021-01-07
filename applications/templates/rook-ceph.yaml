@@ -1,0 +1,31 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: rook-ceph
+  labels:
+    namespace: rook-ceph
+    goldilocks.fairwinds.com/enabled: "true"
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: rook-ceph
+  namespace: argocd
+spec:
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - Validate=true
+    retry:
+      limit: 2
+  source:
+    repoURL: https://github.com/shokohsc/kind-test.git
+    path: charts/rook-ceph
+    targetRevision: HEAD
+  destination:
+    namespace: rook-ceph
+    server: https://kubernetes.default.svc

@@ -1,0 +1,4 @@
+# https://rook.io/docs/rook/v1.5/helm-operator.html#configuration
+rook-ceph:
+  nodeSelector:
+    node.longhorn.io/create-default-disk: "true"

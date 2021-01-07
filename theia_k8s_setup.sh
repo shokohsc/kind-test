@@ -25,9 +25,9 @@ docker exec -ti -u root kind-control-plane apt-get update -qy
 docker exec -ti -u root kind-control-plane2 apt-get update -qy
 docker exec -ti -u root kind-control-plane3 apt-get update -qy
 
-docker exec -ti -u root kind-control-plane apt-get install -qy open-iscsi tgt
-docker exec -ti -u root kind-control-plane2 apt-get install -qy open-iscsi tgt
-docker exec -ti -u root kind-control-plane3 apt-get install -qy open-iscsi tgt
+docker exec -ti -u root kind-control-plane apt-get install -qy open-iscsi
+docker exec -ti -u root kind-control-plane2 apt-get install -qy open-iscsi
+docker exec -ti -u root kind-control-plane3 apt-get install -qy open-iscsi
 docker exec -ti -u root kind-control-plane systemctl enable iscsid
 docker exec -ti -u root kind-control-plane2 systemctl enable iscsid
 docker exec -ti -u root kind-control-plane3 systemctl enable iscsid
