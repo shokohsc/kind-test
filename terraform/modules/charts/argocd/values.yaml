@@ -5,6 +5,7 @@ argo-cd:
     ## Additional command line arguments to pass to argocd-server
     extraArgs:
     - --insecure
+    - --disable-auth
   global:
     image:
       tag: v1.8.1
