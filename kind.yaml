@@ -85,13 +85,13 @@ nodes:
 #   VolumeSubpathEnvExpansion: true
 
 kubeadmConfigPatches:
-- |
-  kind: ClusterConfiguration
-  metadata:
-    name: config
-  etcd:
-    local:
-      dataDir: "/tmp/lib/etcd"
-  apiServer:
-    extraArgs:
-      allow-privileged: "true"
+  - |
+    kind: ClusterConfiguration
+    metadata:
+      name: config
+    etcd:
+      local:
+        dataDir: "/tmp/lib/etcd"
+#    apiServer:
+#      extraArgs:
+#        allow-privileged: "true"

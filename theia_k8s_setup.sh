@@ -25,15 +25,15 @@ docker exec -ti -u root kind-control-plane apt-get update -qy
 docker exec -ti -u root kind-control-plane2 apt-get update -qy
 docker exec -ti -u root kind-control-plane3 apt-get update -qy
 
-docker exec -ti -u root kind-control-plane apt-get install -qy open-iscsi
-docker exec -ti -u root kind-control-plane2 apt-get install -qy open-iscsi
-docker exec -ti -u root kind-control-plane3 apt-get install -qy open-iscsi
-docker exec -ti -u root kind-control-plane systemctl enable iscsid
-docker exec -ti -u root kind-control-plane2 systemctl enable iscsid
-docker exec -ti -u root kind-control-plane3 systemctl enable iscsid
-docker exec -ti -u root kind-control-plane systemctl start iscsid
-docker exec -ti -u root kind-control-plane2 systemctl start iscsid
-docker exec -ti -u root kind-control-plane3 systemctl start iscsid
+docker exec -ti -u root kind-control-plane apt-get install -qy open-iscsi tgt
+docker exec -ti -u root kind-control-plane2 apt-get install -qy open-iscsi tgt
+docker exec -ti -u root kind-control-plane3 apt-get install -qy open-iscsi tgt
+docker exec -ti -u root kind-control-plane systemctl enable open-iscsi iscsid
+docker exec -ti -u root kind-control-plane2 systemctl enable open-iscsi iscsid
+docker exec -ti -u root kind-control-plane3 systemctl enable open-iscsi iscsid
+docker exec -ti -u root kind-control-plane systemctl start open-iscsi iscsid
+docker exec -ti -u root kind-control-plane2 systemctl start open-iscsi iscsid
+docker exec -ti -u root kind-control-plane3 systemctl start open-iscsi iscsid
 
 
 docker exec -ti -u root kind-control-plane systemctl status iscsid
@@ -41,15 +41,15 @@ docker exec -ti -u root kind-control-plane2 systemctl status iscsid
 docker exec -ti -u root kind-control-plane3 systemctl status iscsid
 
 
-docker exec -ti -u root kind-control-plane systemctl stop iscsid
-docker exec -ti -u root kind-control-plane2 systemctl stop iscsid
-docker exec -ti -u root kind-control-plane3 systemctl stop iscsid
-docker exec -ti -u root kind-control-plane systemctl disable iscsid
-docker exec -ti -u root kind-control-plane2 systemctl disable iscsid
-docker exec -ti -u root kind-control-plane3 systemctl disable iscsid
-docker exec -ti -u root kind-control-plane apt-get remove -y open-iscsi
-docker exec -ti -u root kind-control-plane2 apt-get remove -y open-iscsi
-docker exec -ti -u root kind-control-plane3 apt-get remove -y open-iscsi
+docker exec -ti -u root kind-control-plane systemctl stop open-iscsi iscsid
+docker exec -ti -u root kind-control-plane2 systemctl stop open-iscsi iscsid
+docker exec -ti -u root kind-control-plane3 systemctl stop open-iscsi iscsid
+docker exec -ti -u root kind-control-plane systemctl disable open-iscsi iscsid
+docker exec -ti -u root kind-control-plane2 systemctl disable open-iscsi iscsid
+docker exec -ti -u root kind-control-plane3 systemctl disable open-iscsi iscsid
+docker exec -ti -u root kind-control-plane apt-get remove -y open-iscsi tgt
+docker exec -ti -u root kind-control-plane2 apt-get remove -y open-iscsi tgt
+docker exec -ti -u root kind-control-plane3 apt-get remove -y open-iscsi tgt
 docker exec -ti -u root kind-control-plane apt-get autoremove -y
 docker exec -ti -u root kind-control-plane2 apt-get autoremove -y
 docker exec -ti -u root kind-control-plane3 apt-get autoremove -y
