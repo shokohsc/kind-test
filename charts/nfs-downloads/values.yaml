@@ -5,4 +5,4 @@ nfs:
       mountPath: /downloads
       path: /mnt/downloads
   nodeSelector:
-    overwatch: sombra
+    node.overwatch.io/character: sombra

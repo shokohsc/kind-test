@@ -18,13 +18,13 @@ nodes:
     kind: InitConfiguration
     nodeRegistration:
       kubeletExtraArgs:
-        node-labels: "overwatch=sombra,node.longhorn.io/create-default-disk=true"
+        node-labels: "node.overwatch.io/character=sombra,node.longhorn.io/create-default-disk=true"
   # add a mount from /path/to/my/files on the host to /files on the node
   extraMounts:
   - hostPath: /mnt
     containerPath: /mnt
-  - hostPath: /home/sombra/storage/sombra
-    containerPath: /storage
+  # - hostPath: /home/sombra/storage/sombra
+  #   containerPath: /storage
   # image: kindest/node:v1.18.8@sha256:f4bcc97a0ad6e7abaf3f643d890add7efe6ee4ab90baeb374b4f41a4c95567eb
 
 - role: control-plane
@@ -33,10 +33,10 @@ nodes:
     kind: JoinConfiguration
     nodeRegistration:
       kubeletExtraArgs:
-        node-labels: "overwatch=lucio,node.longhorn.io/create-default-disk=true"
+        node-labels: "node.overwatch.io/character=lucio,node.longhorn.io/create-default-disk=true"
   extraMounts:
-  - hostPath: /home/sombra/storage/lucio
-    containerPath: /storage
+  # - hostPath: /home/sombra/storage/lucio
+  #   containerPath: /storage
   # image: kindest/node:v1.18.8@sha256:f4bcc97a0ad6e7abaf3f643d890add7efe6ee4ab90baeb374b4f41a4c95567eb
 
 # - role: control-plane
@@ -45,7 +45,7 @@ nodes:
 #     kind: JoinConfiguration
 #     nodeRegistration:
 #       kubeletExtraArgs:
-#         node-labels: "overwatch=zarya,node.longhorn.io/create-default-disk=true"
+#         node-labels: "node.overwatch.io/character=zarya,node.longhorn.io/create-default-disk=true"
 #   extraMounts:
 #   - hostPath: /home/sombra/storage/zarya
 #     containerPath: /storage
@@ -57,7 +57,7 @@ nodes:
     kind: JoinConfiguration
     nodeRegistration:
       kubeletExtraArgs:
-        node-labels: "overwatch=hammond"
+        node-labels: "node.overwatch.io/character=hammond"
       taints:
         - effect: NoSchedule
           key: node.kubernetes.io/hammond
@@ -84,14 +84,14 @@ nodes:
 #   TTLAfterFinished: true
 #   VolumeSubpathEnvExpansion: true
 
-kubeadmConfigPatches:
-  - |
-    kind: ClusterConfiguration
-    metadata:
-      name: config
-    etcd:
-      local:
-        dataDir: "/tmp/lib/etcd"
-#    apiServer:
-#      extraArgs:
-#        allow-privileged: "true"
+# kubeadmConfigPatches:
+#   - |
+#     kind: ClusterConfiguration
+#     metadata:
+#       name: config
+#     etcd:
+#       local:
+#         dataDir: "/tmp/lib/etcd"
+#     apiServer:
+#       extraArgs:
+#         allow-privileged: "true"

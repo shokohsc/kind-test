@@ -6,4 +6,4 @@ nfs:
       path: /mnt/WD1To
 
   nodeSelector:
-    overwatch: sombra
+    node.overwatch.io/character: sombra

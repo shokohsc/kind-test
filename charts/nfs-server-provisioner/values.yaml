@@ -1,4 +1,4 @@
 # https://artifacthub.io/packages/helm/kvaps/nfs-server-provisioner
 nfs-server-provisioner:
   nodeSelector:
-    overwatch: sombra
+    node.overwatch.io/character: sombra
