@@ -25,46 +25,46 @@ docker exec -ti -u root kind-control-plane apt-get update -qy
 docker exec -ti -u root kind-control-plane2 apt-get update -qy
 docker exec -ti -u root kind-control-plane3 apt-get update -qy
 
-docker exec -ti -u root kind-control-plane apt-get install -qy open-iscsi tgt
-docker exec -ti -u root kind-control-plane2 apt-get install -qy open-iscsi tgt
-docker exec -ti -u root kind-control-plane3 apt-get install -qy open-iscsi tgt
+docker exec -ti -u root kind-control-plane apt-get install -qy open-iscsi
+docker exec -ti -u root kind-control-plane2 apt-get install -qy open-iscsi
+docker exec -ti -u root kind-control-plane3 apt-get install -qy open-iscsi
 docker exec -ti -u root kind-control-plane systemctl enable open-iscsi iscsid
 docker exec -ti -u root kind-control-plane2 systemctl enable open-iscsi iscsid
 docker exec -ti -u root kind-control-plane3 systemctl enable open-iscsi iscsid
 docker exec -ti -u root kind-control-plane systemctl start open-iscsi iscsid
 docker exec -ti -u root kind-control-plane2 systemctl start open-iscsi iscsid
 docker exec -ti -u root kind-control-plane3 systemctl start open-iscsi iscsid
-
-
-docker exec -ti -u root kind-control-plane systemctl status iscsid
-docker exec -ti -u root kind-control-plane2 systemctl status iscsid
-docker exec -ti -u root kind-control-plane3 systemctl status iscsid
-
-
-docker exec -ti -u root kind-control-plane systemctl stop open-iscsi iscsid
-docker exec -ti -u root kind-control-plane2 systemctl stop open-iscsi iscsid
-docker exec -ti -u root kind-control-plane3 systemctl stop open-iscsi iscsid
-docker exec -ti -u root kind-control-plane systemctl disable open-iscsi iscsid
-docker exec -ti -u root kind-control-plane2 systemctl disable open-iscsi iscsid
-docker exec -ti -u root kind-control-plane3 systemctl disable open-iscsi iscsid
-docker exec -ti -u root kind-control-plane apt-get remove -y open-iscsi tgt
-docker exec -ti -u root kind-control-plane2 apt-get remove -y open-iscsi tgt
-docker exec -ti -u root kind-control-plane3 apt-get remove -y open-iscsi tgt
-docker exec -ti -u root kind-control-plane apt-get autoremove -y
-docker exec -ti -u root kind-control-plane2 apt-get autoremove -y
-docker exec -ti -u root kind-control-plane3 apt-get autoremove -y
-
-# [pvc-b9ec5f7b-b3b5-4fc1-aac2-5013050fd522-e-a7165958]
-# time="2021-01-05T08:58:36Z"
-# level=warning
-# msg="FAIL to discover due to Failed to execute:
-# nsenter [--mount=/host/proc/1/ns/mnt --net=/host/proc/1/ns/net iscsiadm -m discovery -t sendtargets -p 10.244.2.20],
-# output ,
-# stderr,
-# Failed to connect to bus: No data available
-# iscsiadm: can not connect to iSCSI daemon (111)!
-# Failed to connect to bus: No data available
-# iscsiadm: can not connect to iSCSI daemon (111)!
-# iscsiadm: Cannot perform discovery. Initiatorname required.
-# iscsiadm: Could not perform SendTargets discovery: could not connect to iscsid
-# , error exit status 20"
+#
+#
+# docker exec -ti -u root kind-control-plane systemctl status iscsid
+# docker exec -ti -u root kind-control-plane2 systemctl status iscsid
+# docker exec -ti -u root kind-control-plane3 systemctl status iscsid
+#
+#
+# docker exec -ti -u root kind-control-plane systemctl stop open-iscsi iscsid
+# docker exec -ti -u root kind-control-plane2 systemctl stop open-iscsi iscsid
+# docker exec -ti -u root kind-control-plane3 systemctl stop open-iscsi iscsid
+# docker exec -ti -u root kind-control-plane systemctl disable open-iscsi iscsid
+# docker exec -ti -u root kind-control-plane2 systemctl disable open-iscsi iscsid
+# docker exec -ti -u root kind-control-plane3 systemctl disable open-iscsi iscsid
+# docker exec -ti -u root kind-control-plane apt-get remove -y open-iscsi tgt
+# docker exec -ti -u root kind-control-plane2 apt-get remove -y open-iscsi tgt
+# docker exec -ti -u root kind-control-plane3 apt-get remove -y open-iscsi tgt
+# docker exec -ti -u root kind-control-plane apt-get autoremove -y
+# docker exec -ti -u root kind-control-plane2 apt-get autoremove -y
+# docker exec -ti -u root kind-control-plane3 apt-get autoremove -y
+#
+# # [pvc-b9ec5f7b-b3b5-4fc1-aac2-5013050fd522-e-a7165958]
+# # time="2021-01-05T08:58:36Z"
+# # level=warning
+# # msg="FAIL to discover due to Failed to execute:
+# # nsenter [--mount=/host/proc/1/ns/mnt --net=/host/proc/1/ns/net iscsiadm -m discovery -t sendtargets -p 10.244.2.20],
+# # output ,
+# # stderr,
+# # Failed to connect to bus: No data available
+# # iscsiadm: can not connect to iSCSI daemon (111)!
+# # Failed to connect to bus: No data available
+# # iscsiadm: can not connect to iSCSI daemon (111)!
+# # iscsiadm: Cannot perform discovery. Initiatorname required.
+# # iscsiadm: Could not perform SendTargets discovery: could not connect to iscsid
+# # , error exit status 20"
