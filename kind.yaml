@@ -63,8 +63,9 @@ nodes:
       kubeletExtraArgs:
         node-labels: "node.overwatch.io/character=hammond"
 #         node-labels: "node.overwatch.io/character=sombra,node.longhorn.io/create-default-disk=true"
-#       taints:
-#         - effect: NoSchedule
+      taints:
+        - effect: NoSchedule
+          key: node.kubernetes.io/hammond
 #           key: node.kubernetes.io/sombra
 #  extraMounts:
   # - hostPath: /home/sombra/storage/sombra
