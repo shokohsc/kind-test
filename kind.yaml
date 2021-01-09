@@ -3,7 +3,8 @@
 kind: Cluster
 apiVersion: kind.x-k8s.io/v1alpha4
 networking:
-  kubeProxyMode: "ipvs"
+  ipFamily: ipv4
+  # kubeProxyMode: "ipvs"
   # WARNING: It is _strongly_ recommended that you keep this the default
   # (127.0.0.1) for security reasons. However it is possible to change this.
   apiServerAddress: "127.0.0.1"
@@ -18,7 +19,8 @@ nodes:
     kind: InitConfiguration
     nodeRegistration:
       kubeletExtraArgs:
-        node-labels: "node.overwatch.io/character=hammond"
+        node-labels: "node.overwatch.io/character=sombra,node.longhorn.io/create-default-disk=true"
+#         node-labels: "node.overwatch.io/character=hammond"
   # add a mount from /path/to/my/files on the host to /files on the node
   # extraMounts:
   # - hostPath: /mnt
@@ -33,7 +35,8 @@ nodes:
     kind: JoinConfiguration
     nodeRegistration:
       kubeletExtraArgs:
-        node-labels: "node.overwatch.io/character=lucio"
+        node-labels: "node.overwatch.io/character=lucio,node.longhorn.io/create-default-disk=true"
+#         node-labels: "node.overwatch.io/character=lucio"
   extraMounts:
   # - hostPath: /home/sombra/storage/lucio
   #   containerPath: /storage
@@ -45,7 +48,8 @@ nodes:
     kind: JoinConfiguration
     nodeRegistration:
       kubeletExtraArgs:
-        node-labels: "node.overwatch.io/character=zarya"
+        node-labels: "node.overwatch.io/character=zarya,node.longhorn.io/create-default-disk=true"
+#         node-labels: "node.overwatch.io/character=zarya"
 #   extraMounts:
 #   - hostPath: /home/sombra/storage/zarya
 #     containerPath: /storage
@@ -57,7 +61,8 @@ nodes:
     kind: JoinConfiguration
     nodeRegistration:
       kubeletExtraArgs:
-        node-labels: "node.overwatch.io/character=sombra,node.longhorn.io/create-default-disk=true"
+        node-labels: "node.overwatch.io/character=hammond"
+#         node-labels: "node.overwatch.io/character=sombra,node.longhorn.io/create-default-disk=true"
 #       taints:
 #         - effect: NoSchedule
 #           key: node.kubernetes.io/sombra
@@ -66,29 +71,29 @@ nodes:
   #   containerPath: /storage
   # image: kindest/node:v1.18.8@sha256:f4bcc97a0ad6e7abaf3f643d890add7efe6ee4ab90baeb374b4f41a4c95567eb
 
-- role: worker
-  kubeadmConfigPatches:
-  - |
-    kind: JoinConfiguration
-    nodeRegistration:
-      kubeletExtraArgs:
-        node-labels: "node.overwatch.io/character=torbjorn,node.longhorn.io/create-default-disk=true"
-  # extraMounts:
-  # - hostPath: /home/sombra/storage/torbjorn
-  #   containerPath: /storage
-  # image: kindest/node:v1.18.8@sha256:f4bcc97a0ad6e7abaf3f643d890add7efe6ee4ab90baeb374b4f41a4c95567eb
-
-- role: worker
-  kubeadmConfigPatches:
-  - |
-    kind: JoinConfiguration
-    nodeRegistration:
-      kubeletExtraArgs:
-        node-labels: "node.overwatch.io/character=mercy,node.longhorn.io/create-default-disk=true"
-  # extraMounts:
-  # - hostPath: /home/sombra/storage/mercy
-  #   containerPath: /storage
-  # image: kindest/node:v1.18.8@sha256:f4bcc97a0ad6e7abaf3f643d890add7efe6ee4ab90baeb374b4f41a4c95567eb
+# - role: worker
+#   kubeadmConfigPatches:
+#   - |
+#     kind: JoinConfiguration
+#     nodeRegistration:
+#       kubeletExtraArgs:
+#         node-labels: "node.overwatch.io/character=torbjorn,node.longhorn.io/create-default-disk=true"
+#   # extraMounts:
+#   # - hostPath: /home/sombra/storage/torbjorn
+#   #   containerPath: /storage
+#   # image: kindest/node:v1.18.8@sha256:f4bcc97a0ad6e7abaf3f643d890add7efe6ee4ab90baeb374b4f41a4c95567eb
+#
+# - role: worker
+#   kubeadmConfigPatches:
+#   - |
+#     kind: JoinConfiguration
+#     nodeRegistration:
+#       kubeletExtraArgs:
+#         node-labels: "node.overwatch.io/character=mercy,node.longhorn.io/create-default-disk=true"
+#   # extraMounts:
+#   # - hostPath: /home/sombra/storage/mercy
+#   #   containerPath: /storage
+#   # image: kindest/node:v1.18.8@sha256:f4bcc97a0ad6e7abaf3f643d890add7efe6ee4ab90baeb374b4f41a4c95567eb
 
 # featureGates:
 #   DynamicKubeletConfig: true
@@ -108,14 +113,14 @@ nodes:
 #   TTLAfterFinished: true
 #   VolumeSubpathEnvExpansion: true
 
-kubeadmConfigPatches:
-  - |
-    kind: ClusterConfiguration
-    metadata:
-      name: config
-    etcd:
-      local:
-        dataDir: "/dev/shm/etcd"
-#     apiServer:
-#       extraArgs:
-#         allow-privileged: "true"
+# kubeadmConfigPatches:
+#   - |
+#     kind: ClusterConfiguration
+#     metadata:
+#       name: config
+#     etcd:
+#       local:
+#         dataDir: "/dev/shm/etcd"
+# #     apiServer:
+# #       extraArgs:
+# #         allow-privileged: "true"
