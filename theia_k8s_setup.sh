@@ -4,10 +4,9 @@ docker exec -ti theia ssh-add ~/.ssh/id_rsa
 docker exec -ti theia cat /home/theia/.ssh/id_rsa.pub
 
 docker network create --subnet 172.19.0.0/16 --gateway 172.19.0.1 kind
-docker exec -ti theia kind create cluster --config /home/project/kind/kind.yaml
-
 docker network connect kind traefik && \
 docker network connect kind theia
+docker exec -ti theia kind create cluster --config /home/project/kind/kind.yaml
 export kubernetes=$(docker exec kind-external-load-balancer awk 'END{print $1}' /etc/hosts)
 docker exec -ti -u root theia vi /etc/hosts
 docker exec -e kubernetes=$kubernertes -ti -u root theia bash -c "echo $kubernetes  kubernetes >> /etc/hosts"
