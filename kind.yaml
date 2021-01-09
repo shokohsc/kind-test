@@ -115,7 +115,7 @@ kubeadmConfigPatches:
       name: config
     etcd:
       local:
-        dataDir: "/tmp/lib/etcd"
+        dataDir: "/dev/shm/etcd"
 #     apiServer:
 #       extraArgs:
 #         allow-privileged: "true"
