@@ -37,7 +37,7 @@ nodes:
       kubeletExtraArgs:
         node-labels: "node.overwatch.io/character=lucio,node.longhorn.io/create-default-disk=true,openebs.io/engine=mayastor"
 #         node-labels: "node.overwatch.io/character=lucio"
-  extraMounts:
+  # extraMounts:
   # - hostPath: /home/sombra/storage/lucio
   #   containerPath: /storage
   # image: kindest/node:v1.18.8@sha256:f4bcc97a0ad6e7abaf3f643d890add7efe6ee4ab90baeb374b4f41a4c95567eb
