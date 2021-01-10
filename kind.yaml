@@ -19,7 +19,7 @@ nodes:
     kind: InitConfiguration
     nodeRegistration:
       kubeletExtraArgs:
-        node-labels: "node.overwatch.io/character=sombra,node.longhorn.io/create-default-disk=true"
+        node-labels: "node.overwatch.io/character=sombra,node.longhorn.io/create-default-disk=true,openebs.io/engine=mayastor"
 #         node-labels: "node.overwatch.io/character=hammond"
   # add a mount from /path/to/my/files on the host to /files on the node
   # extraMounts:
@@ -35,7 +35,7 @@ nodes:
     kind: JoinConfiguration
     nodeRegistration:
       kubeletExtraArgs:
-        node-labels: "node.overwatch.io/character=lucio,node.longhorn.io/create-default-disk=true"
+        node-labels: "node.overwatch.io/character=lucio,node.longhorn.io/create-default-disk=true,openebs.io/engine=mayastor"
 #         node-labels: "node.overwatch.io/character=lucio"
   extraMounts:
   # - hostPath: /home/sombra/storage/lucio
@@ -48,7 +48,7 @@ nodes:
     kind: JoinConfiguration
     nodeRegistration:
       kubeletExtraArgs:
-        node-labels: "node.overwatch.io/character=zarya,node.longhorn.io/create-default-disk=true"
+        node-labels: "node.overwatch.io/character=zarya,node.longhorn.io/create-default-disk=true,openebs.io/engine=mayastor"
 #         node-labels: "node.overwatch.io/character=zarya"
 #   extraMounts:
 #   - hostPath: /home/sombra/storage/zarya
