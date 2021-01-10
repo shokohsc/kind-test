@@ -55,6 +55,7 @@ nodes:
 #     containerPath: /storage
 #   # image: kindest/node:v1.18.8@sha256:f4bcc97a0ad6e7abaf3f643d890add7efe6ee4ab90baeb374b4f41a4c95567eb
 
+#         node-labels: "node.overwatch.io/character=sombra,node.longhorn.io/create-default-disk=true"
 - role: worker
   kubeadmConfigPatches:
   - |
@@ -62,7 +63,6 @@ nodes:
     nodeRegistration:
       kubeletExtraArgs:
         node-labels: "node.overwatch.io/character=hammond"
-#         node-labels: "node.overwatch.io/character=sombra,node.longhorn.io/create-default-disk=true"
       taints:
         - effect: NoSchedule
           key: node.kubernetes.io/hammond
