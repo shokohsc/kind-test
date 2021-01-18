@@ -7,7 +7,7 @@ replicaCount: 1
 
 image:
   # image.repository -- container image repository
-  repository: linuxserver/heimdall
+  repository: b4bz/homer
   # image.pullPolicy -- container image pull policy
   pullPolicy: IfNotPresent
   # image.tag -- container image tag or Chart appVersion if undefined
@@ -67,11 +67,7 @@ tolerations: []
 affinity: {}
 
 # envVars -- Pod environment variables
-envVars:
-  PGID: 1024
-  PUID: 1024
-  TZ: Europe/Paris
-
+envVars: {}
 
 # extraVolumes -- Pod extra volumes
 extraVolumes: {}
