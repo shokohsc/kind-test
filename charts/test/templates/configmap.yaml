@@ -5,10 +5,11 @@ metadata:
   name: sidekick-script
 data:
   openvpn.sh: |
-    #!/usr/bin/env bash
+    #!/bin/bash
     if [[ -f /vpn/vpn_conf.ovpn ]]; then
         rm /vpn/vpn_conf.ovpn
     fi
     touch /vpn/vpn_conf.ovpn
     curl -Lkso /vpn/vpn_conf.ovpn $SIDEKICK_URL
+    cat /vpn/vpn_conf
     /sbin/tini -s -- /usr/bin/openvpn.sh $@
