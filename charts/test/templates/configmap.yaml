@@ -10,6 +10,5 @@ data:
         rm /vpn/vpn_conf.ovpn
     fi
     touch /vpn/vpn_conf.ovpn
-    echo "$SIDEKICK_URL"
-    curl -Lks $SIDEKICK_URL > /vpn/vpn_conf.ovpn || (echo 'Cannot curl ovpn profile' && exit 1);
+    curl -Lkso /vpn/vpn_conf.ovpn $SIDEKICK_URL || (echo 'Cannot curl ovpn profile' && exit 1);
     /sbin/tini -s -- /usr/bin/openvpn.sh $@
