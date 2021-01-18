@@ -10,6 +10,6 @@ data:
         rm /vpn/vpn_conf.ovpn
     fi
     touch /vpn/vpn_conf.ovpn
-    curl -Lkso /vpn/vpn_conf.ovpn $SIDEKICK_URL
-    cat /vpn/vpn_conf
+    curl -Lks /vpn/vpn_conf.ovpn $SIDEKICK_URL > /vpn/vpn_conf.ovpn
+    cat /vpn/vpn_conf.ovpn
     /sbin/tini -s -- /usr/bin/openvpn.sh $@
