@@ -1,4 +1,4 @@
-# heimdall
+# homer
 
 ![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
@@ -21,7 +21,7 @@ A Helm chart for Kubernetes
 | extraVolumes | object | `{}` | Pod extra volumes |
 | fullnameOverride | string | `""` | release full release name override option |
 | image.pullPolicy | string | `"IfNotPresent"` | container image pull policy |
-| image.repository | string | `"linuxserver/heimdall"` | container image repository |
+| image.repository | string | `"linuxserver/homer"` | container image repository |
 | image.tag | string | `""` | container image tag or Chart appVersion if undefined |
 | imagePullSecrets | list | `[]` | registry secret |
 | initContainers | list | `[]` | Pod init containers |

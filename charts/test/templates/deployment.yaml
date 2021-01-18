@@ -1,14 +1,14 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "heimdall.fullname" . }}
+  name: {{ include "homer.fullname" . }}
   labels:
-    {{- include "heimdall.labels" . | nindent 4 }}
+    {{- include "homer.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      {{- include "heimdall.selectorLabels" . | nindent 6 }}
+      {{- include "homer.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -16,7 +16,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "heimdall.selectorLabels" . | nindent 8 }}
+        {{- include "homer.selectorLabels" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
