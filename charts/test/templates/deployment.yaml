@@ -122,30 +122,30 @@ spec:
               protocol: {{ $port.protocol | default "TCP" }}
             {{- end }}
           {{- end }}
-          # startupProbe:
-          #   exec:
-          #     command:
-          #       - sh
-          #       - -c
-          #       - ps -fe | grep "open[v]pn --cd /vpn --config /vpn/vpn_conf.ovpn"
-          # livenessProbe:
-          #   exec:
-          #     command:
-          #       - sh
-          #       - -c
-          #       - ps -fe | grep "open[v]pn --cd /vpn --config /vpn/vpn_conf.ovpn"
-          # readinessProbe:
-          #   exec:
-          #     command:
-          #       - sh
-          #       - -c
-          #       - ps -fe | grep "open[v]pn --cd /vpn --config /vpn/vpn_conf.ovpn"
+          startupProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - ps -fe | grep "open[v]pn --cd /vpn --config /vpn/vpn_conf.ovpn"
+          livenessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - ps -fe | grep "open[v]pn --cd /vpn --config /vpn/vpn_conf.ovpn"
+          readinessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - ps -fe | grep "open[v]pn --cd /vpn --config /vpn/vpn_conf.ovpn"
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
             - name: sidekick-script
-              mountPath: /usr/bin/openvpn.sh
-              subPath: openvpn.sh
+              mountPath: /usr/bin/sidekick.sh
+              subPath: sidekick.sh
           {{- with .Values.extraVolumes }}
             {{- toYaml .volumeMounts | nindent 12 }}
           {{- end }}

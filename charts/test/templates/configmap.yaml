@@ -4,7 +4,7 @@ kind: ConfigMap
 metadata:
   name: sidekick-script
 data:
-  openvpn.sh: |
+  sidekick.sh: |
     #!/usr/bin/env bash
     if [[ -f /vpn/vpn_conf.ovpn ]]; then
         rm /vpn/vpn_conf.ovpn
