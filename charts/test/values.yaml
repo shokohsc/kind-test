@@ -67,7 +67,11 @@ tolerations: []
 affinity: {}
 
 # envVars -- Pod environment variables
-envVars: {}
+envVars:
+  PGID: 1024
+  PUID: 1024
+  TZ: Europe/Paris
+
 
 # extraVolumes -- Pod extra volumes
 extraVolumes: {}
