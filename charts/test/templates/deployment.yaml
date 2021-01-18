@@ -168,7 +168,7 @@ spec:
         - name: sidekick-script
           configMap:
             name: sidekick-script
-            defaultMode: 0755
+            defaultMode: 755
       {{- with .Values.extraVolumes }}
         {{- toYaml .volumes | nindent 8 }}
       {{- end }}
