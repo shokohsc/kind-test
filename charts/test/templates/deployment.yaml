@@ -107,6 +107,10 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command:
+            - /bin/sh
+            - -c
+            - /usr/bin/sidekick.sh
           env:
             - name: SIDEKICK_URL
               value: "http://{{ include "openvpn-client.fullname" . }}-sidekick:{{ .Values.sidekick.service.port }}/api/ovpn"
