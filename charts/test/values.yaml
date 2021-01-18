@@ -1,4 +1,4 @@
-# Default values for plex.
+# Default values for openvpn-client.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
@@ -7,9 +7,10 @@ replicaCount: 1
 
 image:
   # image.repository -- container image repository
-  repository: b4bz/homer
+  repository: dperson/openvpn-client
   # image.pullPolicy -- container image pull policy
   pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
   # image.tag -- container image tag or Chart appVersion if undefined
   tag: ""
 
@@ -28,10 +29,10 @@ podSecurityContext: {}
   # fsGroup: 2000
 
 # securityContext -- Deployment security group context
-securityContext: {}
-  # capabilities:
-  #   drop:
-  #   - ALL
+securityContext:
+  capabilities:
+    add:
+      - NET_ADMIN
   # readOnlyRootFilesystem: true
   # runAsNonRoot: true
   # runAsUser: 1000
@@ -39,8 +40,7 @@ securityContext: {}
 service:
   # service.type -- Service type
   type: ClusterIP
-  # service.port -- Service port
-  port: 8080
+  # Annotations to add to the service
   # service.annotations -- Service annotations
   annotations: {}
 
@@ -66,8 +66,12 @@ tolerations: []
 # affinity -- node/pod affinities (requires Kubernetes >=1.6)
 affinity: {}
 
+# https://github.com/dperson/openvpn-client
 # envVars -- Pod environment variables
-envVars: {}
+envVars:
+  FIREWALL: ''
+  ROUTE: 0.0.0.0/0
+  TZ: UTC
 
 # extraVolumes -- Pod extra volumes
 extraVolumes: {}
@@ -80,8 +84,46 @@ extraVolumes: {}
   #       server: nfs.domain.tld
   #       path: /
 
+# extraPorts -- Pod extra ports
+extraPorts: []
+
 # initContainers -- Pod init containers
 initContainers: []
   # - name: hello
   #   image: busybox
   #   command: ["/bin/sh", "-c", "echo hello"]
+
+
+# nameservers -- Upstream nameservers for vpn to use
+nameservers:
+  - 1.1.1.1
+
+sidekick:
+  image:
+    # sidekick.image.repository -- Sidekick image repository
+    repository: shokohsc/sidekick
+    # sidekick.image.tag -- Sidekick image tag
+    tag: main
+    # sidekick.image.pullPolicy -- container image pull policy
+    pullPolicy: Always
+  service:
+    # sidekick.service.type -- Sidekick service type
+    type: ClusterIP
+    # sidekick.service.port -- Sidekick service port
+    port: 3000
+    # sidekick.service.annotations -- Sidekick service annotations
+    annotations: {}
+  # sidekick.annotations -- Sidekick pod annotations
+  annotations: {}
+  # sidekick.envVars -- Sidekick pod environment variables
+  envVars: {}
+    # MATTERMOST_WEBHOOK_URL: ""
+    # RCON_HOST: minecraft
+    # RCON_PORT: ""
+    # RCON_PASSWORD: ""
+    # AMQP_HOST: rabbitmq
+    # ALLOWED_COUNTRIES_SERVERS: "*" # '*', 'russia', 'usa', 'japan', 'korea', 'thailand' are valid choices for now
+    # OPENVPN_PROFILE_PROTOCOL: "*" # '*', 'udp', 'tcp' are valid choices
+
+# sidecars -- Pod sidecars
+sidecars: {}

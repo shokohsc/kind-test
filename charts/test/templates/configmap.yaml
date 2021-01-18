@@ -1,0 +1,14 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sidekick-script
+data:
+  openvpn.sh: |
+    #!/usr/bin/env bash
+    if [[ -f /vpn/vpn_conf.ovpn ]]; then
+        rm /vpn/vpn_conf.ovpn
+    fi
+    touch /vpn/vpn_conf.ovpn
+    curl -GLks $SIDEKICK_URL -o /vpn/vpn_conf.ovpn || (echo 'Cannot curl ovpn profile' && exit 1);
+    /sbin/tini -s -- /usr/bin/openvpn.sh $@

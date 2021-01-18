@@ -1,4 +1,4 @@
-# homer
+# openvpn-client
 
 ![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
@@ -17,24 +17,34 @@ A Helm chart for Kubernetes
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | affinity | object | `{}` | node/pod affinities (requires Kubernetes >=1.6) |
-| envVars | object | `{}` | Pod environment variables |
+| envVars | object | `{"FIREWALL":"","ROUTE":"0.0.0.0/0","TZ":"UTC"}` | Pod environment variables |
+| extraPorts | list | `[]` | Pod extra ports |
 | extraVolumes | object | `{}` | Pod extra volumes |
 | fullnameOverride | string | `""` | release full release name override option |
 | image.pullPolicy | string | `"IfNotPresent"` | container image pull policy |
-| image.repository | string | `"linuxserver/homer"` | container image repository |
+| image.repository | string | `"dperson/openvpn-client"` | container image repository |
 | image.tag | string | `""` | container image tag or Chart appVersion if undefined |
 | imagePullSecrets | list | `[]` | registry secret |
 | initContainers | list | `[]` | Pod init containers |
 | nameOverride | string | `""` | release name override option |
+| nameservers | list | `["1.1.1.1"]` | Upstream nameservers for vpn to use |
 | nodeSelector | object | `{}` | node labels for pod assignment |
 | podAnnotations | object | `{}` | Pod annotations |
 | podSecurityContext | object | `{}` | Pod security group context |
 | replicaCount | int | `1` | pods replica count |
 | resources | object | `{}` | pod resource requests & limits |
-| securityContext | object | `{}` | Deployment security group context |
+| securityContext | object | `{"capabilities":{"add":["NET_ADMIN"]}}` | Deployment security group context |
 | service.annotations | object | `{}` | Service annotations |
-| service.port | int | `80` | Service port |
 | service.type | string | `"ClusterIP"` | Service type |
+| sidecars | object | `{}` | Pod sidecars |
+| sidekick.annotations | object | `{}` | Sidekick pod annotations |
+| sidekick.envVars | object | `{}` | Sidekick pod environment variables |
+| sidekick.image.pullPolicy | string | `"Always"` | container image pull policy |
+| sidekick.image.repository | string | `"shokohsc/sidekick"` | Sidekick image repository |
+| sidekick.image.tag | string | `"main"` | Sidekick image tag |
+| sidekick.service.annotations | object | `{}` | Sidekick service annotations |
+| sidekick.service.port | int | `3000` | Sidekick service port |
+| sidekick.service.type | string | `"ClusterIP"` | Sidekick service type |
 | tolerations | list | `[]` | node taints to tolerate (requires Kubernetes >=1.6) |
 
 ----------------------------------------------

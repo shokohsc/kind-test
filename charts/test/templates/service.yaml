@@ -1,19 +1,35 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "homer.fullname" . }}
+  name: {{ include "openvpn-client.fullname" . }}-sidekick
   labels:
-    {{- include "homer.labels" . | nindent 4 }}
-  {{- if .Values.service.annotations }}
-  annotations:
-    {{ toYaml .Values.service.annotations | indent 4 }}
-  {{- end }}
+    {{- include "openvpn-client.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.service.type }}
   ports:
-    - port: {{ .Values.service.port }}
+    - port: {{ .Values.sidekick.service.port }}
       targetPort: http
       protocol: TCP
       name: http
   selector:
-    {{- include "homer.selectorLabels" . | nindent 4 }}
+    {{- include "openvpn-client.selectorLabels" . | nindent 4 }}
+
+{{- $ctx := . }}
+{{- range $port := .Values.extraPorts }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: "{{ include "openvpn-client.fullname" $ctx }}-{{ $ctx.name }}"
+  labels:
+    {{- include "openvpn-client.labels" $ctx | nindent 4 }}
+spec:
+  type: {{ $ctx.Values.service.type }}
+  ports:
+    - port: {{ $port.containerPort }}
+      targetPort: {{ $port.name }}
+      protocol: {{ $port.protocol }}
+      name: {{ $port.name }}
+  selector:
+    {{- include "openvpn-client.selectorLabels" $ctx | nindent 4 }}
+{{- end }}
