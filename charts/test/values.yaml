@@ -40,7 +40,7 @@ service:
   # service.type -- Service type
   type: ClusterIP
   # service.port -- Service port
-  port: 80
+  port: 8080
   # service.annotations -- Service annotations
   annotations: {}
 
