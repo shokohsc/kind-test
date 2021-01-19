@@ -1,49 +1,81 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: "{{ include "openvpn-server.fullname" . }}-test-connection"
-  labels:
-    {{- include "openvpn-server.labels" . | nindent 4 }}
+  name: "{{ .Release.Name }}-smoke-test"
   annotations:
-    "helm.sh/hook": "test"
-    "helm.sh/hook-weight": "20"
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: curl
+      image: curlimages/curl
+      args: ['-LIX', 'GET', '{{ include "pihole.fullname" . }}:{{ .Values.service.port }}']
+  restartPolicy: Never
+  terminationGracePeriodSeconds: 0
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ .Release.Name }}-smoke-test-dns"
+  annotations:
+    "helm.sh/hook": test
 spec:
   containers:
     - name: resolv-conf
       image: busybox
       command: ['cat']
       args: ['/etc/resolv.conf']
-    {{- if or (eq "tcp" (.Values.service.protocol | lower)) .Values.service.fallback }}
-    - name: nc-tcp
+    - name: nc
       image: busybox
       command: ['nc']
-      args: ['-v', '-z', '{{ include "openvpn-server.fullname" . }}-tcp', '{{ .Values.service.port }}']
-    {{- end }}
-    {{- if or (eq "udp" (.Values.service.protocol | lower)) .Values.service.fallback }}
-    - name: nc-udp
-      image: busybox
-      command: ['nc']
-      args: ['-v', '-z', '-u', '{{ include "openvpn-server.fullname" . }}-udp', '{{ .Values.service.port }}']
-    {{- end }}
+      args: ['-v', '-z', '-u', '{{ include "pihole.fullname" . }}-dns', '53']
   restartPolicy: Never
-
 ---
-kind: PersistentVolumeClaim
+{{- if .Values.dhcp.enabled }}
 apiVersion: v1
+kind: Pod
 metadata:
-  name: {{ include "openvpn-server.fullname" . }}
-  labels: {{- include "openvpn-server.labels" . | nindent 4 }}
+  name: "{{ .Release.Name }}-smoke-test-dhcp"
   annotations:
-    "helm.sh/hook-weight": "-30"
-    {{- with .Values.persistence.annotations }}
-    {{- toYaml . | nindent 4 }}
-    {{- end }}
+    "helm.sh/hook": test
 spec:
-  accessModes:
-  {{- range .Values.persistence.accessModes }}
-    - {{ . | quote }}
-  {{- end }}
-  resources:
-    requests:
-      storage: {{ .Values.persistence.size | quote }}
-  {{ include "openvpn-server.storageClass" . }}
+  containers:
+    - name: resolv-conf
+      image: busybox
+      command: ['cat']
+      args: ['/etc/resolv.conf']
+    - name: nc
+      image: busybox
+      command: ['nc']
+      args: ['-v', '-z', '-u', '{{ include "pihole.fullname" . }}-dhcp', '67']
+  restartPolicy: Never
+{{- end }}
+---
+{{- if .Values.doh.enabled }}
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ .Release.Name }}-smoke-test-doh"
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: resolv-conf
+      image: busybox
+      command: ['cat']
+      args: ['/etc/resolv.conf']
+    - name: nc
+      image: busybox
+      command: ['nc']
+      args: ['-v', '-z', '-u', '{{ include "pihole.fullname" . }}-doh', '5053']
+    - name: nc-metrics
+      image: busybox
+      command: ['nc']
+      args: ['-v', '-z', '{{ include "pihole.fullname" . }}-doh', '49312']
+    - name: nslookup
+      image: busybox
+      command: ['nslookup']
+      args: ['-port=5053', 'google.com', '{{ include "pihole.fullname" . }}-doh']
+  restartPolicy: Never
+{{- end }}
+
+# TEST DHCP https://serverfault.com/questions/171744/command-line-program-to-test-dhcp-service

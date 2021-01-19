@@ -1,35 +1,49 @@
+# Default values for pihole.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
 # replicaCount -- pods replica count
 replicaCount: 1
 
 image:
   # image.repository -- container image repository
-  repository: kylemanna/openvpn
-  # image.tag -- container image tag or Chart appVersion if undefined
-  tag: ""
+  repository: pihole/pihole
   # image.pullPolicy -- container image pull policy
   pullPolicy: IfNotPresent
+  # image.tag -- container image tag or Chart appVersion if undefined
+  tag: ""
 
+# imagePullSecrets -- registry secret
+imagePullSecrets: []
 # nameOverride -- release name override option
 nameOverride: ""
 # fullnameOverride -- release full release name override option
 fullnameOverride: ""
 
+# podAnnotations -- Pod annotations
+podAnnotations: {}
+
+# podSecurityContext -- Pod security group context
+podSecurityContext: {}
+  # fsGroup: 2000
+
+# securityContext -- Deployment security group context
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
 service:
-  # service.protocol -- OpenVPN protocol
-  protocol: TCP
-  # service.port -- OpenVPN port
-  port: 1194
   # service.type -- Service type
   type: ClusterIP
-  # service.fallback -- Enables protocol fallback
-  fallback: false
+  # service.port -- Pihole web port
+  port: 80
+  # Annotations to add to the service
   # service.annotations -- Service annotations
   annotations: {}
-
-# limitTraficToNamespace -- limit network traffic just to OpenVPN namespace
-limitTraficToNamespace: true
-# limitedCidr -- CIDR to be blocked out
-limitedCidr: "10.0.0.0/8"
 
 # resources -- pod resource requests & limits
 resources: {}
@@ -53,75 +67,80 @@ tolerations: []
 # affinity -- node/pod affinities (requires Kubernetes >=1.6)
 affinity: {}
 
-# annotations -- Deployment annotations
-annotations: {}
+# timezone -- timezone i.e Europe/Paris
+timezone: UTC
+# virtualHost -- Pihole virtual host
+virtualHost: chart-example.local
 
-# extraVolumes -- Pod extra volumes
-extraVolumes: {}
-  # volumeMounts:
-  #   - name: some_volume
-  #     mountPath: /mnt/some_volume
-  # volumes:
-  #   - name: some_volume
-  #     nfs:
-  #       server: nfs.domain.tld
-  #       path: /
+# Probes configuration
+probes:
+  # probes.liveness -- Configure the healthcheck for the ingress controller
+  liveness:
+    enabled: true
+    initialDelaySeconds: 60
+    failureThreshold: 10
+    timeoutSeconds: 5
+  # probes.readiness -- Configure the healthcheck for the ingress controller
+  readiness:
+    enabled: true
+    initialDelaySeconds: 60
+    failureThreshold: 3
+    timeoutSeconds: 5
 
-# externalHostname -- Hostname OR Ip of cluster openvpn entrypoint, default to 'domain.tld' so you must define it
-externalHostname: "domain.tld"
-# externalPort -- Port cluster openvpn entrypoint, defaults to service.port (nodePort)
-externalPort: ""
-# cipher -- Cipher used
-cipher: AES-256-CBC
-# digestAlgorythm -- Authenticate  packets with HMAC using the given message digest algorithm (auth).
-digestAlgorythm: SHA384
-# dnsServer -- DNS Server IP
-dnsServer: 1.1.1.1
-# extraOptions -- Additional options for openvpn configuration
-extraOptions: []
-
-easyrsa:
-  # easyrsa.caExpire -- set the CA expiration time in days
-  caExpire: 30
-  # easyrsa.certExpire -- set the issued cert expiration time in days
-  certExpire: 30
-  # easyrsa.crlDays -- set the CRL 'next publish' time in days
-  crlDays: 30
-  secret:
-    # easyrsa.secret.enabled -- Enabling passphrase on CA (recommended, defaults to false)
-    enabled: false
-    # easyrsa.secret.existingSecret -- Existing Secret with existing key: openvpn-server-passphrase
-    existingSecret: ""
-    # easyrsa.secret.passphrase -- Secret passphrase i.e pass:1234
-    passphrase: ""
-    # easyrsa.secret.annotations -- Secret annotations
+dns:
+  service:
+    # dns.service.type -- DNS service type
+    type: ClusterIP
+    # Annotations to add to the service
+    # dns.service.annotations -- DNS service annotations
     annotations: {}
 
-jobs:
-  ## Job annotations
-  ##
-  # jobs.annotations -- Job annotations
+dhcp:
+  # dhcp.enabled -- DHCP functionality toggle
+  enabled: false
+  service:
+    # dhcp.service.type -- DHCP service type
+    type: ClusterIP
+    # Annotations to add to the service
+    # dhcp.service.annotations -- DHCP service annotations
+    annotations: {}
+  image:
+    # dhcp.image.repository -- DHCP image repository
+    repository: shokohsc/dhcp-relay
+    # dhcp.image.tag -- DHCP image tag
+    tag: "latest"
+
+doh:
+  # doh.enabled -- DNS over https functionality toggle
+  enabled: false
+  service:
+    # doh.service.type -- DNS over https service type
+    type: ClusterIP
+    # Annotations to add to the service
+    # doh.service.annotations -- DNS over https service annotations
+    annotations: {}
+  image:
+    # doh.image.repository -- DNS over https image repository
+    repository: crazymax/cloudflared
+    # doh.image.tag -- DNS over https image tag
+    tag: "latest"
+  # doh.upstream -- DNS over https upstream server
+  upstream: https://1.1.1.1/dns-query
+
+# persistence -- Enable persistence using Persistent Volume Claims
+persistence:
+  # persistentVolumeClaim.enabled -- set to true to use pvc
+  enabled: false
+  # set to true to use you own pvc
+  # existingClaim: myExistingClaim
+  # persistentVolumeClaim.annotations -- PersistentVolumeClaim annotations
   annotations: {}
 
-## Enable persistence using Persistent Volume Claims
-## ref: http://kubernetes.io/docs/user-guide/persistent-volumes/
-##
-persistence:
-  # persistence.existingClaim -- Existing PersistentVolumeClaim
-  # existingClaim:
-
-  ## Persistent Volume Access Mode
-  ##
   # persistence.accessModes -- PersistentVolumeClaim access modes
   accessModes:
     - ReadWriteOnce
-
-  ## Persistent Volume size
-  ##
   # persistence.size -- PersistentVolumeClaim size request
-  size: 1Gi
-
-  ## Persistent Volume Storage Class
+  size: "500Mi"
   ## If defined, storageClassName: <storageClass>
   ## If set to "-", storageClassName: "", which disables dynamic provisioning
   ## If undefined (the default) or set to null, no storageClassName spec is
@@ -129,9 +148,70 @@ persistence:
   ##   GKE, AWS & OpenStack)
   ##
   # persistence.storageClass -- PersistentVolumeClaim storage class
-  storageClass: "nfs"
+  # storageClass: "-"
 
-  ## Persistent Volume Claim annotations
-  ##
-  # persistence.annotations -- PersistentVolumeClaim annotations
-  annotations: {}
+  ## If subPath is set mount a sub folder of a volume instead of the root of the volume.
+  ## This is especially handy for volume plugins that don't natively support sub mounting (like glusterfs).
+
+  # persistence.subPath -- PersistentVolumeClaim sub path
+  ## subPath: "pihole"
+
+# adminPassword -- Administrator password when not using an existing secret (see below)
+adminPassword: "admin"
+
+admin:
+  # admin.existingSecret -- Use an existing secret for the admin password.
+  existingSecret: ""
+  # admin.passwordKey -- secret key
+  passwordKey: "password"
+
+# extraEnvVars -- extraEnvironmentVars is a list of extra enviroment variables to set for pihole to use
+# https://github.com/pi-hole/docker-pi-hole/tree/v5.1.2#environment-variables
+extraEnvVars: {}
+  # TZ: UTC
+
+dnsmasq:
+  # dnsmasq.upstreamServers -- upstream dns servers
+  upstreamServers: []
+  # Here you can add upstream dns servers with. All lines will be added to the
+  # pihole dnsmasq configuration.
+  # The format should be like:
+  # - server=/foo.bar/192.168.178.10
+  # - server=/bar.foo/192.168.178.11
+
+  # dnsmasq.customDnsEntries -- custom dns entries
+  customDnsEntries: []
+  # Here you can add custom dns entries to override the
+  # dns resolution with. All lines will be added to the
+  # pihole dnsmasq configuration.
+  # The format should be like:
+  # - address=/foo.bar/192.168.178.10
+  # - address=/bar.foo/192.168.178.11
+
+  # dnsmasq.additionalHostsEntries -- additional host entries
+  additionalHostsEntries: []
+  # Dnsmasq reads the /etc/hosts file to resolve ips. You can add additional entries if you like
+  # - 192.168.0.3     host4
+  # - 192.168.0.4     host5
+
+
+# adlists -- blocklists
+adlists: {}
+  # If you want to provide blocklists, add them here.
+  # - https://hosts-file.net/grm.txt
+  # - https://reddestdream.github.io/Projects/MinimalHosts/etc/MinimalHostsBlocker/minimalhosts
+
+# whitelist -- whitelists
+whitelist: {}
+  # If you want to provide whitelisted domains, add them here.
+  # - clients4.google.com
+
+# blacklist -- blacklists
+blacklist: {}
+  # If you want to have special domains blacklisted, add them here
+  # - *.blackist.com
+
+# regex -- regexes
+regex: {}
+  # Add regular expression blacklist items
+  # - (^|\.)facebook\.com$

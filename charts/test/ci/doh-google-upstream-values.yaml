@@ -1,0 +1,4 @@
+---
+doh:
+  enabled: true
+  upstream: https://dns.google/dns-query

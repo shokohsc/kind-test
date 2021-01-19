@@ -1,8 +1,0 @@
----
-persistence:
-  enabled: true
-
-easyrsa:
-  secret:
-    enabled: true
-    passphrase: pass:notSoSecret

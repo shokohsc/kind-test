@@ -1,8 +1,8 @@
-# openvpn-server
+# pihole
 
-![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.4](https://img.shields.io/badge/AppVersion-2.4-informational?style=flat-square)
+![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v5.1.2](https://img.shields.io/badge/AppVersion-v5.1.2-informational?style=flat-square)
 
-Roll your own OpenVPN server
+A Helm chart for Kubernetes
 
 **Homepage:** <https://shokohsc.github.io/charts/>
 
@@ -16,42 +16,54 @@ Roll your own OpenVPN server
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| adlists | object | `{}` | blocklists |
+| admin.existingSecret | string | `""` | Use an existing secret for the admin password. |
+| admin.passwordKey | string | `"password"` | secret key |
+| adminPassword | string | `"admin"` | Administrator password when not using an existing secret (see below) |
 | affinity | object | `{}` | node/pod affinities (requires Kubernetes >=1.6) |
-| annotations | object | `{}` | Deployment annotations |
-| cipher | string | `"AES-256-CBC"` | Cipher used |
-| digestAlgorythm | string | `"SHA384"` | Authenticate  packets with HMAC using the given message digest algorithm (auth). |
-| dnsServer | string | `"1.1.1.1"` | DNS Server IP |
-| easyrsa.caExpire | int | `30` | set the CA expiration time in days |
-| easyrsa.certExpire | int | `30` | set the issued cert expiration time in days |
-| easyrsa.crlDays | int | `30` | set the CRL 'next publish' time in days |
-| easyrsa.secret.annotations | object | `{}` | Secret annotations |
-| easyrsa.secret.enabled | bool | `false` | Enabling passphrase on CA (recommended, defaults to false) |
-| easyrsa.secret.existingSecret | string | `""` | Existing Secret with existing key: openvpn-server-passphrase |
-| easyrsa.secret.passphrase | string | `""` | Secret passphrase i.e pass:1234 |
-| externalHostname | string | `"domain.tld"` | Hostname OR Ip of cluster openvpn entrypoint, default to 'domain.tld' so you must define it |
-| externalPort | string | `""` | Port cluster openvpn entrypoint, defaults to service.port (nodePort) |
-| extraOptions | list | `[]` | Additional options for openvpn configuration |
-| extraVolumes | object | `{}` | Pod extra volumes |
+| blacklist | object | `{}` | blacklists |
+| dhcp.enabled | bool | `false` | DHCP functionality toggle |
+| dhcp.image.repository | string | `"shokohsc/dhcp-relay"` | DHCP image repository |
+| dhcp.image.tag | string | `"latest"` | DHCP image tag |
+| dhcp.service.annotations | object | `{}` | DHCP service annotations |
+| dhcp.service.type | string | `"ClusterIP"` | DHCP service type |
+| dns.service.annotations | object | `{}` | DNS service annotations |
+| dns.service.type | string | `"ClusterIP"` | DNS service type |
+| dnsmasq.additionalHostsEntries | list | `[]` | additional host entries |
+| dnsmasq.customDnsEntries | list | `[]` | custom dns entries |
+| dnsmasq.upstreamServers | list | `[]` | upstream dns servers |
+| doh.enabled | bool | `false` | DNS over https functionality toggle |
+| doh.image.repository | string | `"crazymax/cloudflared"` | DNS over https image repository |
+| doh.image.tag | string | `"latest"` | DNS over https image tag |
+| doh.service.annotations | object | `{}` | DNS over https service annotations |
+| doh.service.type | string | `"ClusterIP"` | DNS over https service type |
+| doh.upstream | string | `"https://1.1.1.1/dns-query"` | DNS over https upstream server |
+| extraEnvVars | object | `{}` | extraEnvironmentVars is a list of extra enviroment variables to set for pihole to use https://github.com/pi-hole/docker-pi-hole/tree/v5.1.2#environment-variables |
 | fullnameOverride | string | `""` | release full release name override option |
 | image.pullPolicy | string | `"IfNotPresent"` | container image pull policy |
-| image.repository | string | `"kylemanna/openvpn"` | container image repository |
+| image.repository | string | `"pihole/pihole"` | container image repository |
 | image.tag | string | `""` | container image tag or Chart appVersion if undefined |
-| jobs.annotations | object | `{}` | Job annotations |
-| limitTraficToNamespace | bool | `true` | limit network traffic just to OpenVPN namespace |
-| limitedCidr | string | `"10.0.0.0/8"` | CIDR to be blocked out |
+| imagePullSecrets | list | `[]` | registry secret |
 | nameOverride | string | `""` | release name override option |
 | nodeSelector | object | `{}` | node labels for pod assignment |
+| persistence | object | `{"accessModes":["ReadWriteOnce"],"annotations":{},"enabled":false,"size":"500Mi"}` | Enable persistence using Persistent Volume Claims |
 | persistence.accessModes | list | `["ReadWriteOnce"]` | PersistentVolumeClaim access modes |
-| persistence.annotations | object | `{}` | PersistentVolumeClaim annotations |
-| persistence.size | string | `"1Gi"` | PersistentVolumeClaim size request |
+| persistence.size | string | `"500Mi"` | PersistentVolumeClaim size request |
+| podAnnotations | object | `{}` | Pod annotations |
+| podSecurityContext | object | `{}` | Pod security group context |
+| probes.liveness | object | `{"enabled":true,"failureThreshold":10,"initialDelaySeconds":60,"timeoutSeconds":5}` | Configure the healthcheck for the ingress controller |
+| probes.readiness | object | `{"enabled":true,"failureThreshold":3,"initialDelaySeconds":60,"timeoutSeconds":5}` | Configure the healthcheck for the ingress controller |
+| regex | object | `{}` | regexes |
 | replicaCount | int | `1` | pods replica count |
 | resources | object | `{}` | pod resource requests & limits |
+| securityContext | object | `{}` | Deployment security group context |
 | service.annotations | object | `{}` | Service annotations |
-| service.fallback | bool | `false` | Enables protocol fallback |
-| service.port | int | `1194` | OpenVPN port |
-| service.protocol | string | `"TCP"` | OpenVPN protocol |
+| service.port | int | `80` | Pihole web port |
 | service.type | string | `"ClusterIP"` | Service type |
+| timezone | string | `"UTC"` | timezone i.e Europe/Paris |
 | tolerations | list | `[]` | node taints to tolerate (requires Kubernetes >=1.6) |
+| virtualHost | string | `"chart-example.local"` | Pihole virtual host |
+| whitelist | object | `{}` | whitelists |
 
 ----------------------------------------------
 Autogenerated from chart metadata using [helm-docs v1.4.0](https://github.com/norwoodj/helm-docs/releases/v1.4.0)

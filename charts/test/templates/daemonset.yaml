@@ -1,0 +1,72 @@
+{{- if .Values.dhcp.enabled }}
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: {{ include "pihole.fullname" . }}
+  labels:
+    {{- include "pihole.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "pihole.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "pihole.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      dnsPolicy: "None"
+      dnsConfig:
+        nameservers:
+          - 127.0.0.1
+          - 1.1.1.1
+      containers:
+        - name: {{ .Chart.Name }}-dhcp
+          securityContext:
+            capabilities:
+              add:
+                - "NET_ADMIN"
+          image: "{{ .Values.dhcp.image.repository }}:{{ .Values.dhcp.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          args:
+            - -d
+            - -s
+            - pihole
+          ports:
+            - name: dhcp
+              containerPort: 67
+              protocol: UDP
+          livenessProbe:
+            exec:
+              command:
+                - nc
+                - -z
+                - -v
+                - -u
+                - localhost
+                - '67'
+          readinessProbe:
+            exec:
+              command:
+                - nc
+                - -z
+                - -v
+                - -u
+                - localhost
+                - '67'
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+{{- end }}

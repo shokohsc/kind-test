@@ -1,7 +1,0 @@
----
-persistence:
-  enabled: true
-
-service:
-  protocol: TCP
-  fallback: true

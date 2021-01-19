@@ -1,53 +1,90 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: "{{ include "openvpn-server.fullname" . }}-{{ .Values.service.protocol | lower }}"
-  labels: {{- include "openvpn-server.labels" . | nindent 4 }}
+  name: {{ include "pihole.fullname" . }}
+  labels:
+    {{- include "pihole.labels" . | nindent 4 }}
   {{- if .Values.service.annotations }}
   annotations:
     {{ toYaml .Values.service.annotations | indent 4 }}
   {{- end }}
 spec:
+  type: {{ .Values.service.type }}
   ports:
     - port: {{ .Values.service.port }}
-      targetPort: "openvpn-{{ .Values.service.protocol | lower }}"
-      protocol: {{ .Values.service.protocol }}
-      name: "openvpn-{{ .Values.service.protocol | lower }}"
+      targetPort: http
+      protocol: TCP
+      name: http
   selector:
-    app.kubernetes.io/name: {{ include "openvpn-server.name" . }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
-  type: {{ .Values.service.type }}
-  {{- if .Values.service.loadBalancerIP }}
-  loadBalancerIP: {{ .Values.service.loadBalancerIP }}
-  {{- end }}
-  {{- if .Values.service.externalTrafficPolicy }}
-  externalTrafficPolicy: {{ .Values.service.externalTrafficPolicy }}
-  {{- end }}
+    {{- include "pihole.selectorLabels" . | nindent 4 }}
+
 ---
-{{- if .Values.service.fallback }}
 apiVersion: v1
 kind: Service
 metadata:
-  name: "{{ include "openvpn-server.fullname" . }}-{{ include "openvpn-server.fallbackProtocol" . }}"
-  labels: {{- include "openvpn-server.labels" . | nindent 4 }}
-  {{- if .Values.service.annotations }}
+  name: {{ include "pihole.fullname" . }}-dns
+  labels:
+    {{- include "pihole.labels" . | nindent 4 }}
+  {{- if .Values.dns.service.annotations }}
   annotations:
-    {{ toYaml .Values.service.annotations | indent 4 }}
+    {{ toYaml .Values.dns.service.annotations | indent 4 }}
   {{- end }}
 spec:
+  type: {{ .Values.dns.service.type }}
   ports:
-    - port: {{ .Values.service.port }}
-      targetPort: "openvpn-{{ include "openvpn-server.fallbackProtocol" . }}"
-      protocol: {{ include "openvpn-server.fallbackProtocol" . | upper }}
-      name: "openvpn-{{ include "openvpn-server.fallbackProtocol" . }}"
+    - port: 53
+      targetPort: dns
+      protocol: UDP
+      name: dns
   selector:
-    app.kubernetes.io/name: {{ include "openvpn-server.name" . }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
-  type: {{ .Values.service.type }}
-  {{- if .Values.service.loadBalancerIP }}
-  loadBalancerIP: {{ .Values.service.loadBalancerIP }}
+    {{- include "pihole.selectorLabels" . | nindent 4 }}
+
+{{- if .Values.dhcp.enabled }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "pihole.fullname" . }}-dhcp
+  labels:
+    {{- include "pihole.labels" . | nindent 4 }}
+  {{- if .Values.dhcp.service.annotations }}
+  annotations:
+    {{ toYaml .Values.dhcp.service.annotations | indent 4 }}
   {{- end }}
-  {{- if .Values.service.externalTrafficPolicy }}
-  externalTrafficPolicy: {{ .Values.service.externalTrafficPolicy }}
+spec:
+  type: {{ .Values.dhcp.service.type }}
+  ports:
+    - port: 67
+      targetPort: dhcp
+      protocol: UDP
+      name: dhcp
+  selector:
+    {{- include "pihole.selectorLabels" . | nindent 4 }}
+{{- end }}
+
+{{- if .Values.doh.enabled }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "pihole.fullname" . }}-doh
+  labels:
+    {{- include "pihole.labels" . | nindent 4 }}
+  {{- if .Values.doh.service.annotations }}
+  annotations:
+    {{ toYaml .Values.doh.service.annotations | indent 4 }}
   {{- end }}
+spec:
+  type: {{ .Values.doh.service.type }}
+  ports:
+    - port: 5053
+      targetPort: doh
+      protocol: UDP
+      name: doh
+    - port: 49312
+      targetPort: doh-metrics
+      protocol: TCP
+      name: doh-metrics
+  selector:
+    {{- include "pihole.selectorLabels" . | nindent 4 }}
 {{- end }}
