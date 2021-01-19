@@ -1,13 +1,11 @@
-{{- $ctx := . }}
----
 apiVersion: v1
 kind: Pod
 metadata:
-  name: "{{ include "openvpn-client.fullname" . }}-sidekick-test-connection"
+  name: "{{ include "openvpn-server.fullname" . }}-test-connection"
   labels:
-    {{- include "openvpn-client.labels" . | nindent 4 }}
+    {{- include "openvpn-server.labels" . | nindent 4 }}
   annotations:
-    "helm.sh/hook": test
+    "helm.sh/hook": "test"
     "helm.sh/hook-weight": "20"
 spec:
   containers:
@@ -15,40 +13,38 @@ spec:
       image: busybox
       command: ['cat']
       args: ['/etc/resolv.conf']
-    - name: nc-sidekick
+    {{- if or (eq "tcp" (.Values.service.protocol | lower)) .Values.service.fallback }}
+    - name: nc-tcp
       image: busybox
       command: ['nc']
-      args: ['-v', '-z', '{{ include "openvpn-client.fullname" . }}-sidekick', '{{ .Values.sidekick.service.port }}']
-    - name: curl-sidekick
-      image: curlimages/curl
-      args: ['-LIX', 'GET', '{{ include "openvpn-client.fullname" . }}-sidekick:{{ .Values.sidekick.service.port }}/api']
-  restartPolicy: Never
-
-
-{{- $ctx := . }}
----
-apiVersion: v1
-kind: Pod
-metadata:
-  name: "{{ include "openvpn-client.fullname" . }}-test-connection"
-  labels:
-    {{- include "openvpn-client.labels" . | nindent 4 }}
-  annotations:
-    "helm.sh/hook": test
-    "helm.sh/hook-weight": "30"
-spec:
-  containers:
-    - name: resolv-conf
-      image: busybox
-      command: ['cat']
-      args: ['/etc/resolv.conf']
-    {{- range $port := .Values.extraPorts }}
-    - name: {{ printf "%s-%s" "nc" $port.name }}
+      args: ['-v', '-z', '{{ include "openvpn-server.fullname" . }}-tcp', '{{ .Values.service.port }}']
+    {{- end }}
+    {{- if or (eq "udp" (.Values.service.protocol | lower)) .Values.service.fallback }}
+    - name: nc-udp
       image: busybox
       command: ['nc']
-      args: ['-v', '-z', '{{ include "openvpn-client.fullname" $ctx }}', '{{ $port.containerPort }}']
-    - name: {{ printf "%s-%s" "curl" $port.name }}
-      image: curlimages/curl
-      args: ['-LIX', 'GET', '{{ include "openvpn-client.fullname" $ctx }}:{{ $port.containerPort }}']
+      args: ['-v', '-z', '-u', '{{ include "openvpn-server.fullname" . }}-udp', '{{ .Values.service.port }}']
     {{- end }}
   restartPolicy: Never
+
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: {{ include "openvpn-server.fullname" . }}
+  labels: {{- include "openvpn-server.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": "test"
+    "helm.sh/hook-weight": "-30"
+    {{- with .Values.persistence.annotations }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+spec:
+  accessModes:
+  {{- range .Values.persistence.accessModes }}
+    - {{ . | quote }}
+  {{- end }}
+  resources:
+    requests:
+      storage: {{ .Values.persistence.size | quote }}
+  {{ include "openvpn-server.storageClass" . }}

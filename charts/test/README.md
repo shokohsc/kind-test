@@ -1,8 +1,8 @@
-# openvpn-client
+# openvpn-server
 
-![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.4](https://img.shields.io/badge/AppVersion-2.4-informational?style=flat-square)
 
-A Helm chart for Kubernetes
+Roll your own OpenVPN server
 
 **Homepage:** <https://shokohsc.github.io/charts/>
 
@@ -17,34 +17,40 @@ A Helm chart for Kubernetes
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | affinity | object | `{}` | node/pod affinities (requires Kubernetes >=1.6) |
-| envVars | object | `{"FIREWALL":"","ROUTE":"0.0.0.0/0","TZ":"UTC"}` | Pod environment variables |
-| extraPorts | list | `[]` | Pod extra ports |
+| annotations | object | `{}` | Deployment annotations |
+| cipher | string | `"AES-256-CBC"` | Cipher used |
+| digestAlgorythm | string | `"SHA384"` | Authenticate  packets with HMAC using the given message digest algorithm (auth). |
+| dnsServer | string | `"1.1.1.1"` | DNS Server IP |
+| easyrsa.caExpire | int | `30` | set the CA expiration time in days |
+| easyrsa.certExpire | int | `30` | set the issued cert expiration time in days |
+| easyrsa.crlDays | int | `30` | set the CRL 'next publish' time in days |
+| easyrsa.secret.annotations | object | `{}` | Secret annotations |
+| easyrsa.secret.enabled | bool | `false` | Enabling passphrase on CA (recommended, defaults to false) |
+| easyrsa.secret.existingSecret | string | `""` | Existing Secret with existing key: openvpn-server-passphrase |
+| easyrsa.secret.passphrase | string | `""` | Secret passphrase i.e pass:1234 |
+| externalHostname | string | `"domain.tld"` | Hostname OR Ip of cluster openvpn entrypoint, default to 'domain.tld' so you must define it |
+| externalPort | string | `""` | Port cluster openvpn entrypoint, defaults to service.port (nodePort) |
+| extraOptions | list | `[]` | Additional options for openvpn configuration |
 | extraVolumes | object | `{}` | Pod extra volumes |
 | fullnameOverride | string | `""` | release full release name override option |
 | image.pullPolicy | string | `"IfNotPresent"` | container image pull policy |
-| image.repository | string | `"dperson/openvpn-client"` | container image repository |
+| image.repository | string | `"kylemanna/openvpn"` | container image repository |
 | image.tag | string | `""` | container image tag or Chart appVersion if undefined |
-| imagePullSecrets | list | `[]` | registry secret |
-| initContainers | list | `[]` | Pod init containers |
+| jobs.annotations | object | `{}` | Job annotations |
+| limitTraficToNamespace | bool | `true` | limit network traffic just to OpenVPN namespace |
+| limitedCidr | string | `"10.0.0.0/8"` | CIDR to be blocked out |
 | nameOverride | string | `""` | release name override option |
-| nameservers | list | `["1.1.1.1"]` | Upstream nameservers for vpn to use |
 | nodeSelector | object | `{}` | node labels for pod assignment |
-| podAnnotations | object | `{}` | Pod annotations |
-| podSecurityContext | object | `{}` | Pod security group context |
+| persistence.accessModes | list | `["ReadWriteOnce"]` | PersistentVolumeClaim access modes |
+| persistence.annotations | object | `{}` | PersistentVolumeClaim annotations |
+| persistence.size | string | `"1Gi"` | PersistentVolumeClaim size request |
 | replicaCount | int | `1` | pods replica count |
 | resources | object | `{}` | pod resource requests & limits |
-| securityContext | object | `{"capabilities":{"add":["NET_ADMIN"]}}` | Deployment security group context |
 | service.annotations | object | `{}` | Service annotations |
+| service.fallback | bool | `false` | Enables protocol fallback |
+| service.port | int | `1194` | OpenVPN port |
+| service.protocol | string | `"TCP"` | OpenVPN protocol |
 | service.type | string | `"ClusterIP"` | Service type |
-| sidecars | object | `{}` | Pod sidecars |
-| sidekick.annotations | object | `{}` | Sidekick pod annotations |
-| sidekick.envVars | object | `{}` | Sidekick pod environment variables |
-| sidekick.image.pullPolicy | string | `"Always"` | container image pull policy |
-| sidekick.image.repository | string | `"shokohsc/sidekick"` | Sidekick image repository |
-| sidekick.image.tag | string | `"main"` | Sidekick image tag |
-| sidekick.service.annotations | object | `{}` | Sidekick service annotations |
-| sidekick.service.port | int | `3000` | Sidekick service port |
-| sidekick.service.type | string | `"ClusterIP"` | Sidekick service type |
 | tolerations | list | `[]` | node taints to tolerate (requires Kubernetes >=1.6) |
 
 ----------------------------------------------

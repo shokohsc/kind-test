@@ -1,0 +1,150 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "openvpn-server.fullname" . }}-test-generate-client"
+  labels:
+    {{- include "openvpn-server.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": "test"
+    "helm.sh/hook-weight": "25"
+spec:
+  containers:
+    - name: generate-client
+      image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+      command:
+        - easyrsa
+      args:
+        - build-client-full
+        - {{ .Release.Name }}
+        - nopass
+      env:
+        - name: EASYRSA_BATCH
+          value: "yes"
+        - name: EASYRSA_PASSIN
+          valueFrom:
+            secretKeyRef:
+              {{- if .Values.easyrsa.secret.existingSecret }}
+              name: {{ .Values.easyrsa.secret.existingSecret }}
+              {{- else }}
+              name: {{ template "openvpn-server.secretName" . }}
+              {{- end }}
+              key: openvpn-server-passphrase
+        - name: EASYRSA_PASSOUT
+          valueFrom:
+            secretKeyRef:
+              {{- if .Values.easyrsa.secret.existingSecret }}
+              name: {{ .Values.easyrsa.secret.existingSecret }}
+              {{- else }}
+              name: {{ template "openvpn-server.secretName" . }}
+              {{- end }}
+              key: openvpn-server-passphrase
+        - name: EASYRSA_CERT_EXPIRE
+          value: {{ .Values.easyrsa.certExpire | quote  }}
+        - name: EASYRSA_CRL_DAYS
+          value: {{ .Values.easyrsa.crlDays | quote  }}
+      volumeMounts:
+        - name: {{ include "openvpn-server.fullname" . }}
+          mountPath: {{ .Values.persistence.mountPath }}
+  volumes:
+    - name: {{ include "openvpn-server.fullname" . }}
+      persistentVolumeClaim:
+        claimName: {{ if .Values.persistence.existingClaim }}{{ .Values.persistence.existingClaim }}{{- else }}{{ include "openvpn-server.name" . }}{{- end }}
+  restartPolicy: Never
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "openvpn-server.fullname" . }}-test-get-client"
+  labels:
+    {{- include "openvpn-server.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": "test"
+    "helm.sh/hook-weight": "30"
+spec:
+  containers:
+    - name: get-client
+      image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+      command:
+        - /usr/local/bin/ovpn_getclient
+      args:
+        - {{ .Release.Name }}
+      volumeMounts:
+        - name: {{ include "openvpn-server.fullname" . }}
+          mountPath: {{ .Values.persistence.mountPath }}
+  restartPolicy: Never
+  volumes:
+    - name: {{ include "openvpn-server.fullname" . }}
+      persistentVolumeClaim:
+        claimName: {{ if .Values.persistence.existingClaim }}{{ .Values.persistence.existingClaim }}{{- else }}{{ include "openvpn-server.name" . }}{{- end }}
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "openvpn-server.fullname" . }}-test-list-client"
+  labels:
+    {{- include "openvpn-server.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": "test"
+    "helm.sh/hook-weight": "35"
+spec:
+  containers:
+    - name: list-client
+      image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+      command:
+        - /usr/local/bin/ovpn_listclients
+      volumeMounts:
+        - name: {{ include "openvpn-server.fullname" . }}
+          mountPath: {{ .Values.persistence.mountPath }}
+  restartPolicy: Never
+  volumes:
+    - name: {{ include "openvpn-server.fullname" . }}
+      persistentVolumeClaim:
+        claimName: {{ if .Values.persistence.existingClaim }}{{ .Values.persistence.existingClaim }}{{- else }}{{ include "openvpn-server.name" . }}{{- end }}
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "openvpn-server.fullname" . }}-test-delete-client"
+  labels:
+    {{- include "openvpn-server.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": "test"
+    "helm.sh/hook-weight": "40"
+spec:
+  containers:
+    - name: delete-client
+      image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+      command:
+        - /usr/local/bin/ovpn_revokeclient
+      args:
+        - {{ .Release.Name }}
+        - remove
+      env:
+        - name: EASYRSA_BATCH
+          value: "yes"
+        - name: EASYRSA_PASSIN
+          valueFrom:
+            secretKeyRef:
+              {{- if .Values.easyrsa.secret.existingSecret }}
+              name: {{ .Values.easyrsa.secret.existingSecret }}
+              {{- else }}
+              name: {{ template "openvpn-server.secretName" . }}
+              {{- end }}
+              key: openvpn-server-passphrase
+        - name: EASYRSA_PASSOUT
+          valueFrom:
+            secretKeyRef:
+              {{- if .Values.easyrsa.secret.existingSecret }}
+              name: {{ .Values.easyrsa.secret.existingSecret }}
+              {{- else }}
+              name: {{ template "openvpn-server.secretName" . }}
+              {{- end }}
+              key: openvpn-server-passphrase
+      volumeMounts:
+        - name: {{ include "openvpn-server.fullname" . }}
+          mountPath: {{ .Values.persistence.mountPath }}
+  restartPolicy: Never
+  volumes:
+    - name: {{ include "openvpn-server.fullname" . }}
+      persistentVolumeClaim:
+        claimName: {{ if .Values.persistence.existingClaim }}{{ .Values.persistence.existingClaim }}{{- else }}{{ include "openvpn-server.name" . }}{{- end }}
