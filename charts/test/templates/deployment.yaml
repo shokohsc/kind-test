@@ -153,23 +153,6 @@ spec:
           name: {{ template "pihole.fullname" . }}-regex
         name: regex
       {{- end }}
-  volumeClaimTemplates:
-    - metadata:
-        name: {{ include "pihole.fullname" . }}
-        labels: {{- include "pihole.labels" . | nindent 10 }}
-        {{- if .Values.persistence.annotations }}
-        annotations:
-        {{- toYaml .Values.persistence.annotations | nindent 10 }}
-        {{- end }}
-      spec:
-        accessModes:
-        {{- range .Values.persistence.accessModes }}
-          - {{ . | quote }}
-        {{- end }}
-        resources:
-          requests:
-            storage: {{ .Values.persistence.size | quote }}
-        {{- include "pihole.storageClass" . }}
 
 ---
 {{- if .Values.doh.enabled }}
