@@ -34,7 +34,7 @@ metadata:
   name: {{ include "openvpn-server.fullname" . }}
   labels: {{- include "openvpn-server.labels" . | nindent 4 }}
   annotations:
-    "helm.sh/hook": "test"
+    "helm.sh/hook": "test, install"
     "helm.sh/hook-weight": "-30"
     {{- with .Values.persistence.annotations }}
     {{- toYaml . | nindent 4 }}
