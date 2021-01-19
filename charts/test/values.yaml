@@ -69,7 +69,7 @@ affinity: {}
 # https://github.com/dperson/openvpn-client
 # envVars -- Pod environment variables
 envVars:
-  FIREWALL: ''
+  FIREWALL: "''"
   ROUTE: 0.0.0.0/0
   TZ: UTC
 
