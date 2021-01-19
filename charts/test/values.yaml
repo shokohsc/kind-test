@@ -129,7 +129,7 @@ persistence:
   ##   GKE, AWS & OpenStack)
   ##
   # persistence.storageClass -- PersistentVolumeClaim storage class
-  # storageClass: "-"
+  storageClass: "nfs"
 
   ## Persistent Volume Claim annotations
   ##
