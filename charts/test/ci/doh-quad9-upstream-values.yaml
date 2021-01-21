@@ -1,4 +1,0 @@
----
-doh:
-  enabled: true
-  upstream: https://dns.quad9.net/dns-query
