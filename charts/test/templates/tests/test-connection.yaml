@@ -87,7 +87,6 @@ metadata:
   name: {{ include "pihole.fullname" . }}
   labels: {{- include "pihole.labels" . | nindent 4 }}
   annotations:
-    "helm.sh/hook": "test"
     "helm.sh/hook-weight": "-30"
     {{- with .Values.persistence.annotations }}
     {{- toYaml . | nindent 4 }}

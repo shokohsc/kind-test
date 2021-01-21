@@ -127,35 +127,6 @@ doh:
   # doh.upstream -- DNS over https upstream server
   upstream: https://1.1.1.1/dns-query
 
-# persistence -- Enable persistence using Persistent Volume Claims
-persistence:
-  # persistentVolumeClaim.enabled -- set to true to use pvc
-  enabled: false
-  # set to true to use you own pvc
-  # existingClaim: myExistingClaim
-  # persistentVolumeClaim.annotations -- PersistentVolumeClaim annotations
-  annotations: {}
-
-  # persistence.accessModes -- PersistentVolumeClaim access modes
-  accessModes:
-    - ReadWriteOnce
-  # persistence.size -- PersistentVolumeClaim size request
-  size: "500Mi"
-  ## If defined, storageClassName: <storageClass>
-  ## If set to "-", storageClassName: "", which disables dynamic provisioning
-  ## If undefined (the default) or set to null, no storageClassName spec is
-  ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
-  ##   GKE, AWS & OpenStack)
-  ##
-  # persistence.storageClass -- PersistentVolumeClaim storage class
-  # storageClass: "-"
-
-  ## If subPath is set mount a sub folder of a volume instead of the root of the volume.
-  ## This is especially handy for volume plugins that don't natively support sub mounting (like glusterfs).
-
-  # persistence.subPath -- PersistentVolumeClaim sub path
-  ## subPath: "pihole"
-
 # adminPassword -- Administrator password when not using an existing secret (see below)
 adminPassword: "admin"
 
