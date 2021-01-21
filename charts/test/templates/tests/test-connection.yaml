@@ -79,19 +79,3 @@ spec:
 {{- end }}
 
 # TEST DHCP https://serverfault.com/questions/171744/command-line-program-to-test-dhcp-service
-
----
-kind: PersistentVolumeClaim
-apiVersion: v1
-metadata:
-  name: {{ include "pihole.fullname" . }}
-  labels: {{- include "pihole.labels" . | nindent 4 }}
-  annotations:
-    "helm.sh/hook-weight": "-30"
-spec:
-  accessModes:
-    - "ReadWriteOnce"
-  resources:
-    requests:
-      storage: 1Gi
-  storageClassName: nfs

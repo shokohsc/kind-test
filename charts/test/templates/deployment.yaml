@@ -125,9 +125,16 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       volumes:
+      {{- if .Values.existingClaim }}
       - name: {{ include "pihole.fullname" . }}
         persistentVolumeClaim:
-          claimName: {{ include "pihole.fullname" . }}
+        {{- with .Values.existingClaim }}
+          claimName: {{ tpl . $ }}
+        {{- end }}
+      {{- else }}
+      - name: {{ include "pihole.fullname" . }}
+        emptyDir: {}
+      {{- end }}
       - configMap:
           defaultMode: 420
           name: {{ template "pihole.fullname" . }}-custom-dnsmasq

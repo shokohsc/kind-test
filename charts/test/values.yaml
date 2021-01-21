@@ -67,6 +67,9 @@ tolerations: []
 # affinity -- node/pod affinities (requires Kubernetes >=1.6)
 affinity: {}
 
+# existingClaim -- Persistence existing claim pihole data
+# existingClaim: ""
+
 # timezone -- timezone i.e Europe/Paris
 timezone: UTC
 # virtualHost -- Pihole virtual host
