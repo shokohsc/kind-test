@@ -94,4 +94,4 @@ spec:
   resources:
     requests:
       storage: 1Gi
-storageClass: nfs
+  storageClassName: nfs
