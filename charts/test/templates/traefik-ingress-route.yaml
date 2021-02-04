@@ -15,5 +15,5 @@ spec:
     priority: 0
     services:
     - kind: Service
-      name: test
+      name: test-heimdall
       port: 80
