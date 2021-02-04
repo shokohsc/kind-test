@@ -1,23 +1,54 @@
+{{- $ctx := . }}
+---
 apiVersion: v1
 kind: Pod
 metadata:
-  name: "{{ include "heimdall.fullname" . }}-test-connection"
+  name: "{{ include "openvpn-client.fullname" . }}-sidekick-test-connection"
   labels:
-    {{- include "heimdall.labels" . | nindent 4 }}
+    {{- include "openvpn-client.labels" . | nindent 4 }}
   annotations:
     "helm.sh/hook": test
+    "helm.sh/hook-weight": "20"
 spec:
-  containers:
   containers:
     - name: resolv-conf
       image: busybox
       command: ['cat']
       args: ['/etc/resolv.conf']
-    - name: nc
+    - name: nc-sidekick
       image: busybox
       command: ['nc']
-      args: ['-v', '-z', '{{ include "heimdall.fullname" . }}', '{{ .Values.service.port }}']
-    - name: curl
+      args: ['-v', '-z', '{{ include "openvpn-client.fullname" . }}-sidekick', '{{ .Values.sidekick.service.port }}']
+    - name: curl-sidekick
       image: curlimages/curl
-      args: ['-LIX', 'GET', '{{ include "heimdall.fullname" . }}:{{ .Values.service.port }}']
+      args: ['-LIX', 'GET', '{{ include "openvpn-client.fullname" . }}-sidekick:{{ .Values.sidekick.service.port }}/api']
+  restartPolicy: Never
+
+
+{{- $ctx := . }}
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "openvpn-client.fullname" . }}-test-connection"
+  labels:
+    {{- include "openvpn-client.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+    "helm.sh/hook-weight": "30"
+spec:
+  containers:
+    - name: resolv-conf
+      image: busybox
+      command: ['cat']
+      args: ['/etc/resolv.conf']
+    {{- range $port := .Values.extraPorts }}
+    - name: {{ printf "%s-%s" "nc" $port.name }}
+      image: busybox
+      command: ['nc']
+      args: ['-v', '-z', '{{ include "openvpn-client.fullname" $ctx }}', '{{ $port.containerPort }}']
+    - name: {{ printf "%s-%s" "curl" $port.name }}
+      image: curlimages/curl
+      args: ['-LIX', 'GET', '{{ include "openvpn-client.fullname" $ctx }}:{{ $port.containerPort }}']
+    {{- end }}
   restartPolicy: Never
