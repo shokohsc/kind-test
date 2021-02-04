@@ -11,7 +11,7 @@ spec:
     - web
   routes:
   - kind: Rule
-    match: Host(`transmission.kind.shokohsc.home`)
+    match: Host(`transmission.kind.lucio.home`)
     priority: 0
     services:
     - kind: Service
@@ -31,7 +31,7 @@ spec:
     - web
   routes:
   - kind: Rule
-    match: Host(`peerflix.kind.shokohsc.home`)
+    match: Host(`peerflix.kind.lucio.home`)
     priority: 0
     services:
     - kind: Service
@@ -51,7 +51,7 @@ spec:
 #     - web
 #   routes:
 #   - kind: Rule
-#     match: Host(`cloudtorrent.kind.shokohsc.home`)
+#     match: Host(`cloudtorrent.kind.lucio.home`)
 #     priority: 0
 #     services:
 #     - kind: Service
@@ -71,7 +71,7 @@ spec:
 #     - web
 #   routes:
 #   - kind: Rule
-#     match: Host(`deluge.kind.shokohsc.home`)
+#     match: Host(`deluge.kind.lucio.home`)
 #     priority: 0
 #     services:
 #     - kind: Service

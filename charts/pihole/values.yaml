@@ -1,6 +1,6 @@
 # https://github.com/shokohsc/charts/tree/main/charts/pihole
 pihole:
-  virtualHost: pihole.kind.shokohsc.home
+  virtualHost: pihole.kind.lucio.home
   timezone: Europe/Paris
   persistentVolumeClaim:
     enabled: true

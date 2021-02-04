@@ -11,7 +11,7 @@ spec:
     - web
   routes:
   - kind: Rule
-    match: Host(`tekton.kind.shokohsc.home`)
+    match: Host(`tekton.kind.lucio.home`)
     priority: 0
     services:
     - kind: Service

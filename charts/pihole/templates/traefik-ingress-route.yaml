@@ -11,7 +11,7 @@ spec:
     - web
   routes:
   - kind: Rule
-    match: Host(`pihole.kind.shokohsc.home`)
+    match: Host(`pihole.kind.lucio.home`)
     priority: 0
     services:
     - kind: Service
@@ -31,7 +31,7 @@ spec:
     - web
   routes:
   - kind: Rule
-    match: Host(`pihole-metrics.kind.shokohsc.home`)
+    match: Host(`pihole-metrics.kind.lucio.home`)
     priority: 0
     services:
     - kind: Service

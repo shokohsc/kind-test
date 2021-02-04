@@ -1,6 +1,6 @@
 # https://github.com/shokohsc/charts/tree/main/charts/openvpn-server
 openvpn-server:
-  externalHostname: openvpn.kind.shokohsc.home
+  externalHostname: openvpn.kind.lucio.home
   service:
     protocol: UDP
     type: LoadBalancer

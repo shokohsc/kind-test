@@ -11,7 +11,7 @@ spec:
     - web
   routes:
   - kind: Rule
-    match: Host(`home.kind.shokohsc.home`)
+    match: Host(`home.kind.lucio.home`)
     priority: 0
     services:
     - kind: Service
