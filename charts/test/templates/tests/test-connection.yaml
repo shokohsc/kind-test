@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "heimdall.fullname" . }}-test-connection"
+  labels:
+    {{- include "heimdall.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+  containers:
+    - name: resolv-conf
+      image: busybox
+      command: ['cat']
+      args: ['/etc/resolv.conf']
+    - name: nc
+      image: busybox
+      command: ['nc']
+      args: ['-v', '-z', '{{ include "heimdall.fullname" . }}', '{{ .Values.service.port }}']
+    - name: curl
+      image: curlimages/curl
+      args: ['-LIX', 'GET', '{{ include "heimdall.fullname" . }}:{{ .Values.service.port }}']
+  restartPolicy: Never
