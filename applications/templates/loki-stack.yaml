@@ -1,31 +1,31 @@
-# ---
-# apiVersion: v1
-# kind: Namespace
-# metadata:
-#   name: loki-stack
-#   labels:
-#     namespace: loki-stack
-#     goldilocks.fairwinds.com/enabled: "true"
-# ---
-# apiVersion: argoproj.io/v1alpha1
-# kind: Application
-# metadata:
-#   name: loki-stack
-#   namespace: argocd
-# spec:
-#   project: default
-#   syncPolicy:
-#     automated:
-#       prune: true
-#       selfHeal: true
-#     syncOptions:
-#       - Validate=true
-#     retry:
-#       limit: 2
-#   source:
-#     repoURL: https://github.com/shokohsc/kind-test.git
-#     path: charts/loki-stack
-#     targetRevision: HEAD
-#   destination:
-#     namespace: loki-stack
-#     server: https://kubernetes.default.svc
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: loki-stack
+  labels:
+    namespace: loki-stack
+    goldilocks.fairwinds.com/enabled: "true"
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: loki-stack
+  namespace: argocd
+spec:
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - Validate=true
+    retry:
+      limit: 2
+  source:
+    repoURL: https://github.com/shokohsc/kind-test.git
+    path: charts/loki-stack
+    targetRevision: HEAD
+  destination:
+    namespace: loki-stack
+    server: https://kubernetes.default.svc
