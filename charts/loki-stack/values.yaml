@@ -1,2 +1,4 @@
 # https://github.com/grafana/helm-charts/tree/main/charts/loki-stack
-loki-stack: {}
+loki-stack:
+  grafana:
+    enabled: true
