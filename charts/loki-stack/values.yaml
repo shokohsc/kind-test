@@ -5,5 +5,5 @@ loki-stack:
     grafana.ini:
       server:
         domain: loki-stack.kind.lucio.home
-        root_url: "%(protocol)s://%(domain)s/grafana"
+        root_url: "%(protocol)s://%(domain)s/"
         serve_from_sub_path: false
