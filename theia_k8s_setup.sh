@@ -20,4 +20,12 @@ docker exec -ti -u root kind-control-plane sh -c "echo 'nameserver 10.96.0.10' >
 docker exec -ti -u root kind-control-plane2 sh -c "echo 'nameserver 10.96.0.10' >> /etc/resolv.conf"
 docker exec -ti -u root kind-control-plane3 sh -c "echo 'nameserver 10.96.0.10' >> /etc/resolv.conf"
 
+docker exec -ti -u root kind-control-plane sh -c "apt-get update -qy && apt-get install -qy open-iscsi && systemctl enable iscsid && systemctl start iscsid"
+docker exec -ti -u root kind-control-plane2 sh -c "apt-get update -qy && apt-get install -qy open-iscsi && systemctl enable iscsid && systemctl start iscsid"
+docker exec -ti -u root kind-control-plane3 sh -c "apt-get update -qy && apt-get install -qy open-iscsi && systemctl enable iscsid && systemctl start iscsid"
+
+docker exec -ti -u root kind-control-plane sh -c "systemctl stop iscsid && systemctl disable iscsid && apt remove -qy open-iscsi"
+docker exec -ti -u root kind-control-plane2 sh -c "systemctl stop iscsid && systemctl disable iscsid && apt remove -qy open-iscsi"
+docker exec -ti -u root kind-control-plane3 sh -c "systemctl stop iscsid && systemctl disable iscsid && apt remove -qy open-iscsi"
+
 # nsenter --mount=/host/proc/1/ns/mnt --net=/host/proc/1/ns/net iscsiadm -m node -T iqn.2019-10.io.longhorn:pvc-5d3258fb-8184-4010-91a5-3afc2b55925d -p 10.244.1.14 --login

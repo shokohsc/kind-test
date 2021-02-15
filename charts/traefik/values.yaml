@@ -8,7 +8,6 @@ traefik:
   additionalArguments:
   - "--api"
   - "--log"
-  - "--accesslog=true"
 
   service:
     # Additional annotations (e.g. for cloud provider specific config)
