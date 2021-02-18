@@ -6,26 +6,38 @@ samba:
       metallb.universe.tf/allow-shared-ip: "true"
   args:
     - -s
-    - "shared;/mount;yes;no;yes;all;none"
+    - "shared;/mnt;yes;no;yes;all;none"
     - -p
-  nfsVolumes:
+  extraVolumes:
+    volumeMounts:
     - name: wd1to
-      server: nfs-wd1to-0.nfs-wd1to.nfs-wd1to.svc.cluster.local
-      path: /
-      mountPath: /mount/WD1To
+      mountPath: /mnt/WD1To
     - name: wd2to
-      server: nfs-wd2to-0.nfs-wd2to.nfs-wd2to.svc.cluster.local
-      path: /
-      mountPath: /mount/WD2To
+      mountPath: /mnt/WD2To
     - name: shared
-      server: nfs-shared-0.nfs-shared.nfs-shared.svc.cluster.local
-      mountPath: /mount/shared
-      path: /
+      mountPath: /mnt/shared
     - name: downloads
-      server: nfs-downloads-0.nfs-downloads.nfs-downloads.svc.cluster.local
-      mountPath: /mount/downloads
-      path: /
+      mountPath: /mnt/downloads
     - name: backups
-      server: nfs-backups-0.nfs-backups.nfs-backups.svc.cluster.local
-      mountPath: /mount/backups
-      path: /
+      mountPath: /mnt/backups
+    volumes:
+    - name: wd1to
+      nfs:
+        server: nfs-wd1to.nfs-wd1to.svc.cluster.local
+        path: /
+    - name: wd2to
+      nfs:
+        server: nfs-wd2to.nfs-wd2to.svc.cluster.local
+        path: /
+    - name: shared
+      nfs:
+        server: nfs-shared.nfs-shared.svc.cluster.local
+        path: /
+    - name: downloads
+      nfs:
+        server: nfs-downloads.nfs-downloads.svc.cluster.local
+        path: /
+    - name: backups
+      nfs:
+        server: nfs-backups.nfs-backups.svc.cluster.local
+        path: /

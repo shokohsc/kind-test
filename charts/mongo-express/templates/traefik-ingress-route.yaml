@@ -11,7 +11,7 @@ spec:
     - web
   routes:
   - kind: Rule
-    match: Host(`mongo.kind.lucio.home`)
+    match: "Host(`mongo.{{ .Values.domain }}`)"
     priority: 0
     services:
     - kind: Service

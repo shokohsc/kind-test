@@ -5,25 +5,37 @@ sftp:
     annotations:
       metallb.universe.tf/allow-shared-ip: "true"
   args:
-    - "admin:password:1001"
-  nfsVolumes:
+    - "dummy:password:1001"
+  extraVolumes:
+    volumeMounts:
     - name: wd1to
-      server: nfs-wd1to-0.nfs-wd1to.nfs-wd1to.svc.cluster.local
-      path: /
-      mountPath: /home/shokohsc/upload/media/WD1To
+      mountPath: /home/dummy/upload/media/WD1To
     - name: wd2to
-      server: nfs-wd2to-0.nfs-wd2to.nfs-wd2to.svc.cluster.local
-      path: /
-      mountPath: /home/shokohsc/upload/media/WD2To
+      mountPath: /home/dummy/upload/media/WD2To
     - name: shared
-      server: nfs-shared-0.nfs-shared.nfs-shared.svc.cluster.local
-      mountPath: /home/shokohsc/upload/shared
-      path: /
+      mountPath: /home/dummy/upload/shared
     - name: downloads
-      server: nfs-downloads-0.nfs-downloads.nfs-downloads.svc.cluster.local
-      mountPath: /home/shokohsc/upload/downloads
-      path: /
+      mountPath: /home/dummy/upload/downloads
     - name: backups
-      server: nfs-backups-0.nfs-backups.nfs-backups.svc.cluster.local
-      mountPath: /home/shokohsc/upload/backups
-      path: /
+      mountPath: /home/dummy/upload/backups
+    volumes:
+    - name: wd1to
+      nfs:
+        server: nfs-wd1to.nfs-wd1to.svc.cluster.local
+        path: /
+    - name: wd2to
+      nfs:
+        server: nfs-wd2to.nfs-wd2to.svc.cluster.local
+        path: /
+    - name: shared
+      nfs:
+        server: nfs-shared.nfs-shared.svc.cluster.local
+        path: /
+    - name: downloads
+      nfs:
+        server: nfs-downloads.nfs-downloads.svc.cluster.local
+        path: /
+    - name: backups
+      nfs:
+        server: nfs-backups.nfs-backups.svc.cluster.local
+        path: /

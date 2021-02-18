@@ -11,9 +11,9 @@ spec:
     - web
   routes:
   - kind: Rule
-    match: Host(`irc.kind.lucio.home`)
+    match: "Host(`irc.{{ .Values.domain }}`)"
     priority: 0
     services:
     - kind: Service
       name: thelounge
-      port: 9000
+      port: 80

@@ -1,0 +1,15 @@
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: openvpn-data
+  labels:
+    app.kubernetes.io/name: openvpn-server
+    helm.sh/chart: openvpn-server
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClass: nfs

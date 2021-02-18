@@ -11,9 +11,9 @@ spec:
     - web
   routes:
   - kind: Rule
-    match: Host(`wekan.kind.lucio.home`)
+    match: "Host(`wekan.{{ .Values.domain }}`)"
     priority: 0
     services:
     - kind: Service
       name: wekan
-      port: 8080
+      port: 80

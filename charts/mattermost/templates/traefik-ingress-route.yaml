@@ -11,7 +11,7 @@ spec:
     - web
   routes:
   - kind: Rule
-    match: Host(`mattermost.kind.lucio.home`)
+    match: "Host(`mattermost.{{ .Values.domain }}`)"
     priority: 0
     services:
     - kind: Service

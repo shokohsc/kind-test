@@ -11,9 +11,9 @@ spec:
     - web
   routes:
   - kind: Rule
-    match: Host(`theia.kind.lucio.home`)
+    match: "Host(`theia.{{ .Values.domain }}`)"
     priority: 0
     services:
     - kind: Service
       name: theia
-      port: 3000
+      port: 80

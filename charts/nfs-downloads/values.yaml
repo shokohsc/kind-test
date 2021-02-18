@@ -1,8 +1,12 @@
 # https://github.com/shokohsc/charts/tree/main/charts/nfs
 nfs:
-  volumes:
-    - name: downloads
-      mountPath: /downloads
-      path: /mnt/downloads
+  extraVolumes:
+    volumes:
+      - name: downloads
+        hostPath:
+          path: /mnt/downloads
+    volumeMounts:
+      - name: downloads
+        mountPath: /downloads
   nodeSelector:
-    node.overwatch.io/character: sombra
+    node.overwatch.io/character: zarya

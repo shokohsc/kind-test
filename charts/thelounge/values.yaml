@@ -1,2 +1,10 @@
 # https://github.com/shokohsc/charts/tree/main/charts/thelounge
-thelounge: {}
+thelounge:
+  extraVolumes:
+    volumes:
+      - name: thelounge-data
+        persistentVolumeClaim:
+          claimName: thelounge-data
+    volumeMounts:
+      - name: thelounge-data
+        mountPath: /var/opt/thelounge

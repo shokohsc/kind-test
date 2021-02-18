@@ -11,7 +11,7 @@ spec:
     - web
   routes:
   - kind: Rule
-    match: Host(`dashboard.kind.lucio.home`)
+    match: "Host(`dashboard.{{ .Values.domain }}`)"
     priority: 0
     services:
     - kind: Service

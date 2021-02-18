@@ -11,7 +11,7 @@ spec:
     - web
   routes:
   - kind: Rule
-    match: Host(`longhorn.kind.lucio.home`)
+    match: "Host(`longhorn.{{ .Values.domain }}`)"
     priority: 0
     services:
     - kind: Service
@@ -31,7 +31,7 @@ spec:
     - web
   routes:
   - kind: Rule
-    match: Host(`longhorn.kind.lucio.home`) && Path(`/v1`)
+    match: "Host(`longhorn.{{ .Values.domain }}`)" && Path(`/v1`)
     priority: 0
     services:
     - kind: Service

@@ -11,7 +11,7 @@ spec:
     - web
   routes:
   - kind: Rule
-    match: Host(`grafana.kind.lucio.home`)
+    match: "Host(`grafana.{{ .Values.domain }}`)"
     priority: 0
     services:
     - kind: Service

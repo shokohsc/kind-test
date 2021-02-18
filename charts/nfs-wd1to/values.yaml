@@ -1,9 +1,12 @@
 # https://github.com/shokohsc/charts/tree/main/charts/nfs
 nfs:
-  volumes:
-    - name: wd1to
-      mountPath: /wd1to
-      path: /mnt/WD1To
-
+  extraVolumes:
+    volumes:
+      - name: wd1to
+        hostPath:
+          path: /mnt/WD1To
+    volumeMounts:
+      - name: wd1to
+        mountPath: /wd1to
   nodeSelector:
     node.overwatch.io/character: sombra

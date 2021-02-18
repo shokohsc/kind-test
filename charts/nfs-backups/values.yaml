@@ -1,8 +1,12 @@
 # https://github.com/shokohsc/charts/tree/main/charts/nfs
 nfs:
-  volumes:
-    - name: backups
-      mountPath: /backups
-      path: /mnt/backups
+  extraVolumes:
+    volumes:
+      - name: backups
+        hostPath:
+          path: /mnt/backups
+    volumeMounts:
+      - name: backups
+        mountPath: /backups
   nodeSelector:
-    node.overwatch.io/character: sombra
+    node.overwatch.io/character: lucio

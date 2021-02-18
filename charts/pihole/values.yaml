@@ -2,9 +2,7 @@
 pihole:
   virtualHost: pihole.kind.lucio.home
   timezone: Europe/Paris
-  persistentVolumeClaim:
-    enabled: true
-    storageClass: nfs
+  existingClaim: pihole-data
   dns:
     service:
       type: LoadBalancer
@@ -17,3 +15,12 @@ pihole:
       - server=/cluster.local/10.96.0.10
   extraEnvVars:
     DNSMASQ_LISTENING: all
+
+  extraVolumes:
+    volumes:
+      - name: pihole
+        persistentVolumeClaim:
+          claimName: pihole-data
+    volumeMounts:
+      - name: pihole
+        mountPath: /etc/pihole

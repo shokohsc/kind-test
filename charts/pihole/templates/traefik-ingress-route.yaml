@@ -11,7 +11,7 @@ spec:
     - web
   routes:
   - kind: Rule
-    match: Host(`pihole.kind.lucio.home`)
+    match: "Host(`pihole.{{ .Values.domain }}`)"
     priority: 0
     services:
     - kind: Service
@@ -31,7 +31,7 @@ spec:
     - web
   routes:
   - kind: Rule
-    match: Host(`pihole-metrics.kind.lucio.home`)
+    match: "Host(`pihole-metrics.{{ .Values.domain }}`)"
     priority: 0
     services:
     - kind: Service

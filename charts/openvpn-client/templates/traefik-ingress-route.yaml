@@ -11,7 +11,7 @@ spec:
     - web
   routes:
   - kind: Rule
-    match: Host(`transmission.kind.lucio.home`)
+    match: "Host(`transmission.{{ .Values.domain }}`)"
     priority: 0
     services:
     - kind: Service
@@ -31,7 +31,7 @@ spec:
     - web
   routes:
   - kind: Rule
-    match: Host(`peerflix.kind.lucio.home`)
+    match: "Host(`peerflix.{{ .Values.domain }}`)"
     priority: 0
     services:
     - kind: Service
@@ -51,7 +51,7 @@ spec:
 #     - web
 #   routes:
 #   - kind: Rule
-#     match: Host(`cloudtorrent.kind.lucio.home`)
+#     match: "Host(`cloudtorrent.{{ .Values.domain }}`)"
 #     priority: 0
 #     services:
 #     - kind: Service
@@ -71,7 +71,7 @@ spec:
 #     - web
 #   routes:
 #   - kind: Rule
-#     match: Host(`deluge.kind.lucio.home`)
+#     match: "Host(`deluge.{{ .Values.domain }}`)"
 #     priority: 0
 #     services:
 #     - kind: Service

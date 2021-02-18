@@ -8,7 +8,7 @@ spec:
   entryPoints:
     - web
   routes:
-    - match: Host(`traefik.kind.lucio.home`)
+    - match: "Host(`traefik.{{ .Values.domain }}`)"
       kind: Rule
       services:
         - name: api@internal
@@ -36,7 +36,7 @@ spec:
     - web
   routes:
   - kind: Rule
-    match: Host(`argocd.kind.lucio.home`)
+    match: "Host(`argocd.{{ .Values.domain }}`)"
     priority: 0
     services:
     - kind: Service

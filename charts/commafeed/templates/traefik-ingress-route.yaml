@@ -11,9 +11,9 @@ spec:
     - web
   routes:
   - kind: Rule
-    match: Host(`rss.kind.lucio.home`)
+    match: "Host(`rss.{{ .Values.domain }}`)"
     priority: 0
     services:
     - kind: Service
       name: commafeed
-      port: 8082
+      port: 80

@@ -39,13 +39,23 @@ plex:
       containerPort: 32414
       protocol: UDP
       type: LoadBalancer
-  storageClass: 'nfs'
-  nfsVolumes:
-    - name: wd1to
-      server: nfs-wd1to-0.nfs-wd1to.nfs-wd1to.svc.cluster.local
-      path: /
-      mountPath: /data/WD1To
-    - name: wd2to
-      server: nfs-wd2to-0.nfs-wd2to.nfs-wd2to.svc.cluster.local
-      path: /
-      mountPath: /data/WD2To
+  extraVolumes:
+    volumes:
+      - name: wd1to
+        nfs:
+          server: nfs-wd1to.nfs-wd1to.svc.cluster.local
+          path: /
+      - name: wd2to
+        nfs:
+          server: nfs-wd2to.nfs-wd2to.svc.cluster.local
+          path: /
+      - name: plex-data
+        persistentVolumeClaim:
+          claimName: plex-data
+    volumeMounts:
+      - name: wd1to
+        mountPath: /data/WD1To
+      - name: wd2to
+        mountPath: /data/WD2To
+      - name: plex-data
+        mountPath: /config

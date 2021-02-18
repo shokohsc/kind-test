@@ -1,2 +1,10 @@
 # https://github.com/shokohsc/charts/tree/main/charts/theia
-theia: {}
+theia:
+  extraVolumes:
+    volumes:
+      - name: theia-data
+        persistentVolumeClaim:
+          claimName: theia-data
+    volumeMounts:
+      - name: theia-data
+        mountPath: /home/project
