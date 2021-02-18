@@ -17,6 +17,3 @@ spec:
   selector:
     app.kubernetes.io/name: openvpn-server-httpd
   type: ClusterIP
-  {{- if .Values.service.externalTrafficPolicy }}
-  externalTrafficPolicy: {{ .Values.service.externalTrafficPolicy }}
-  {{- end }}
