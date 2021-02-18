@@ -11,3 +11,10 @@ openvpn-server:
     - 'push "redirect-gateway def1 bypass-dhcp"'
   persistence:
     existingClaim: openvpn-data
+
+image:
+  repository: busybox
+  tag: latest
+resources: {}
+persistence:
+  existingClaim: openvpn-data
