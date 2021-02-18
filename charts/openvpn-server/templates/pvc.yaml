@@ -6,6 +6,8 @@ metadata:
   labels:
     app.kubernetes.io/name: openvpn-server
     helm.sh/chart: openvpn-server
+  annotations:
+    "helm.sh/hook-weight": "-15"
 spec:
   accessModes:
     - ReadWriteOnce
