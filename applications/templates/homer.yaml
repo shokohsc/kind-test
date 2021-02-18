@@ -2,15 +2,15 @@
 # apiVersion: v1
 # kind: Namespace
 # metadata:
-#   name: mayastor
+#   name: homer
 #   labels:
-#     namespace: mayastor
+#     namespace: homer
 #     goldilocks.fairwinds.com/enabled: "true"
 # ---
 # apiVersion: argoproj.io/v1alpha1
 # kind: Application
 # metadata:
-#   name: mayastor
+#   name: homer
 #   namespace: argocd
 # spec:
 #   project: default
@@ -23,9 +23,12 @@
 #     retry:
 #       limit: 2
 #   source:
-#     repoURL: https://github.com/shokohsc/kind-test.git
-#     path: charts/mayastor
+#     repoURL: {{ .Values.repoUrl }}
+#     path: charts/homer
 #     targetRevision: HEAD
+#     helm:
+#       values: |
+#         domain: {{ .Values.domain }}
 #   destination:
-#     namespace: mayastor
+#     namespace: homer
 #     server: https://kubernetes.default.svc

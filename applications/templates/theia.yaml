@@ -23,9 +23,12 @@
 #     retry:
 #       limit: 2
 #   source:
-#     repoURL: https://github.com/shokohsc/kind-test.git
+#     repoURL: {{ .Values.repoUrl }}
 #     path: charts/theia
 #     targetRevision: HEAD
+#     helm:
+#       values: |
+#         domain: {{ .Values.domain }}
 #   destination:
 #     namespace: theia
 #     server: https://kubernetes.default.svc

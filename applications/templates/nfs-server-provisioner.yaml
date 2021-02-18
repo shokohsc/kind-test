@@ -23,9 +23,12 @@ spec:
     retry:
       limit: 2
   source:
-    repoURL: https://github.com/shokohsc/kind-test.git
+    repoURL: {{ .Values.repoUrl }}
     path: charts/nfs-server-provisioner
     targetRevision: HEAD
+    helm:
+      values: |
+        domain: {{ .Values.domain }}
   destination:
     namespace: nfs-server-provisioner
     server: https://kubernetes.default.svc

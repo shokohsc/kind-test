@@ -23,9 +23,12 @@
 #     retry:
 #       limit: 2
 #   source:
-#     repoURL: https://github.com/shokohsc/kind-test.git
+#     repoURL: {{ .Values.repoUrl }}
 #     path: charts/kube-state-metrics
 #     targetRevision: HEAD
+#     helm:
+#       values: |
+#         domain: {{ .Values.domain }}
 #   destination:
 #     namespace: kube-state-metrics
 #     server: https://kubernetes.default.svc

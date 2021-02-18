@@ -7,8 +7,8 @@ docker network create --subnet 172.42.0.0/16 --gateway 172.42.0.1 kind
 docker network connect kind traefik && \
 docker network connect kind theia
 docker exec -ti theia kind create cluster --config /home/project/kind/kind.yaml
-export kubernetes=$(docker exec kind-external-load-balancer awk 'END{print $1}' /etc/hosts)
 docker exec -ti -u root theia vi /etc/hosts
+export kubernetes=$(docker exec kind-external-load-balancer awk 'END{print $1}' /etc/hosts)
 docker exec -e kubernetes=$kubernertes -ti -u root theia bash -c "echo $kubernetes  kubernetes >> /etc/hosts"
 docker exec -ti theia bash -c "kind get kubeconfig > /home/theia/.kube/config"
 docker exec -ti theia bash -c "sed -i 's/127.0.0.1/kubernetes/g' /home/theia/.kube/config"

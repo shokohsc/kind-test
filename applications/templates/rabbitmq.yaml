@@ -2,15 +2,15 @@
 # apiVersion: v1
 # kind: Namespace
 # metadata:
-#   name: openebs
+#   name: rabbitmq
 #   labels:
-#     namespace: openebs
+#     namespace: rabbitmq
 #     goldilocks.fairwinds.com/enabled: "true"
 # ---
 # apiVersion: argoproj.io/v1alpha1
 # kind: Application
 # metadata:
-#   name: openebs
+#   name: rabbitmq
 #   namespace: argocd
 # spec:
 #   project: default
@@ -23,9 +23,12 @@
 #     retry:
 #       limit: 2
 #   source:
-#     repoURL: https://github.com/shokohsc/kind-test.git
-#     path: charts/openebs
+#     repoURL: {{ .Values.repoUrl }}
+#     path: charts/rabbitmq
 #     targetRevision: HEAD
+#     helm:
+#       values: |
+#         domain: {{ .Values.domain }}
 #   destination:
-#     namespace: openebs
+#     namespace: rabbitmq
 #     server: https://kubernetes.default.svc
