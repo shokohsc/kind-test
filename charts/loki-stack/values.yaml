@@ -2,7 +2,7 @@
 loki-stack:
   grafana:
     enabled: true
-    grafana-ini:
+    grafana.ini:
       auth:
         disable_login_form: true
       security:
