@@ -3,7 +3,7 @@ loki-stack:
   grafana:
     enabled: true
     grafana-ini:
-      users:
+      auth:
         disable_login_form: true
       security:
         disable_initial_admin_creation: true
