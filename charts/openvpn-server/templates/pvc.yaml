@@ -9,6 +9,7 @@ metadata:
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
   annotations:
+    helm.sh/hook: pre-install
     helm.sh/resource-policy: keep
 spec:
   accessModes:
