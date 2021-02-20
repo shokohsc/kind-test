@@ -5,5 +5,3 @@ loki-stack:
     grafana.ini:
       auth:
         disable_login_form: true
-      security:
-        disable_initial_admin_creation: true
