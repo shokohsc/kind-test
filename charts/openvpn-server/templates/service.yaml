@@ -16,4 +16,5 @@ spec:
       name: http
   selector:
     app.kubernetes.io/name: openvpn-server-httpd
+    app.kubernetes.io/instance: {{ .Release.Name }}
   type: ClusterIP
