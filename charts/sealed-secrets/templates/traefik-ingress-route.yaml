@@ -1,0 +1,19 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: traefik
+  name: sealed-secrets
+  namespace: sealed-secrets
+spec:
+  entryPoints:
+    - web
+  routes:
+  - kind: Rule
+    match: "Host(`sealedsecrets.{{ .Values.domain }}`)"
+    priority: 0
+    services:
+    - kind: Service
+      name: sealed-secrets
+      port: 8080
