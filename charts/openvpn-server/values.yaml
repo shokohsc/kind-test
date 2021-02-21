@@ -13,6 +13,13 @@ openvpn-server:
     - 'push "redirect-gateway def1 bypass-dhcp"'
   persistence:
     existingClaim: openvpn-data
+  easyrsa:
+    caExpire: 30
+    certExpire: 30
+    crlDays: 30
+    secret:
+      enabled: true
+      existingSecret: openvpn-server
 
 image:
   repository: busybox
