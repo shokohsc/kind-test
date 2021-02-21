@@ -1,2 +1,3 @@
 # https://github.com/bitnami-labs/sealed-secrets/tree/master/helm/sealed-secrets
-sealed-secrets: {}
+sealed-secrets:
+  networkPolicy: true
