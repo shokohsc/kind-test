@@ -60,7 +60,7 @@ data:
       maxFeedCapacity: 100
 
       # cache service to use, possible values are 'noop' and 'redis'
-      cache: noop
+      cache: redis
 
       # announcement string displayed on the main page
       announcement:
@@ -79,11 +79,20 @@ data:
     # driverClass is net.sourceforge.jtds.jdbc.Driver
     # url is jdbc:jtds:sqlserver://localhost:1433/commafeed;instance=<instanceName, remove if not needed>
 
+    # database:
+    #   driverClass: org.h2.Driver
+    #   url: jdbc:h2:/data/db;mv_store=false
+    #   user: sa
+    #   password: sa
+    #   properties:
+    #     charSet: UTF-8
+    #   validationQuery: "/* CommaFeed Health Check */ SELECT 1"
+
     database:
-      driverClass: org.h2.Driver
-      url: jdbc:h2:/data/db;mv_store=false
-      user: sa
-      password: sa
+      driverClass: org.postgresql.Driver
+      url: jdbc:postgresql://postgresql.postgresql:5432/commafeed
+      user: commafeed
+      password: commafeed
       properties:
         charSet: UTF-8
       validationQuery: "/* CommaFeed Health Check */ SELECT 1"
@@ -117,9 +126,9 @@ data:
     # (only used if app.cache is 'redis')
     # -----------------------------------
     redis:
-      host: localhost
+      host: redis.redis
       port: 6379
-      password:
+      password: commafeed
       timeout: 2000
       database: 0
       maxTotal: 500

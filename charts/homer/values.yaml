@@ -1,2 +1,11 @@
 # https://github.com/shokohsc/charts/tree/main/charts/homer
-homer: {}
+homer:
+  extraVolumes:
+    volumes:
+      - name: config
+        configMap:
+          name: homer
+    volumeMounts:
+      - name: config
+        mountPath: /www/assets/config.yml
+        subPath: config.yml
