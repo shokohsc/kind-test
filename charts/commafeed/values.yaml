@@ -1,5 +1,34 @@
 # https://github.com/shokohsc/charts/tree/main/charts/commafeed
 commafeed:
+  initContainers:
+    - name: database-password
+      image: busybox
+      env:
+        - name: DATABASE_PASSWORD
+          valueFrom:
+          secretKeyRef:
+            name: commafeed
+            key: postgresql-password
+      command:
+        - sed -i '' 's/%%DATABASE_PASSWORD%%/${DATABASE_PASSWORD}/g' /config/config.yml
+      volumeMounts:
+        - name: commafeed-config
+          mountPath: /config/config.yml
+          subPath: config.yml
+    - name: cache-password
+      image: busybox
+      env:
+        - name: CACHE_PASSWORD
+          valueFrom:
+          secretKeyRef:
+            name: commafeed
+            key: redis-password
+      command:
+        - sed -i '' 's/%%CACHE_PASSWORD%%/${CACHE_PASSWORD}/g' /config/config.yml
+      volumeMounts:
+        - name: commafeed-config
+          mountPath: /config/config.yml
+          subPath: config.yml
   extraVolumes:
     volumeMounts:
       - name: commafeed-config
@@ -9,3 +38,4 @@ commafeed:
       - name: commafeed-config
         configMap:
           name: commafeed-config
+        defaultMode: 0644

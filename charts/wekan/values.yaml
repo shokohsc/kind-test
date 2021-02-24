@@ -2,6 +2,6 @@
 wekan:
   envVars:
     ROOT_URL: https://wekan.kind.lucio.home
-    MONGO_URL: mongodb://mongodb.mongodb/wekan
+    MONGO_URL: mongodb://mongodb.mongodb-headless/wekan
   mongodb:
     enabled: false

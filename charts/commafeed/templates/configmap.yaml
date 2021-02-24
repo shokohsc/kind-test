@@ -90,9 +90,9 @@ data:
 
     database:
       driverClass: org.postgresql.Driver
-      url: jdbc:postgresql://postgresql.postgresql:5432/commafeed
+      url: jdbc:postgresql://postgresql-ha-postgresql.postgresql-ha:5432/commafeed
       user: commafeed
-      password: commafeed
+      password: %%DATABASE_PASSWORD%%
       properties:
         charSet: UTF-8
       validationQuery: "/* CommaFeed Health Check */ SELECT 1"
@@ -126,9 +126,9 @@ data:
     # (only used if app.cache is 'redis')
     # -----------------------------------
     redis:
-      host: redis.redis
+      host: redis-master.redis
       port: 6379
-      password: commafeed
+      password: %%CACHE_PASSWORD%%
       timeout: 2000
       database: 0
       maxTotal: 500

@@ -5,6 +5,6 @@ mongodb:
   architecture: replicaset
   useStatefulSet: true
   directoryPerDB: true
-  # auth:
-  #   enabled: true
-  #   existingSecret:
+  auth:
+    enabled: true
+    existingSecret: mongodb

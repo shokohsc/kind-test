@@ -2,4 +2,4 @@
 redis:
   global:
     storageClass: nfs
-  # existingSecret: 
+  existingSecret: redis
