@@ -38,4 +38,4 @@ commafeed:
       - name: commafeed-config
         configMap:
           name: commafeed-config
-        defaultMode: 0644
+          defaultMode: 0644
