@@ -2,8 +2,6 @@
 mongodb:
   global:
     storageClass: nfs
-  architecture: replicaset
-  useStatefulSet: true
   directoryPerDB: true
   auth:
     enabled: true
