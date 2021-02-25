@@ -6,9 +6,9 @@ commafeed:
       env:
         - name: DATABASE_PASSWORD
           valueFrom:
-          secretKeyRef:
-            name: commafeed
-            key: postgresql-password
+            secretKeyRef:
+              name: commafeed
+              key: postgresql-password
       command:
         - sed -i '' 's/%%DATABASE_PASSWORD%%/${DATABASE_PASSWORD}/g' /config/config.yml
       volumeMounts:
@@ -20,9 +20,9 @@ commafeed:
       env:
         - name: CACHE_PASSWORD
           valueFrom:
-          secretKeyRef:
-            name: commafeed
-            key: redis-password
+            secretKeyRef:
+              name: commafeed
+              key: redis-password
       command:
         - sed -i '' 's/%%CACHE_PASSWORD%%/${CACHE_PASSWORD}/g' /config/config.yml
       volumeMounts:
