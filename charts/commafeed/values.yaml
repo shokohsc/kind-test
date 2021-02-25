@@ -10,6 +10,9 @@ commafeed:
               name: commafeed
               key: postgresql-password
       command:
+        - /bin/sh
+      args:
+        - -c
         - sed -i '' 's/%%DATABASE_PASSWORD%%/${DATABASE_PASSWORD}/g' /config/config.yml
       volumeMounts:
         - name: commafeed-config
@@ -24,6 +27,9 @@ commafeed:
               name: commafeed
               key: redis-password
       command:
+        - /bin/sh
+      args:
+        - -c
         - sed -i '' 's/%%CACHE_PASSWORD%%/${CACHE_PASSWORD}/g' /config/config.yml
       volumeMounts:
         - name: commafeed-config
