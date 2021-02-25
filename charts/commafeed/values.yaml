@@ -1,7 +1,7 @@
 # https://github.com/shokohsc/charts/tree/main/charts/commafeed
 commafeed:
   initContainers:
-    - name: database-password
+    - name: 01-database-password
       image: busybox
       env:
         - name: DATABASE_PASSWORD
@@ -18,7 +18,7 @@ commafeed:
         - name: commafeed-config
           mountPath: /config/config.yml
           subPath: config.yml
-    - name: cache-password
+    - name: 02-cache-password
       image: busybox
       env:
         - name: CACHE_PASSWORD
@@ -44,4 +44,4 @@ commafeed:
       - name: commafeed-config
         configMap:
           name: commafeed-config
-          defaultMode: 0644
+          defaultMode: 0664
