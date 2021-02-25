@@ -90,7 +90,7 @@ data:
 
     database:
       driverClass: org.postgresql.Driver
-      url: jdbc:postgresql://postgresql-ha-pgpool.postgresql-ha:5432/commafeed
+      url: jdbc:postgresql://postgresql.postgresql:5432/commafeed
       user: commafeed
       password: %%DATABASE_PASSWORD%%
       properties:
