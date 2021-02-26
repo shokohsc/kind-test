@@ -18,7 +18,7 @@ commafeed:
         - /bin/sh
       args:
         - -c
-        - sed "s/%%DATABASE_PASSWORD%%/${DATABASE_PASSWORD}/g" /tmp/config.yml | sed "s/%%CACHE_PASSWORD%%/${CACHE_PASSWORD}/g" /tmp/config.yml > /config/config.yml
+        - sed "s/%%DATABASE_PASSWORD%%/${DATABASE_PASSWORD}/g; s/%%CACHE_PASSWORD%%/${CACHE_PASSWORD}/g" /tmp/config.yml > /config/config.yml
       volumeMounts:
         - name: commafeed-config
           mountPath: /tmp/config.yml
