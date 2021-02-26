@@ -24,7 +24,7 @@ commafeed:
           mountPath: /tmp/config.yml
           subPath: config.yml
         - name: config
-          mountPath: /tmp
+          mountPath: /config
   extraVolumes:
     volumeMounts:
       - name: config
