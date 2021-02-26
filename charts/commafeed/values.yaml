@@ -1,7 +1,7 @@
 # https://github.com/shokohsc/charts/tree/main/charts/commafeed
 commafeed:
   initContainers:
-    - name: 01-database-password
+    - name: 00-sed
       image: busybox
       env:
         - name: DATABASE_PASSWORD
@@ -9,18 +9,6 @@ commafeed:
             secretKeyRef:
               name: commafeed
               key: postgresql-password
-      command:
-        - /bin/sh
-      args:
-        - -c
-        - sed -i '' "s/%%DATABASE_PASSWORD%%/${DATABASE_PASSWORD}/g" /config/config.yml
-      volumeMounts:
-        - name: commafeed-config
-          mountPath: /config/config.yml
-          subPath: config.yml
-    - name: 02-cache-password
-      image: busybox
-      env:
         - name: CACHE_PASSWORD
           valueFrom:
             secretKeyRef:
@@ -30,18 +18,21 @@ commafeed:
         - /bin/sh
       args:
         - -c
-        - sed -i '' "s/%%CACHE_PASSWORD%%/${CACHE_PASSWORD}/g" /config/config.yml
+        - sed "s/%%DATABASE_PASSWORD%%/${DATABASE_PASSWORD}/g" /tmp/config.yml | sed "s/%%CACHE_PASSWORD%%/${CACHE_PASSWORD}/g" /tmp/config.yml > /config/config.yml
       volumeMounts:
         - name: commafeed-config
-          mountPath: /config/config.yml
+          mountPath: /tmp/config.yml
           subPath: config.yml
+        - name: config
+          mountPath: /tmp
   extraVolumes:
     volumeMounts:
-      - name: commafeed-config
-        mountPath: /config/config.yml
-        subPath: config.yml
+      - name: config
+        mountPath: /config
     volumes:
       - name: commafeed-config
         configMap:
           name: commafeed-config
           defaultMode: 0664
+      - name: config
+        emptyDir: {}
