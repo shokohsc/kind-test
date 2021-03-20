@@ -1,7 +1,13 @@
 # https://github.com/shokohsc/charts/tree/main/charts/wekan
 wekan:
-  envVars:
-    ROOT_URL: https://wekan.kind.lucio.home
-    MONGO_URL: mongodb://mongodb.mongodb/wekan
+  environment:
+    variables:
+      ROOT_URL: https://wekan.kind.lucio.home
+    secrets: |
+      - name: MONGO_URL
+        valueFrom:
+          secretKeyRef:
+            name: wekan
+            key: mongo-url
   mongodb:
     enabled: false

@@ -1,7 +1,7 @@
 docker exec -ti theia ssh-keygen -t rsa -b 4096 -C "shokohsc@gmail.com"
 docker exec -ti theia eval "$(ssh-agent -s)"
-docker exec -ti theia ssh-add ~/.ssh/id_rsa
-docker exec -ti theia cat /home/theia/.ssh/id_rsa.pub
+docker exec -ti theia ssh-add /home/project/.ssh/id_rsa
+docker exec -ti theia cat /home/project/.ssh/id_rsa.pub
 
 docker network create --subnet 172.42.0.0/16 --gateway 172.42.0.1 kind
 docker network connect kind traefik && \
