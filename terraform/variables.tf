@@ -31,3 +31,9 @@ variable "target_path" {
   default     = "clusters/kind"
   description = "flux sync target path"
 }
+
+variable "environment" {
+  type        = string
+  default     = "test"
+  description = "environment"
+}
