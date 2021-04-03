@@ -1,8 +1,3 @@
-resource "tls_private_key" "main" {
-  algorithm = "RSA"
-  rsa_bits  = 4096
-}
-
 # Flux
 data "flux_install" "main" {
   target_path = var.target_path
