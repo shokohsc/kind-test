@@ -7,5 +7,5 @@ version: 0.1.0
 
 dependencies:
   - name: keel
-    version: 0.9.5
+    version: 0.9.8
     repository: https://charts.keel.sh 
